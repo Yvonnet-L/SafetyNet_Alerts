@@ -25,70 +25,57 @@ public class FirestationDaoImpl implements FirestationDao {
 		return firestations;
 	}
 
+
 	@Override
 	public List<FirestationModel> findById(String station) {
 	
 		List<FirestationModel> firestationsSelect = new ArrayList<>(); 
-				              
+		logger.info("-->Lancement de la recherche!");	              
             for(FirestationModel firestation : firestations) { 
             	if (firestation.getStation().equals(station)) {
+            		logger.info("--> Ajout d'un résultat à la  liste!");
       				firestationsSelect.add(firestation);
             	}
         	}
-            logger.info("Liste des FireStations par id {}: {}", station, firestationsSelect);
+            if (firestationsSelect.isEmpty()) {
+            	logger.info("--->Aucune donnée trouvée pour l'id {}", station);
+			}else {
+				logger.info("--->Liste des FireStations pour l'id {}: {}", station, firestationsSelect);
+			}
+				
         	return firestationsSelect;     	
- 
 	}
 
+
 	@Override
-	public FirestationModel save(FirestationModel firestation) {		
-		firestations.add(firestation);	
-		logger.info("FireStation ajoutées: {}", firestation);
-		return firestation;
+	public FirestationModel save(FirestationModel firestation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	//supprimer le mapping d'une caserne "OU" d'une adresse
+
+
 	@Override
 	public List<FirestationModel> delete(FirestationModel firestation) {
-		
-		List<FirestationModel> fSelect = new ArrayList<>();;
-		
-		if (firestation != null) {
-			for (FirestationModel f : firestations) {
-	            if (f.getStation().equals(firestation.getStation()) || f.getAddress().equals(firestation.getAddress())) {
-	            	fSelect.add(f);        	
-	            }
-			}
-		}
-		if(fSelect.isEmpty()) {
-			logger.info("Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}",firestation.getStation(),firestation.getAddress(), fSelect);
-		}else logger.info("Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}",firestation.getStation(),firestation.getAddress(), fSelect);
-		firestations.removeAll(fSelect);
-		return fSelect;
-	     	
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	// supprimer le mapping d'une caserne ou d'une adresse.
+
+
+
+
 	@Override
 	public FirestationModel put(FirestationModel firestation) {
-		FirestationModel fireModifie = new FirestationModel();
-		if (firestation != null) {
-			for(FirestationModel f: firestations) {
-				if (f.getAddress().equals(firestation.getAddress()) ) {
-					firestations.set(firestations.indexOf(f),firestation);	
-					fireModifie = f;
-				}
-			}		
-		}
-		logger.info("FireStation Modifiée: {} par {}", fireModifie,firestation);
-		return firestation;
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-		// ici nous injectons les données, sans le setAll nous n'aurions aucune données 
+
+
+   //******************  SET ALL FireStations  **********************
 	@Override
 	public void setAllFireStations(List<FirestationModel> listFirestation) {
 		this.firestations = listFirestation;
 		
 	}
+
 
 }
