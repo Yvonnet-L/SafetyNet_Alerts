@@ -1,7 +1,8 @@
 <Configuration status="DEBUG">
     <Appenders>
         <Console name="LogToConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%t] %-5p | %-60c | %m (%F:%L)%n" />
+            <PatternLayout pattern=" %d [%t] %-5level: %-60c | %m (%F:%L)%n" />
+   
         </Console>
         <File name="LogToFile" fileName="logs/application.log">
             <PatternLayout>

@@ -2,8 +2,6 @@ package com.safetynet.safetyAlerts.model;
 
 import java.util.List;
 
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 

@@ -183,3 +183,960 @@
 2021-03-03 08:01:57,647 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 19552 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
 2021-03-03 08:01:57,654 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
 2021-03-03 08:01:59,965 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.581 seconds (JVM running for 6.867)
+2021-03-03 08:10:36,802 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 15920 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:10:36,809 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:10:39,681 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper pour rapatrier les donnees du Json
+2021-03-03 08:10:39,749 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé
+2021-03-03 08:10:40,359 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 3.886 seconds (JVM running for 4.881)
+2021-03-03 08:29:46,225 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 25556 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:29:46,232 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:29:48,098 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:29:48,148 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:29:48,538 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.579 seconds (JVM running for 3.455)
+2021-03-03 08:31:05,667 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 3128 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:31:05,673 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:31:07,519 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:31:07,570 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:31:07,965 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.556 seconds (JVM running for 3.431)
+2021-03-03 08:33:41,443 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 17296 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:33:41,449 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:33:43,279 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:33:43,327 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:33:43,708 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.522 seconds (JVM running for 3.387)
+2021-03-03 08:41:30,298 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 3108 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:41:30,304 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:41:32,143 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:41:32,196 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:41:32,577 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.538 seconds (JVM running for 3.414)
+2021-03-03 08:51:40,975 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 23736 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:51:40,981 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:51:42,823 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:51:42,874 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:51:43,261 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.551 seconds (JVM running for 3.424)
+2021-03-03 08:52:49,839 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 24516 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 08:52:49,846 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 08:52:51,629 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 08:52:51,678 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 08:52:52,069 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.486 seconds (JVM running for 3.344)
+2021-03-03 09:01:28,460 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 11732 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 09:01:28,467 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 09:03:22,551 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 15864 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 09:03:22,558 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 09:05:58,292 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 23196 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 09:05:58,298 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 09:06:00,150 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 09:06:00,216 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 09:06:00,614 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.586 seconds (JVM running for 3.464)
+2021-03-03 09:06:10,563 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:06:58,338 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] FireStation ajoutées: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 09:07:08,315 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:08:05,888 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-8] FireStation Modifiée: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+ par 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 09:08:23,354 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-9] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:08:49,192 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-10] Liste des FireStations supprimées avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: [
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:09:38,909 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-1] Aucune FireStation Supprimée avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: []
+2021-03-03 09:09:43,989 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:10:08,712 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] FireStation Modifiée: 
+ { "station":"null", 
+ "address":"null"} 
+ par 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 09:10:12,162 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:16:46,613 INFO c.s.s.SafetyAlertsApplication [main] Starting SafetyAlertsApplication using Java 15.0.1 on DESKTOP-IV3G66P with PID 25392 (C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts\target\classes started by ptiqu in C:\Users\ptiqu\Desktop\WorkSpace\P5\safetyAlerts)
+2021-03-03 09:16:46,619 INFO c.s.s.SafetyAlertsApplication [main] No active profile set, falling back to default profiles: default
+2021-03-03 09:16:48,482 INFO c.s.s.s.MapperServiceImpl [main] Lancement du Mapper, rapatriement des donnees du Json en cour
+2021-03-03 09:16:48,540 INFO c.s.s.s.MapperServiceImpl [main] Traitement du Mapper terminé, données rapatriées!
+2021-03-03 09:16:48,932 INFO c.s.s.SafetyAlertsApplication [main] Started SafetyAlertsApplication in 2.582 seconds (JVM running for 3.444)
+2021-03-03 09:16:52,989 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations par id 3: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+]
+2021-03-03 09:16:59,332 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:17:07,304 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations par id 3: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+]
+2021-03-03 09:17:15,727 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-5] Liste des FireStations par id 2: [
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:17:21,632 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-6] Liste des FireStations par id 33: []
+2021-03-03 09:17:28,178 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-7] FireStation ajoutées: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 09:17:34,778 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-8] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:17:40,293 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-9] Liste des FireStations par id 33: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:17:50,670 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-10] Liste des FireStations supprimées avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 09:17:54,711 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-1] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:17:58,527 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations par id 33: []
+2021-03-03 09:18:18,293 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] FireStation Modifiée: 
+ { "station":"null", 
+ "address":"null"} 
+ par 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 09:18:52,930 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 09:19:08,550 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-5] Liste des FireStations par id 3: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+]
+2021-03-03 10:10:00,874 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-8] Liste des FireStations par id 33: []
+2021-03-03 10:10:08,028 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-9] FireStation ajoutées: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+
+2021-03-03 10:10:10,763 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-10] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 10:10:15,642 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-1] Liste des FireStations par id 33: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+]
+2021-03-03 10:10:37,018 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] FireStation ajoutées: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF Put PUT !!!!"} 
+
+2021-03-03 10:10:39,436 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF Put PUT !!!!"} 
+]
+2021-03-03 10:10:47,102 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations par id 33: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF Put PUT !!!!"} 
+]
+2021-03-03 10:12:05,326 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-7] Liste des FireStations supprimées avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST PUT !!!!"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF Put PUT !!!!"} 
+]
+2021-03-03 10:12:08,978 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-8] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 10:12:13,876 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-9] Liste des FireStations par id 33: []
+2021-03-03 11:21:42,801 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations par id 33: []
+2021-03-03 11:21:55,681 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 11:22:15,555 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] FireStation ajoutées: 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+
+2021-03-03 11:22:34,693 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-5] Liste des FireStations par id 33: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:22:46,223 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-6] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:23:13,042 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-7] FireStation Modifiée: 
+ { "station":"null", 
+ "address":"null"} 
+ par 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST puis PUT !!!!"} 
+
+2021-03-03 11:23:20,953 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-8] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:23:48,171 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-9] Liste des FireStations supprimées avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: [
+ { "station":"33", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:24:30,443 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-10] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
+2021-03-03 11:24:54,564 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-1] Aucune FireStation Supprimée avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: []
+2021-03-03 11:25:02,909 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-2] Liste des FireStations par id 33: []
+2021-03-03 11:25:12,078 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-3] FireStation ajoutées: 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+
+2021-03-03 11:25:28,851 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-4] Liste des FireStations: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+, 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:25:37,486 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-5] Aucune FireStation Supprimée avec id: 33 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: []
+2021-03-03 11:25:54,794 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-6] Liste des FireStations supprimées avec id: 3 ou adresse: 33300 CHEZ MOI MODIF POST PUT !!!! !: [
+ { "station":"3", 
+ "address":"1509 Culver St"} 
+, 
+ { "station":"3", 
+ "address":"834 Binoc Ave"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"3", 
+ "address":"748 Townings Dr"} 
+, 
+ { "station":"3", 
+ "address":"33300 CHEZ MOI MODIF POST POST !!!!"} 
+]
+2021-03-03 11:26:03,840 INFO c.s.s.d.FirestationDaoImpl [http-nio-8080-exec-7] Liste des FireStations: [
+ { "station":"2", 
+ "address":"29 15th St"} 
+, 
+ { "station":"1", 
+ "address":"644 Gershwin Cir"} 
+, 
+ { "station":"4", 
+ "address":"489 Manchester St"} 
+, 
+ { "station":"2", 
+ "address":"892 Downing Ct"} 
+, 
+ { "station":"1", 
+ "address":"908 73rd St"} 
+, 
+ { "station":"4", 
+ "address":"112 Steppes Pl"} 
+, 
+ { "station":"1", 
+ "address":"947 E. Rose Dr"} 
+, 
+ { "station":"2", 
+ "address":"951 LoneTree Rd"} 
+]
