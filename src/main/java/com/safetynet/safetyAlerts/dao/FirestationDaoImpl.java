@@ -9,73 +9,92 @@ import org.springframework.stereotype.Repository;
 
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
-
-
 @Repository
 public class FirestationDaoImpl implements FirestationDao {
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationDaoImpl.class);
-	
+
 	private List<FirestationModel> firestations = new ArrayList<>();
-	
-	
+
 	@Override
 	public List<FirestationModel> findAll() {
 		logger.info("Liste des FireStations: {}", firestations);
 		return firestations;
 	}
 
-
 	@Override
 	public List<FirestationModel> findById(String station) {
-	
-		List<FirestationModel> firestationsSelect = new ArrayList<>(); 
-		logger.info("-->Lancement de la recherche!");	              
-            for(FirestationModel firestation : firestations) { 
-            	if (firestation.getStation().equals(station)) {
-            		logger.info("--> Ajout d'un résultat à la  liste!");
-      				firestationsSelect.add(firestation);
-            	}
-        	}
-            if (firestationsSelect.isEmpty()) {
-            	logger.info("--->Aucune donnée trouvée pour l'id {}", station);
-			}else {
-				logger.info("--->Liste des FireStations pour l'id {}: {}", station, firestationsSelect);
+
+		List<FirestationModel> firestationsSelect = new ArrayList<>();
+		logger.info("-->Lancement de la recherche!");
+		for (FirestationModel firestation : firestations) {
+			if (firestation.getStation().equals(station)) {
+				logger.info("--> Ajout d'un résultat à la  liste!");
+				firestationsSelect.add(firestation);
 			}
-				
-        	return firestationsSelect;     	
+		}
+		if (firestationsSelect.isEmpty()) {
+			logger.info("--->Aucune donnée trouvée pour l'id {}", station);
+		} else {
+			logger.info("--->Liste des FireStations pour l'id {}: {}", station, firestationsSelect);
+		}
+
+		return firestationsSelect;
 	}
 
+
+	@Override
+	public List<FirestationModel> deleteById(FirestationModel firestation) {
+		List<FirestationModel> fSelect = new ArrayList<>();
+		for (FirestationModel f : firestations) {
+			if (f.getStation().equals(firestation.getStation()) || f.getAddress().equals(firestation.getAddress())) {
+				fSelect.add(f);
+			}
+		}
+		if (fSelect.isEmpty()) {
+			logger.info("Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
+					firestation.getAddress(), fSelect);
+		} else
+			logger.info("Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
+					firestation.getAddress(), fSelect);
+		firestations.removeAll(fSelect);
+		logger.info("Fire dao : {}", fSelect);
+		return fSelect;
+
+	}
 
 	@Override
 	public FirestationModel save(FirestationModel firestation) {
-		// TODO Auto-generated method stub
-		return null;
+		firestations.add(firestation);
+		logger.info("FireStation ajoutées: {}", firestation);
+		return firestation;
 	}
-
 
 	@Override
-	public List<FirestationModel> delete(FirestationModel firestation) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FirestationModel> put(FirestationModel firestation) {
+		List<FirestationModel> stationUpDateList = new ArrayList<>();
+		if (firestation != null) {
+			for (FirestationModel f : firestations) {
+				if (f.getAddress().equals(firestation.getAddress())) {
+					// firestations.set(firestations.indexOf(f),firestation);;
+					f.setStation(firestation.getStation());
+					stationUpDateList.add(f);
+				}
+			}
+		}
+		if(stationUpDateList.size()>0) {
+			logger.info("Selection des firestations terminée", firestation);
+		}else {
+			logger.info("Aucune firestation trouvée pour cette adresse", firestation.getAddress());
+		}
+		return stationUpDateList;
 	}
 
-
-
-
-	@Override
-	public FirestationModel put(FirestationModel firestation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-   //******************  SET ALL FireStations  **********************
+	// ****************** SET ALL FireStations **********************
 	@Override
 	public void setAllFireStations(List<FirestationModel> listFirestation) {
 		this.firestations = listFirestation;
-		
-	}
 
+	}
 
 }

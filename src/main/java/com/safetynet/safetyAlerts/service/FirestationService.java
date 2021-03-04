@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
@@ -21,13 +20,9 @@ public class FirestationService {
 	@Autowired
 	private FirestationDao firestationDao;
 
-	private List<FirestationModel> firestations = new ArrayList<>();
-
-
 	
 	
-	public Iterable<FirestationModel> getFirestations() {	
-		
+	public Iterable<FirestationModel> getFirestations() {		
 		logger.info("Lancement de la recherche de toutes les FireStations");		
 		return firestationDao.findAll();	
 	}
@@ -44,35 +39,30 @@ public class FirestationService {
             }
       	     	
 	}
-	
-	
-	
-	
-	
-	
+
 	
 	public List<FirestationModel> delete(FirestationModel firestation) {
-
-		List<FirestationModel> fSelect = new ArrayList<>();
-		;
-
+		List<FirestationModel> firesList = new ArrayList<>();
 		if (firestation != null) {
-			for (FirestationModel f : firestations) {
-				if (f.getStation().equals(firestation.getStation())
-						|| f.getAddress().equals(firestation.getAddress())) {
-					fSelect.add(f);
-				}
-			}
+			firesList = firestationDao.deleteById(firestation);
 		}
-		if (fSelect.isEmpty()) {
-			logger.info("Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
-					firestation.getAddress(), fSelect);
-		} else
-			logger.info("Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
-					firestation.getAddress(), fSelect);
-		firestations.removeAll(fSelect);
-		return fSelect;
-
+		else {			
+			logger.info( "Attention station et adress non conforme !");     
+		}	
+		return firesList;		
 	}
 
+
+	public List<FirestationModel> updateFirestation(FirestationModel firestation) {
+		List<FirestationModel> station= new ArrayList<>();
+		station = firestationDao.put(firestation);
+		return station;
+		
+	}
+
+
+	public FirestationModel addFirestation(FirestationModel firestation) {
+		firestationDao.save(firestation);
+		return firestation;
+	}
 }

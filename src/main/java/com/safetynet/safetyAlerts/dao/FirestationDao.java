@@ -14,9 +14,9 @@ public interface FirestationDao {
 	
 	public FirestationModel save(FirestationModel firestation);
 	
-	public List<FirestationModel> delete(FirestationModel firestation);
+	public List<FirestationModel> deleteById(FirestationModel firestation);
 
 	public void setAllFireStations(List<FirestationModel> listFireStation);
 
-	FirestationModel put(FirestationModel firestation);
+	public List<FirestationModel> put(FirestationModel firestation);
 }

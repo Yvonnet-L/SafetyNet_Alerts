@@ -135,14 +135,6 @@ public class PersonModel {
 				+ "\", \"age\":\"" + age + "\", \"medicalrecord\":\"" + medicalrecord + "]";
 	}
 
-	public String toStringDto() {
-		return "{ \"firstName\":\"" + firstName + "\", \"lastName\":\"" + lastName + "\", \"address\":\"" + address + "\", \"city\":\""
-				+ city + "\", \"zip\":\"" + zip + "\", \"phone\":\"" + phone + "]";
-	}
-
-	/*public String toString() {
-	return "{ \"address\":\"" + address + "\", \"station\":\"" + station  + "\"}";
-}*/
 
 }
 

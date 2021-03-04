@@ -49,7 +49,7 @@ public class DataDaoImpl implements DataDao {
 			 ObjectMapper mapper = new ObjectMapper();
 			 int age = 0;
 		        try {
-		        	logger.info("Lancement du Mapper, rapatriement des donnees du Json en cour");
+		        	logger.info("Lancement du rapatriement des donnees du Json en cour");
 		        	DataModel pageData = mapper.readValue(new File("src\\main\\resources\\data.json"), DataModel.class);
 
 		            listPerson = pageData.getPersons();
