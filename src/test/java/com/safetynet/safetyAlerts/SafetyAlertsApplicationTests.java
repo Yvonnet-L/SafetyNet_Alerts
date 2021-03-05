@@ -43,29 +43,15 @@ class SafetyAlertsApplicationTests {
 		SafetyAlertsApplication.main(new String[] {});
 	}
 
-	@Test
-	public void getFirestationsTest() throws Exception {
-
-		mockMvc.perform(get("/firestations")).andExpect(status().isOk()).andExpect(jsonPath("$[0].station", is("3")));
-	}
-
-	@Test
-	public void getFirestationByIdTest() throws Exception {
-
-		mockMvc.perform(get("/firestation/1")).andExpect(status().isOk()).andExpect(jsonPath("$[0].station", is("1")))
-				.andExpect(status().isOk()).andExpect(jsonPath("$[0].address", is("947 E. Rose Dr")));
-
-		mockMvc.perform(get("/firestation/  ")).andExpect(status().isOk());
-	}
 
 	@Test
 	public void deleteFirestationByIdTest() throws Exception {
 	
         // GIVEN
-        FirestationModel firestationDelete = new FirestationModel("", "908 73rd St");
+        FirestationModel firestationDelete = new FirestationModel("", "112 Steppes Pl");
         // WHEN
         // THEN
-        assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(1);	     
+        assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(2);	     
 	}
 
 	

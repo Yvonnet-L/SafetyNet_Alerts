@@ -24,7 +24,7 @@ public class FirestationController {
 	private FirestationService firestationService;
 
 	@GetMapping("/firestations")
-	public Iterable<FirestationModel> listeFirestations() {
+	public List<FirestationModel> listeFirestations() {
 		return firestationService.getFirestations();
 	}
 

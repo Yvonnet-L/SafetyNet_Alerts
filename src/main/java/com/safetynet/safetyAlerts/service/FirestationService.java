@@ -22,7 +22,7 @@ public class FirestationService {
 
 	
 	
-	public Iterable<FirestationModel> getFirestations() {		
+	public List<FirestationModel> getFirestations() {		
 		logger.info("Lancement de la recherche de toutes les FireStations");		
 		return firestationDao.findAll();	
 	}

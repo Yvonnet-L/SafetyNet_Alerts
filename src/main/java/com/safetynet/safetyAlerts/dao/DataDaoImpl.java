@@ -18,13 +18,12 @@ import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.AgeCalculService;
-import com.safetynet.safetyAlerts.service.MapperService;
 
 @Repository
 public class DataDaoImpl implements DataDao {
 
 	
-	 private static Logger logger = LoggerFactory.getLogger(MapperService.class);
+	 private static Logger logger = LoggerFactory.getLogger(DataDaoImpl.class);
 	
 	   // @Autowired
 	    //PersonDao personDao;
