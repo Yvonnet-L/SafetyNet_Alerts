@@ -18,7 +18,7 @@ public class FirestationDaoImpl implements FirestationDao {
 
 	@Override
 	public List<FirestationModel> findAll() {
-		logger.info("Liste des FireStations: {}", firestations);
+		logger.info("--> Liste des FireStations: {}", firestations);
 		return firestations;
 	}
 
@@ -26,7 +26,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	public List<FirestationModel> findById(String station) {
 
 		List<FirestationModel> firestationsSelect = new ArrayList<>();
-		logger.info("-->Lancement de la recherche!");
+		
 		for (FirestationModel firestation : firestations) {
 			if (firestation.getStation().equals(station)) {
 				logger.info("--> Ajout d'un résultat à la  liste!");
@@ -52,13 +52,12 @@ public class FirestationDaoImpl implements FirestationDao {
 			}
 		}
 		if (fSelect.isEmpty()) {
-			logger.info("Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
+			logger.info("--> Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect);
 		} else
-			logger.info("Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
+			logger.info("--> Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect);
 		firestations.removeAll(fSelect);
-		logger.info("Fire dao : {}", fSelect);
 		return fSelect;
 
 	}
@@ -66,7 +65,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	@Override
 	public FirestationModel save(FirestationModel firestation) {
 		firestations.add(firestation);
-		logger.info("FireStation ajoutées: {}", firestation);
+		logger.info("--> FireStation ajoutées: {}", firestation);
 		return firestation;
 	}
 
@@ -83,9 +82,9 @@ public class FirestationDaoImpl implements FirestationDao {
 			}
 		}
 		if(stationUpDateList.size()>0) {
-			logger.info("Selection des firestations terminée", firestation);
+			logger.info("--> Liste des firestations mise à jour: {}", stationUpDateList);
 		}else {
-			logger.info("Aucune firestation trouvée pour cette adresse", firestation.getAddress());
+			logger.info("--> Aucune firestation trouvée pour cette adresse", firestation.getAddress());
 		}
 		return stationUpDateList;
 	}

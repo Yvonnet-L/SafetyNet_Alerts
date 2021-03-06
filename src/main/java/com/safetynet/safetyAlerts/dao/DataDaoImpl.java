@@ -22,79 +22,74 @@ import com.safetynet.safetyAlerts.service.AgeCalculService;
 @Repository
 public class DataDaoImpl implements DataDao {
 
-	
-	 private static Logger logger = LoggerFactory.getLogger(DataDaoImpl.class);
-	
-	   // @Autowired
-	    //PersonDao personDao;
-	    
-	    @Autowired
-	    FirestationDao fireStationDao;
-	    
-	    //@Autowired
-	    //MedicalrecordDao medicalRecordsDao;
-	   
-		 
-	    List<PersonModel> listPerson = new ArrayList<PersonModel>();
-	    List<FirestationModel> listFireStation = new ArrayList<FirestationModel>();
-	    List<MedicalrecordModel> listMedicalRecord = new ArrayList<MedicalrecordModel>();
-		
-		
-	    @PostConstruct
-	    @Override
-		public void InitMapper() throws IOException {
-	    	
-	    	
-			 ObjectMapper mapper = new ObjectMapper();
-			 int age = 0;
-		        try {
-		        	logger.info("Lancement du rapatriement des donnees du Json en cour");
-		        	DataModel pageData = mapper.readValue(new File("src\\main\\resources\\data.json"), DataModel.class);
+	private static Logger logger = LoggerFactory.getLogger(DataDaoImpl.class);
 
-		            listPerson = pageData.getPersons();
-		            listFireStation = pageData.getFirestations();
-		            listMedicalRecord = pageData.getMedicalrecords();
-		            
-		            
-		          //  personDao.setAllPersons(listPerson);
-		            fireStationDao.setAllFireStations(listFireStation);
-		          //  medicalRecordsDao.setAllMedicalrecords(listMedicalRecord); 
+	@Autowired
+	PersonDao personDao;
 
-		            for (MedicalrecordModel m: listMedicalRecord) {
-		            	AgeCalculService ageCalcul= new AgeCalculService();
-		            	age = 0;
-		            	age = ageCalcul.personCalulateAge(m.getBirthdate(), age);
-		            	m.setAge(age);
-		            	
-			            	for (PersonModel p: listPerson) {
-			            		
-			            		if (p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName())) {
-			            			p.setMedicalrecord(m);
-			            			p.setAge(age);
-			            		}
-			            		for(FirestationModel f: listFireStation) {
-				            		if (f.getAddress().equals(p.getAddress())) {
-				            			p.setFirestation(f.getStation());
-				            		}
-			            		}
-			            	}
-		            }  	
-			            	for(FirestationModel f: listFireStation) {
-			            		 List<PersonModel> listPersonsFire = new ArrayList<PersonModel>();
-			            		 int nbPerson = 0;
-			            		 for (PersonModel p: listPerson) {
-				            		 if (f.getAddress().equals(p.getAddress())) {
-					            			listPersonsFire.add(p);
-					            			nbPerson ++;
-					            		}
-				            	}
-			            		f.setPerson(listPersonsFire); 
-			            		f.setNbPerson(nbPerson);
-				            }
-			            	logger.info("Traitement du Mapper terminé, données rapatriées!");
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }  	
-		        
-		    }
+	@Autowired
+	FirestationDao fireStationDao;
+
+	@Autowired
+	MedicalRecordDao medicalRecordsDao;
+
+	List<PersonModel> listPerson = new ArrayList<PersonModel>();
+	List<FirestationModel> listFireStation = new ArrayList<FirestationModel>();
+	List<MedicalrecordModel> listMedicalRecord = new ArrayList<MedicalrecordModel>();
+
+	@PostConstruct
+	@Override
+	public void InitMapper() throws IOException {
+
+		ObjectMapper mapper = new ObjectMapper();
+		int age = 0;
+		try {
+			logger.info("Lancement du rapatriement des donnees du Json en cour");
+			DataModel pageData = mapper.readValue(new File("src\\main\\resources\\data.json"), DataModel.class);
+
+			listPerson = pageData.getPersons();
+			listFireStation = pageData.getFirestations();
+			listMedicalRecord = pageData.getMedicalrecords();
+
+			personDao.setAllPersons(listPerson);
+			fireStationDao.setAllFireStations(listFireStation);
+			medicalRecordsDao.setAllMedicalrecords(listMedicalRecord);
+
+			for (MedicalrecordModel m : listMedicalRecord) {
+				AgeCalculService ageCalcul = new AgeCalculService();
+				age = 0;
+				age = ageCalcul.personCalulateAge(m.getBirthdate(), age);
+				m.setAge(age);
+
+				for (PersonModel p : listPerson) {
+
+					if (p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName())) {
+						p.setMedicalrecord(m);
+						p.setAge(age);
+					}
+					for (FirestationModel f : listFireStation) {
+						if (f.getAddress().equals(p.getAddress())) {
+							p.setFirestation(f.getStation());
+						}
+					}
+				}
+			}
+			for (FirestationModel f : listFireStation) {
+				List<PersonModel> listPersonsFire = new ArrayList<PersonModel>();
+				int nbPerson = 0;
+				for (PersonModel p : listPerson) {
+					if (f.getAddress().equals(p.getAddress())) {
+						listPersonsFire.add(p);
+						nbPerson++;
+					}
+				}
+				f.setPerson(listPersonsFire);
+				f.setNbPerson(nbPerson);
+			}
+			logger.info("Traitement du Mapper terminé, données rapatriées!");
+		} catch (IOException e) {
+			logger.error("Une exception s'est produite :" + e);
+		}
+
+	}
 }
