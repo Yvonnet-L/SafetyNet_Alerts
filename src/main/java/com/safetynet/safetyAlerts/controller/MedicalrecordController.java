@@ -40,18 +40,18 @@ public class MedicalrecordController {
 	
 
 	@PostMapping(value="/medicalrecord")
-	public void ajouterMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
-		medicalrecordService.save(medicalrecord);
+	public MedicalrecordModel ajouterMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
+		return medicalrecordService.save(medicalrecord);
 	}	
 	 
 	@PutMapping(value="/medicalrecord")
-	public void modifierMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
-		medicalrecordService.put(medicalrecord);
+	public MedicalrecordModel modifierMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
+		return medicalrecordService.put(medicalrecord);
 	}	
 	
 	@DeleteMapping(value="/medicalrecord")
-	public void supprimerMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
-		medicalrecordService.delete(medicalrecord);
+	public MedicalrecordModel supprimerMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
+		return medicalrecordService.delete(medicalrecord);
 	}
 	
 }

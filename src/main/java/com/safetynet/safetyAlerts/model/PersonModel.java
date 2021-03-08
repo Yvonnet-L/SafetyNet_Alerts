@@ -12,6 +12,7 @@ public class PersonModel {
 	private int zip;
 	private String phone;
 	private String email;
+	@JsonIgnore
 	private String firestation;
 	@JsonIgnore
 	private int age;

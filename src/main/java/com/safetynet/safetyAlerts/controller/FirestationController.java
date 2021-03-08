@@ -24,10 +24,10 @@ public class FirestationController {
 	private FirestationService firestationService;
 
 	@GetMapping("/firestations")
-	public ResponseEntity<String> listeFirestations() {
+	public List<FirestationModel> listeFirestations() {
 		List<FirestationModel> stations = new ArrayList<>();
 		stations = firestationService.getFirestations();
-		return new ResponseEntity<>("Liste des FireStations \n" + stations, HttpStatus.OK);
+		return stations;
 	}
 
 	@GetMapping(value = "firestation/{station}")
@@ -36,16 +36,16 @@ public class FirestationController {
 	}
 
 	@PostMapping(value = "/firestation")
-	public ResponseEntity<String> addFirestation(@RequestBody FirestationModel firestation) {
+	public FirestationModel addFirestation(@RequestBody FirestationModel firestation) {
 		firestationService.addFirestation(firestation);
-		return new ResponseEntity<>("Firestation crée ! \n" + firestation, HttpStatus.OK);
+		return firestation;
 	}
 
 	@PutMapping(value = "/firestation")
-	public ResponseEntity<String> upDateFirestation(@RequestBody FirestationModel firestation) {
+	public List<FirestationModel> upDateFirestation(@RequestBody FirestationModel firestation) {
 		List<FirestationModel> stationUpDate = new ArrayList<>();
 		stationUpDate = firestationService.updateFirestation(firestation);
-		return new ResponseEntity<>("Firestation mise à jour ! \n" + stationUpDate, HttpStatus.OK);
+		return stationUpDate;
 	}
 
 	@DeleteMapping(value = "/firestation")

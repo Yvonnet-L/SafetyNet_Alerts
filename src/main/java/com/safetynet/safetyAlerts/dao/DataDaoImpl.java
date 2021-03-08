@@ -63,7 +63,7 @@ public class DataDaoImpl implements DataDao {
 
 				for (PersonModel p : listPerson) {
 
-					if (p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName())) {
+					if ((p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName()))) {
 						p.setMedicalrecord(m);
 						p.setAge(age);
 					}

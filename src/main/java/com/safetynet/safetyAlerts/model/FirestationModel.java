@@ -20,11 +20,12 @@ public class FirestationModel {
 	public FirestationModel() {
 	}
 
+	
 	public FirestationModel(String station, String address) {
 		this.station = station;
 		this.address = address;
 	}
-
+		
 
 
 	public String getAddress() {
@@ -60,14 +61,6 @@ public class FirestationModel {
 	public void setNbPerson(int nbPerson) {
 		this.nbPerson = nbPerson;
 	}
-
-	@Override
-	public String toString() {
-		return "\n { \"station\":\"" + station + "\", \n \"address\":\"" + address  + "\"} \n";
-	}
-
-
-
 
 	
 	

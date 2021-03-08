@@ -35,18 +35,19 @@ public class PersonController {
 	}
 
 	@PostMapping(value = "/person")
-	public void ajouterPerson(@RequestBody PersonModel person) {
-		personService.save(person);
+	public PersonModel ajouterPerson(@RequestBody PersonModel person) {
+		return personService.save(person);
 	}
 
 	@PutMapping(value = "/person")
-	public void modifierPersonrecord(@RequestBody PersonModel person) {
-		personService.put(person);
+	public PersonModel modifierPersonrecord(@RequestBody PersonModel person) {
+		return personService.put(person);
 	}
 
 	@DeleteMapping(value = "/person")
-	public void supprimerPerson(@RequestBody PersonModel person) {
-		personService.delete(person);
+	public List<PersonModel> supprimerPerson(@RequestBody PersonModel person) {
+		return personService.delete(person);
+		
 	}
 
 	// ************** URLS *****************************

@@ -53,7 +53,7 @@ public class FirestationDaoImpl implements FirestationDao {
 		}
 		if (fSelect.isEmpty()) {
 			logger.info("--> Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
-					firestation.getAddress(), fSelect);
+					firestation.getAddress(), fSelect.toString());
 		} else
 			logger.info("--> Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect);

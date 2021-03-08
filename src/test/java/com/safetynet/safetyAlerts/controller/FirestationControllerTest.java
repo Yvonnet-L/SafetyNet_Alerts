@@ -1,8 +1,10 @@
 package com.safetynet.safetyAlerts.controller;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,53 +41,60 @@ public class FirestationControllerTest {
 
 	@Test
 	public void getFirestationsTest() throws Exception {
-
-		mockMvc.perform(get("/firestations")).andExpect(status().isOk());
-		// .andExpect(jsonPath("$[0].station", is("3")));
-
-		// ResponseEntity<>("Liste des FireStations \n" + stations, HttpStatus.OK);
+		
+		mockMvc.perform(get("/firestations")).andExpect(status().isOk());	
 	}
 
 	@Test
 	public void getFirestationByIdTest() throws Exception {
 
-		mockMvc.perform(get("/firestation/2")).andExpect(status().isOk()).andExpect(jsonPath("$[0].station", is("2")))
+		mockMvc.perform(get("/firestation/2"))
+				.andExpect(status().isOk()).andExpect(jsonPath("$[0].station", is("2")))
 				.andExpect(status().isOk()).andExpect(jsonPath("$[0].address", is("29 15th St")));
+	}
+
+	@Test
+	public void getFirestationByIdWithEspaceTest() throws Exception {
 
 		mockMvc.perform(get("/firestation/  ")).andExpect(status().isOk());
 	}
-
+	
+	
 	@Test
 	public void addFirestationTest() throws Exception {
 
-	FirestationModel firestationToCreate = new FirestationModel("33","at home");
+		FirestationModel firestationToCreate = new FirestationModel("33", "at home");
 
-				mockMvc.perform(post("/firestation/")
-                .contentType("application/json")	
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(firestationToCreate)))
-                .andExpect(status().isOk());
-	        
+		mockMvc.perform(post("/firestation/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(firestationToCreate)))
+			.andExpect(status().isOk());
 	}
 
-	// public ResponseEntity<String> upDateFirestation(@RequestBody FirestationModel
-	// firestation)
 
 	@Test
 	public void PutFirestationTest() throws Exception {
-		/*
-		 * FirestationModel firestationToCreate = new FirestationModel("33","at home");
-		 * mockMvc.perform(put("/firestation") .param("station", "10"))
-		 * .andExpect(status().isOk());
-		 */
+	
+		FirestationModel firestationToUpDate = new FirestationModel("33", "1509 Culver St");
+
+		mockMvc.perform(put("/firestation/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(firestationToUpDate)))
+			.andExpect(status().isOk());		
 	}
 
-	// public ResponseEntity<String> deleteFirestation(@RequestBody FirestationModel
-	// firestation)
 	@Test
 	public void deleteFirestationTest() throws Exception {
+	
+		FirestationModel firestationToDelete = new FirestationModel("33", "at home");
 
-		// mockMvc.perform(delete("/firestation")).andExpect(status().isOk());
+		mockMvc.perform(delete("/firestation/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(firestationToDelete)))
+			.andExpect(status().isOk());		
 	}
 
 }

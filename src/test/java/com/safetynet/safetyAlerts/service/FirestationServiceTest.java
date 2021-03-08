@@ -1,9 +1,10 @@
 package com.safetynet.safetyAlerts.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,37 +27,48 @@ public class FirestationServiceTest {
 
 	@Autowired
 	FirestationService firestationService;
+	
+	@Test
+	public void ageCalulServiceWithBirthDayLessTenYearsTest() {
+		// GIVEN
+		AgeCalculService ageCalcul = new AgeCalculService();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.YEAR, -10);
+		Date birthDay = calendar.getTime();		
+		int age = 0;
+		// WHEN
+		// THEN
+		assertEquals(ageCalcul.personCalulateAge(birthDay, age), 10);
+	}
+	
+	@Test
+	public void ageCalulServiceWithBirthDayBeforeTodayTest() {
+		// GIVEN
+		AgeCalculService ageCalcul = new AgeCalculService();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.YEAR, +10);
+		Date birthDay = calendar.getTime();		
+		int age = 0;
+		// WHEN
+		// THEN
+		assertEquals(ageCalcul.personCalulateAge(birthDay, age), 0);
+	}
 
 	@Test
 	public void getFirestationTest() throws Exception {
 
 		// GIVEN
-		List<FirestationModel> firestationsList = new ArrayList<FirestationModel>();
 		// WHEN
 		// THEN
-		assertThat(firestationService.getFirestations().size()).isEqualTo(12);
+		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
 
 	@Test
 	public void findFirestationByIdTest() throws Exception {
-
-		// GIVEN
-		List<FirestationModel> firestationsList = new ArrayList<FirestationModel>();
+		
 		// WHEN
 		// THEN
 		assertThat(firestationService.findById("3").size()).isEqualTo(5);
-	}
-
-	@Test
-	public void deleteFirestationByIdTest() throws Exception {
-
-		// GIVEN
-		FirestationModel firestationDelete = new FirestationModel("", "908 73rd St");
-		FirestationModel firestationDeleteNull = null;
-		// WHEN
-		// THEN
-		assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(1);
-		//assertThat(firestationService.delete(firestationDeleteNull).size()).isEqualTo(0);
 	}
 
 	
@@ -79,6 +91,24 @@ public class FirestationServiceTest {
 		// WHEN
 		// THEN
 		assertThat(firestationService.updateFirestation(firestationPut).size()).isEqualTo(1);
+	}
+	
+
+	@Test
+	public void deleteFirestationWithStationAndAdressTest() throws Exception {
+
+		// GIVEN
+		FirestationModel firestationAdd1 = new FirestationModel("33", "at home2");
+		FirestationModel firestationAdd2 = new FirestationModel("33", "at home1");
+		FirestationModel firestationAdd3 = new FirestationModel("3", "at home3");
+		firestationService.addFirestation(firestationAdd1);
+		firestationService.addFirestation(firestationAdd2);
+		firestationService.addFirestation(firestationAdd3);
+		FirestationModel firestationDelete = new FirestationModel("33", "at home3");
+		// WHEN
+		// THEN
+		assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(3);
+		
 	}
 
 }

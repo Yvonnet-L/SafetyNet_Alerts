@@ -42,7 +42,8 @@ public class FirestationService {
 	
 	public List<FirestationModel> delete(FirestationModel firestation) {
 		List<FirestationModel> firesList = new ArrayList<>();
-		if (firestation.getAddress() != null) {
+		
+		if (firestation != null) {
 			logger.info( "Lancement de la suppression !");
 			firesList = firestationDao.deleteById(firestation);
 		}
