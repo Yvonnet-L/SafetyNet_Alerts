@@ -48,20 +48,22 @@ public class FirestationService {
 			firesList = firestationDao.deleteById(firestation);
 		}
 		else {			
-			logger.info( "** Attention adress non conforme !");     
+			logger.info( "** Attention adress non conforme !");   			
 		}	
 		return firesList;		
 	}
 
 
-	public List<FirestationModel> updateFirestation(FirestationModel firestation) {
+	public List<FirestationModel> updateFirestation(FirestationModel firestation){
 		List<FirestationModel> firesList= new ArrayList<>();	
-		if (firestation.getAddress() != null) {
+		if (firestation != null) {
+			if (firestation.getAddress() != null) {
 			logger.info( "Lancement de la mise à jour !");
 			firesList = firestationDao.put(firestation);
+			}
 		}
 		else {			
-			logger.info( "** Attention adress non conforme !");     
+			logger.info( "** Attention adress non conforme !");
 		}	
 		return firesList;			
 	}

@@ -1,10 +1,6 @@
 package com.safetynet.safetyAlerts.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Calendar;
-import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,38 +24,14 @@ public class FirestationServiceTest {
 	@Autowired
 	FirestationService firestationService;
 	
-	@Test
-	public void ageCalulServiceWithBirthDayLessTenYearsTest() {
-		// GIVEN
-		AgeCalculService ageCalcul = new AgeCalculService();
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.YEAR, -10);
-		Date birthDay = calendar.getTime();		
-		int age = 0;
-		// WHEN
-		// THEN
-		assertEquals(ageCalcul.personCalulateAge(birthDay, age), 10);
-	}
-	
-	@Test
-	public void ageCalulServiceWithBirthDayBeforeTodayTest() {
-		// GIVEN
-		AgeCalculService ageCalcul = new AgeCalculService();
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.YEAR, +10);
-		Date birthDay = calendar.getTime();		
-		int age = 0;
-		// WHEN
-		// THEN
-		assertEquals(ageCalcul.personCalulateAge(birthDay, age), 0);
-	}
+
 
 	@Test
 	public void getFirestationTest() throws Exception {
 
 		// GIVEN
 		// WHEN
-		// THEN
+		// THEN 12
 		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
 
@@ -67,7 +39,7 @@ public class FirestationServiceTest {
 	public void findFirestationByIdTest() throws Exception {
 		
 		// WHEN
-		// THEN
+		// THEN 4
 		assertThat(firestationService.findById("3").size()).isEqualTo(5);
 	}
 
@@ -106,9 +78,30 @@ public class FirestationServiceTest {
 		firestationService.addFirestation(firestationAdd3);
 		FirestationModel firestationDelete = new FirestationModel("33", "at home3");
 		// WHEN
-		// THEN
+		// THEN 4
 		assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(3);
 		
 	}
+	
+	@Test
+	public void deleteFirestationWithJsonNullErrorTest() throws Exception {
+
+		// GIVEN
+		FirestationModel firestationDelete = null;
+		// WHEN
+		// THEN 4
+		assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(0);
+		//assertThrows(NullPointerException.class, () -> firestationService.delete(firestationDelete));
+	}
+	
+	@Test
+	public void updateFirestationWithJsonNullErrorTest() throws Exception {
+			//GIVEN
+			FirestationModel firestationPut = null;
+			// WHEN
+			// THEN 4
+			assertThat(firestationService.updateFirestation(firestationPut).size()).isEqualTo(0);
+			//assertThrows(NullPointerException.class, () -> firestationService.delete(firestationDelete));
+		}
 
 }

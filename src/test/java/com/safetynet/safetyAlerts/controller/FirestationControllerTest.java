@@ -76,7 +76,7 @@ public class FirestationControllerTest {
 	@Test
 	public void PutFirestationTest() throws Exception {
 	
-		FirestationModel firestationToUpDate = new FirestationModel("33", "1509 Culver St");
+		FirestationModel firestationToUpDate = new FirestationModel("333", "at home");
 
 		mockMvc.perform(put("/firestation/")
 				.contentType("application/json")
@@ -88,7 +88,7 @@ public class FirestationControllerTest {
 	@Test
 	public void deleteFirestationTest() throws Exception {
 	
-		FirestationModel firestationToDelete = new FirestationModel("33", "at home");
+		FirestationModel firestationToDelete = new FirestationModel("333", "at home");
 
 		mockMvc.perform(delete("/firestation/")
 				.contentType("application/json")
