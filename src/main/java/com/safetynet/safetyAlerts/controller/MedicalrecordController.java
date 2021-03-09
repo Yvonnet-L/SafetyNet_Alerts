@@ -27,7 +27,7 @@ public class MedicalrecordController {
 	
 	@GetMapping(value = "/medicalrecords")
 	public List<MedicalrecordModel> listeMedicalrecords() {
-		return medicalrecordService.getFirestations();
+		return medicalrecordService.getMedicalrecords();
 		
 	}
 	

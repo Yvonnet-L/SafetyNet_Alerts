@@ -22,7 +22,7 @@ public class MedicalRecordService {
 	@Autowired
 	private MedicalRecordDao medicalrecordDao;
 
-	public List<MedicalrecordModel> getFirestations() {
+	public List<MedicalrecordModel> getMedicalrecords() {
 		logger.info("Traitement de la demande de recherche des MedicalRecords");
 		return medicalrecordDao.findAll();	
 	}

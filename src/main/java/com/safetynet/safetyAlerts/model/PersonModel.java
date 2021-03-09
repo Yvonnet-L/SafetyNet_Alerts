@@ -22,7 +22,7 @@ public class PersonModel {
 	public PersonModel() {
 	}
 
-	public PersonModel(Long id, String firstName, String lastName, String address, String city, int zip, String phone,
+	public PersonModel(String firstName, String lastName, String address, String city, int zip, String phone,
 			String email, int age) {
 		super();
 		this.firstName = firstName;
@@ -31,7 +31,7 @@ public class PersonModel {
 		this.city = city;
 		this.zip = zip;
 		this.phone = phone;
-		this.email = email;
+		this.email = email;		
 		this.age = age;
 	}
 
