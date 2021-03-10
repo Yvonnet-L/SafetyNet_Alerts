@@ -23,8 +23,8 @@ import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 
 		@Test
 		public void findAllMedicalRecordsTest() throws Exception {
-			Thread.sleep(1000);
-			assertThat(medicalrecordDao.findAll().size()).isEqualTo(25);
+			Thread.sleep(1500);
+			assertThat(medicalrecordDao.findAll().size()).isEqualTo(24);
 		}
 		
 		@Test

@@ -61,10 +61,10 @@ import com.safetynet.safetyAlerts.service.PersonService;
 			@Test
 			public void addPersonTest() throws Exception {
 		
-				PersonModel personToCreate = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+				PersonModel personToCreate = new PersonModel("firstNameP", "lastNameP", "address Test", "CityTest", 10000,
 						"telTest 02 02 02 02","test@test.com",15);
 
-				mockMvc.perform(post("/medicalrecord/")
+				mockMvc.perform(post("/person/")
 						.contentType("application/json")
 						.accept(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(personToCreate)))

@@ -28,10 +28,10 @@ public class FirestationServiceTest {
 
 	@Test
 	public void getFirestationTest() throws Exception {
-
+		Thread.sleep(1500);
 		// GIVEN
 		// WHEN
-		// THEN 12
+		// THEN 13
 		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
 

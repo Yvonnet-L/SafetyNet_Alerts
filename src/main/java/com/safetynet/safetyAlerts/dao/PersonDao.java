@@ -2,6 +2,8 @@ package com.safetynet.safetyAlerts.dao;
 
 import java.util.List;
 
+import com.safetynet.safetyAlerts.model.FirestationModel;
+import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 
 
@@ -18,6 +20,12 @@ public interface PersonDao {
 	public void setAllPersons(List<PersonModel> listPerson);
 
 	public PersonModel put(PersonModel person);
+
+	public void setAllMedicalrecords(List<MedicalrecordModel> listMedicalRecord);
+
+	public void setAllFireStations(List<FirestationModel> listFireStation);
+
+	void upDateData();
 
 	/*public MailsByCity allMailOfCity(String city);
 

@@ -42,7 +42,6 @@ public class DataDaoImpl implements DataDao {
 	public void InitMapper() throws IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
-		int age = 0;
 		try {
 			logger.info("Lancement du rapatriement des donnees du Json en cour");
 			DataModel pageData = mapper.readValue(new File("src\\main\\resources\\data.json"), DataModel.class);
@@ -52,44 +51,59 @@ public class DataDaoImpl implements DataDao {
 			listMedicalRecord = pageData.getMedicalrecords();
 
 			personDao.setAllPersons(listPerson);
-			fireStationDao.setAllFireStations(listFireStation);
+			personDao.setAllMedicalrecords(listMedicalRecord);
+			personDao.setAllFireStations(listFireStation);
+
 			medicalRecordsDao.setAllMedicalrecords(listMedicalRecord);
+			medicalRecordsDao.setAllPersons(listPerson);
 
-			for (MedicalrecordModel m : listMedicalRecord) {
-				AgeCalculService ageCalcul = new AgeCalculService();
-				age = 0;
-				age = ageCalcul.personCalulateAge(m.getBirthdate(), age);
-				m.setAge(age);
+			fireStationDao.setAllFireStations(listFireStation);
+			fireStationDao.setAllPersons(listPerson);
 
-				for (PersonModel p : listPerson) {
+			upDateData();
 
-					if ((p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName()))) {
-						p.setMedicalrecord(m);
-						p.setAge(age);
-					}
-					for (FirestationModel f : listFireStation) {
-						if (f.getAddress().equals(p.getAddress())) {
-							p.setFirestation(f.getStation());
-						}
-					}
-				}
-			}
-			for (FirestationModel f : listFireStation) {
-				List<PersonModel> listPersonsFire = new ArrayList<PersonModel>();
-				int nbPerson = 0;
-				for (PersonModel p : listPerson) {
-					if (f.getAddress().equals(p.getAddress())) {
-						listPersonsFire.add(p);
-						nbPerson++;
-					}
-				}
-				f.setPerson(listPersonsFire);
-				f.setNbPerson(nbPerson);
-			}
 			logger.info("Traitement du Mapper terminé, données rapatriées!");
 		} catch (IOException e) {
 			logger.error("Une exception s'est produite :" + e);
 		}
 
 	}
+
+	@Override
+	public void upDateData() {
+		AgeCalculService ageCalcul = new AgeCalculService();
+		int age = 0;
+		for (MedicalrecordModel m : listMedicalRecord) {
+			age = 0;
+			age = ageCalcul.personCalulateAge(m.getBirthdate(), age);
+			m.setAge(age);
+
+			for (PersonModel p : listPerson) {
+
+				if (p.getFirstName().equals(m.getFirstName()) & p.getLastName().equals(m.getLastName())) {
+					p.setMedicalrecord(m);
+					p.setAge(age);
+				}
+				for (FirestationModel f : listFireStation) {
+					if (f.getAddress().equals(p.getAddress())) {
+						p.setFirestation(f.getStation());
+					}
+				}
+			}
+		}
+		for (FirestationModel f : listFireStation) {
+			List<PersonModel> listPersonsFire = new ArrayList<PersonModel>();
+			int nbPerson = 0;
+			for (PersonModel p : listPerson) {
+				if (f.getAddress().equals(p.getAddress())) {
+					listPersonsFire.add(p);
+					nbPerson++;
+				}
+			}
+			f.setPerson(listPersonsFire);
+			f.setNbPerson(nbPerson);
+		}
+
+	}
+
 }

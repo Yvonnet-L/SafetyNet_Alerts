@@ -31,7 +31,7 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 		
 		@Test
 		public void postPersonTest() throws Exception {
-			PersonModel personPost = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+			PersonModel personPost = new PersonModel("firstNameTestp", "lastNameTestp", "address Test", "CityTest", 10000,
 					"telTest 02 02 02 02","test@test.com",15);;
 			assertThat(personDao.save(personPost));	
 		}
@@ -48,7 +48,9 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 		public void putPersonTest() throws Exception {
 			PersonModel personPut = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
 					"telTest 02 02 02 02","test@test.com",15);;
-			assertThat(personDao.put(personPut));	
+			assertThat(personDao.put(personPut));	 
+			
+			
 		}
 		
 		@Test

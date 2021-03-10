@@ -46,7 +46,7 @@ public class MedicalRecordService {
 			 return medicalrecordDao.save(medicalrecord);
 		 }else {
 			 logger.info("--> Création avortée, format non conforme");
-			 return null;
+			 return medicalrecord;
 		 }
      	
      }

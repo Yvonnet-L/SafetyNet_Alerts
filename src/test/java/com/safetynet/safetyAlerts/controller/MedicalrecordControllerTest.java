@@ -67,7 +67,11 @@ import com.safetynet.safetyAlerts.service.MedicalRecordService;
 			List<String> medications = null;
 			List<String> allergies = null;
 			Date birthday = null; 
-			MedicalrecordModel medicalrecordToCreate = new MedicalrecordModel("firstName", "lastName", birthday, medications, allergies);
+			
+		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		    String stringBirthday="01/01/2021";
+		    birthday = simpleDateFormat.parse(stringBirthday);
+			MedicalrecordModel medicalrecordToCreate = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday, medications, allergies);
 
 			mockMvc.perform(post("/medicalrecord/")
 					.contentType("application/json")

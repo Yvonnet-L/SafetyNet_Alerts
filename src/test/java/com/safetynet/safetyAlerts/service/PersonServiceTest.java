@@ -20,7 +20,7 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 			@Test
 			public void findAllPersonTest() throws Exception {
 				Thread.sleep(1000);
-				assertThat(personService.findAll().size()).isEqualTo(24);
+				assertThat(personService.findAll().size()).isEqualTo(23);
 			}
 			
 			@Test
