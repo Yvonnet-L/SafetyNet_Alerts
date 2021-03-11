@@ -30,7 +30,7 @@ public class FirestationController {
 		return stations;
 	}
 
-	@GetMapping(value = "firestation/{station}")
+	//@GetMapping(value = "firestation/{station}")
 	public List<FirestationModel> findStationByMatricul(@PathVariable("station") String station) {
 		return firestationService.findById(station);
 	}

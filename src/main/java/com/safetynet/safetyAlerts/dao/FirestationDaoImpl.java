@@ -13,14 +13,11 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 @Repository
 public class FirestationDaoImpl implements FirestationDao {
 	
-
 	
 	PersonDao personDao;
-
 	
 	FirestationDao fireStationDao;
 
-	
 	MedicalRecordDao medicalRecordsDao;
 	
 	DataDao dataDao;
@@ -29,7 +26,7 @@ public class FirestationDaoImpl implements FirestationDao {
 
 	private List<FirestationModel> firestations = new ArrayList<>();
 	
-	public List<PersonModel> persons = new ArrayList<>();
+	private List<PersonModel> persons = new ArrayList<>();
 	
 	
 	@Override
@@ -82,7 +79,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	public FirestationModel save(FirestationModel firestation) {
 		firestations.add(firestation);
 		logger.info("--> FireStation ajoutées: {}", firestation);
-		//updateData();
+		updateData();
 		return firestation;
 	}
 

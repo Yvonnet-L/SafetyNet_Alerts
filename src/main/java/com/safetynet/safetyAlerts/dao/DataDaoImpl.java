@@ -32,6 +32,9 @@ public class DataDaoImpl implements DataDao {
 
 	@Autowired
 	MedicalRecordDao medicalRecordsDao;
+	
+	@Autowired
+	UrlsDao urlsDao;
 
 	List<PersonModel> listPerson = new ArrayList<PersonModel>();
 	List<FirestationModel> listFireStation = new ArrayList<FirestationModel>();
@@ -59,6 +62,8 @@ public class DataDaoImpl implements DataDao {
 
 			fireStationDao.setAllFireStations(listFireStation);
 			fireStationDao.setAllPersons(listPerson);
+			
+			urlsDao.setAllPersons(listPerson);
 
 			upDateData();
 

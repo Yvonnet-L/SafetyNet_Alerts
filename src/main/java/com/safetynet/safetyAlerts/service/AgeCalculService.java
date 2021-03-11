@@ -2,6 +2,9 @@ package com.safetynet.safetyAlerts.service;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class AgeCalculService {
 
 	public Integer personCalulateAge(Date dateOfBirthDay, int age) {
