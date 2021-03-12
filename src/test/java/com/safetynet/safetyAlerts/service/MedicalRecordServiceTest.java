@@ -50,7 +50,7 @@ public class MedicalRecordServiceTest {
 		birthday = simpleDateFormat.parse(stringBirthday);
 		MedicalrecordModel medicalrecordPost = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday,
 				medications, allergies);
-		assertThat(medicalrecordService.save(medicalrecordPost));
+		assertThat(medicalrecordService.save(medicalrecordPost)).isNotNull();
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class MedicalRecordServiceTest {
 		birthday = simpleDateFormat.parse(stringBirthday);
 		MedicalrecordModel medicalrecordPut = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday,
 				medications, allergies);
-		assertThat(medicalrecordService.put(medicalrecordPut));
+		assertThat(medicalrecordService.put(medicalrecordPut)).isNotNull();
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class MedicalRecordServiceTest {
 		Date birthday = null;
 		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName2", "lastName", birthday, medications,
 				allergies);
-		assertThat(medicalrecordService.delete(medicalrecordDelete));
+		assertThat(medicalrecordService.delete(medicalrecordDelete)).isNull();
 	}
 
 	@Test

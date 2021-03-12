@@ -1,11 +1,9 @@
 package com.safetynet.safetyAlerts.controller;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -43,20 +41,6 @@ public class FirestationControllerTest {
 	public void getFirestationsTest() throws Exception {
 		
 		mockMvc.perform(get("/firestations")).andExpect(status().isOk());	
-	}
-
-	@Test
-	public void getFirestationByIdTest() throws Exception {
-
-		mockMvc.perform(get("/firestation/2"))
-				.andExpect(status().isOk()).andExpect(jsonPath("$[0].station", is("2")))
-				.andExpect(status().isOk()).andExpect(jsonPath("$[0].address", is("29 15th St")));
-	}
-
-	@Test
-	public void getFirestationByIdWithEspaceTest() throws Exception {
-
-		mockMvc.perform(get("/firestation/  ")).andExpect(status().isOk());
 	}
 	
 	

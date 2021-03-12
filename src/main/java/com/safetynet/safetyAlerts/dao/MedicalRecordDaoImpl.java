@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.AgeCalculService;
@@ -133,7 +132,7 @@ public class MedicalRecordDaoImpl implements MedicalRecordDao {
 		this.persons = listPerson;
 	}
 
-	// ******************** updateData on Person ***************************
+	// ******************** updateData  ***************************
 
 	@Override
 	public void updateData() {
@@ -156,6 +155,6 @@ public class MedicalRecordDaoImpl implements MedicalRecordDao {
 				}
 			}
 		}
-		logger.info("----> Update terminé, données Persons mises à jour !");
+		logger.info("----> Update terminé, données mises à jour !");
 	}
 }

@@ -1,8 +1,6 @@
 package com.safetynet.safetyAlerts.controller;
 
-
-
-	import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,76 +22,68 @@ import com.safetynet.safetyAlerts.dao.PersonDao;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.PersonService;
 
-		@AutoConfigureMockMvc
-		@RunWith(SpringRunner.class)
-		@SpringBootTest
-		public class PersonControllerTest {
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class PersonControllerTest {
 
-			@Autowired
-			private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-			@Autowired
-			private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-			@Autowired
-			PersonDao personDao;
+	@Autowired
+	PersonDao personDao;
 
-			@Autowired
-			PersonService medicalRecordService;
+	@Autowired
+	PersonService personService;
 
-			@Test
-			public void getPersonsTest() throws Exception {		
-				mockMvc.perform(get("/persons")).andExpect(status().isOk());	
-			}
+	@Test
+	public void getPersonsTest() throws Exception {
+		mockMvc.perform(get("/persons")).andExpect(status().isOk());
+	}
 
-			@Test
-			public void getPersonByFirstNameAndLastNameTest() throws Exception {
-				mockMvc.perform(get("/person/Boyd"))
-						.andExpect(status().isOk()).andExpect(jsonPath("$[0].address", is("1509 Culver St")));;
-			}
-
-			@Test
-			public void getPersonByIdWithEspaceTest() throws Exception {
-				mockMvc.perform(get("/person/  ")).andExpect(status().isOk());
-			}
-			
-			
-			@Test
-			public void addPersonTest() throws Exception {
+	@Test
+	public void getPersonByFirstNameAndLastNameTest() throws Exception {
+		mockMvc.perform(get("/person/Boyd"))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$[0].address", is("1509 Culver St")));
 		
-				PersonModel personToCreate = new PersonModel("firstNameP", "lastNameP", "address Test", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);
+	}
 
-				mockMvc.perform(post("/person/")
-						.contentType("application/json")
-						.accept(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(personToCreate)))
-					.andExpect(status().isOk());
-			}
+	@Test
+	public void getPersonByIdWithEspaceTest() throws Exception {
+		mockMvc.perform(get("/person/  ")).andExpect(status().isOk());
+	}
 
-			@Test
-			public void PutPersonTest() throws Exception {
-		
-				PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
-											"telTest 02 02 02 02","test@test.com",15);
-				mockMvc.perform(put("/person/")
-						.contentType("application/json")
-						.accept(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(personUpDate)))
-					.andExpect(status().isOk());		
-			}
+	@Test
+	public void addPersonTest() throws Exception {
 
-			@Test
-			public void deletePersonTest() throws Exception {
-			
-				PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);
-				
-				mockMvc.perform(delete("/person/")
-						.contentType("application/json")
-						.accept(MediaType.APPLICATION_JSON)
-						.content(objectMapper.writeValueAsString(personDelete)))
-					.andExpect(status().isOk());		
-			}
+		PersonModel personToCreate = new PersonModel("firstNameP", "lastNameP", "address Test", "CityTest", 10000,
+				"telTest 02 02 02 02", "test@test.com", 15);
+
+		mockMvc.perform(post("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personToCreate))).andExpect(status().isOk());
+	}
+
+	@Test
+	public void PutPersonTest() throws Exception {
+
+		PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+				"telTest 02 02 02 02", "test@test.com", 15);
+		mockMvc.perform(put("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personUpDate))).andExpect(status().isOk());
+	}
+
+	@Test
+	public void deletePersonTest() throws Exception {
+
+		PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+				"telTest 02 02 02 02", "test@test.com", 15);
+
+		mockMvc.perform(delete("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isOk());
+	}
 
 }

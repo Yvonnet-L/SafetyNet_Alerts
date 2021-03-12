@@ -122,6 +122,7 @@ public class PersonDaoImpl implements PersonDao {
 	
 
 	// ******************** Set All **************************
+	
 	@Override
 	public void setAllPersons(List<PersonModel> listPerson) {
 		logger.info("--> SetAllPerson {}", listPerson);
@@ -178,7 +179,7 @@ public class PersonDaoImpl implements PersonDao {
 			f.setPerson(listPersonsFire);
 			f.setNbPerson(nbPerson);
 		}
-		logger.info("----> Update terminé, données Persons mises à jour !");
+		logger.info("----> Update terminé, données mises à jour !");
 	}
 
 }

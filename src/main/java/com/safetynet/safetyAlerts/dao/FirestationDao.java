@@ -11,8 +11,6 @@ public interface FirestationDao {
 	
 	public List<FirestationModel> findAll();
 	
-	public List<FirestationModel> findById(String station);
-	
 	public FirestationModel save(FirestationModel firestation);
 	
 	public List<FirestationModel> deleteById(FirestationModel firestation);

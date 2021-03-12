@@ -22,8 +22,8 @@ public class UrlsController {
 
 	// Url 1 --> http://localhost:8080/firestation?stationNumber=<station_number>
 	@GetMapping(value = "firestation/{stationNumber}")
-	public PersonsCoveredByStationU1 listPersonsByIdStation(@PathVariable("stationNumber") String station_number) {
-		return urlsService.allPersonCoveredByOneStation(station_number);
+	public PersonsCoveredByStationU1 listPersonsByIdStation(@PathVariable("stationNumber") String stationNumber) {
+		return urlsService.allPersonCoveredByOneStation(stationNumber);
 	}
 
 	// Url 2 --> http://localhost:8080/childAlert?address=<address>
@@ -58,7 +58,7 @@ public class UrlsController {
 			@PathVariable("lastName") String lastName) {
 		return urlsService.infoByPerson(firstName, lastName);
 	}
-	
+
 	// Url 7 --> http://localhost:8080/communityEmail?city=<city>
 	@GetMapping(value = "communityEmail/{city}")
 	public MailsByCity listMail(@PathVariable("city") String city) {

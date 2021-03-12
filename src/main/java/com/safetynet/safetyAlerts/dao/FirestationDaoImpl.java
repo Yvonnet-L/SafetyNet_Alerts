@@ -36,26 +36,6 @@ public class FirestationDaoImpl implements FirestationDao {
 	}
 
 	@Override
-	public List<FirestationModel> findById(String station) {
-
-		List<FirestationModel> firestationsSelect = new ArrayList<>();
-		
-		for (FirestationModel firestation : firestations) {
-			if (firestation.getStation().equals(station)) {
-				firestationsSelect.add(firestation);
-			}
-		}
-		if (firestationsSelect.isEmpty()) {
-			logger.info("--->Aucune donnée trouvée pour l'id {}", station);
-		} else {
-			logger.info("--->Liste des FireStations pour l'id {}: {}", station, firestationsSelect);
-		}
-
-		return firestationsSelect;
-	}
-
-
-	@Override
 	public List<FirestationModel> deleteById(FirestationModel firestation) {
 		List<FirestationModel> fSelect = new ArrayList<>();
 		for (FirestationModel f : firestations) {
@@ -118,7 +98,7 @@ public class FirestationDaoImpl implements FirestationDao {
 
 	}
 	
-	//******************** updateData on Person ***************************
+	//******************** updateData  ***************************
 	
 	@Override 
 	public void updateData() {
@@ -143,7 +123,7 @@ public class FirestationDaoImpl implements FirestationDao {
 				f.setPerson(listPersonsFire);
 				f.setNbPerson(nbPerson);
 			}
-		logger.info("----> Update terminé, données Persons mises à jour !");
+		logger.info("----> Update terminé, données mises à jour !");
 	}
 	
 }

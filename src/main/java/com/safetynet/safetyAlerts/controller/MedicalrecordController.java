@@ -2,8 +2,6 @@ package com.safetynet.safetyAlerts.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +17,6 @@ import com.safetynet.safetyAlerts.service.MedicalRecordService;
 @RestController
 public class MedicalrecordController {
 
-	private static Logger logger = LoggerFactory.getLogger(MedicalrecordController.class);
 	
 	@Autowired
 	private MedicalRecordService medicalrecordService;
@@ -27,11 +24,9 @@ public class MedicalrecordController {
 	
 	@GetMapping(value = "/medicalrecords")
 	public List<MedicalrecordModel> listeMedicalrecords() {
-		return medicalrecordService.getMedicalrecords();
-		
+		return medicalrecordService.getMedicalrecords();	
 	}
 	
-	//Medicalrecord/{id}
 	@GetMapping(value="/medicalrecord/{firstName} {lastName}")
 	public List<MedicalrecordModel> findMedicalrecordsByFirstNameAndLastName(@PathVariable String firstName, 
 																			  @PathVariable  String lastName){

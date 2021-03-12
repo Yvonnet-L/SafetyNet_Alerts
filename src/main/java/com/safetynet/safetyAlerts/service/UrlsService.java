@@ -18,43 +18,70 @@ import com.safetynet.safetyAlerts.model.dto.url7.MailsByCity;
 public class UrlsService {
 
 	private static Logger logger = LoggerFactory.getLogger(UrlsService.class);
-	
+
 	@Autowired
 	private UrlsDao urlsDao;
-	
+
 	public PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNumber) {
-		logger.info("Lancement de la recherche des Personnes rattachées à la fireStation: {}",stationNumber);
-		return urlsDao.allPersonCoveredByOneStation(stationNumber);
+		if (stationNumber.isEmpty() || stationNumber.isBlank()) {
+			return null;
+		} else {
+			logger.info("Lancement de la recherche des Personnes rattachées à la fireStation: {}", stationNumber);
+			return urlsDao.allPersonCoveredByOneStation(stationNumber);
+		}
 	}
 
 	public ChildsWithParentsU2 allChildsByAdressWithParents(String address) {
-		logger.info("Lancement de la recherche des enfants rattachées à l'adresse: {}",address);
-		return urlsDao.allChildsByAdressWithParents(address);
+		if (address.isBlank() || address.isEmpty()) {
+			return null;
+		} else {
+			logger.info("Lancement de la recherche des enfants rattachées à l'adresse: {}", address);
+			return urlsDao.allChildsByAdressWithParents(address);
+		}
 	}
 
 	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber) {
-		logger.info("Lancement de la recherche des enfants rattachées à l'adresse: {}",firestationNumber);
-		return urlsDao.PhoneNumbersForStation(firestationNumber);
+		if (firestationNumber.isBlank() || firestationNumber.isEmpty()) {
+			return null;
+		} else {
+			logger.info("Lancement de la recherche des enfants rattachées à l'adresse: {}", firestationNumber);
+			return urlsDao.PhoneNumbersForStation(firestationNumber);
+		}
 	}
 
 	public PersonsListU4 PersonsByAdressWithStation(String address) {
-		logger.info("Lancement de la recherche des personnes rattachées l'adresse: {}", address);
-		return urlsDao.PersonsByAdressWithStation(address);
+		if (address.isBlank() || address.isEmpty()) {
+			return null;
+		} else {
+			logger.info("Lancement de la recherche des personnes rattachées l'adresse: {}", address);
+			return urlsDao.PersonsByAdressWithStation(address);
+		}
 	}
 
 	public FamilysListU5 FamilystByAdressWithStation(String station) {
-		logger.info("Lancement de la recherche des familles rattachées la station: {}", station);
-		return urlsDao.FamilystByAdressWithStation(station);
+		if (station.isBlank() || station.isEmpty()) {
+			return null;
+		} else {
+			logger.info("Lancement de la recherche des familles rattachées la station: {}", station);
+			return urlsDao.FamilystByAdressWithStation(station);
+		}
 	}
 
 	public PersonsListU6 infoByPerson(String firstName, String lastName) {
+		if (firstName.isBlank() || firstName.isEmpty() || lastName.isBlank() || lastName.isEmpty()) {
+			return null;
+		} else {
 		logger.info("Lancement de la recherche des personnes: {} {}", firstName, lastName);
-		return urlsDao.infoByPerson(firstName,lastName);
+		return urlsDao.infoByPerson(firstName, lastName);
+		}
 	}
 
 	public MailsByCity allMailOfCity(String city) {
+		if (city.isBlank() || city.isEmpty()) {
+			return null;
+		} else 
 		logger.info("Lancement de la recherche des mails pour la ville: {}", city);
 		return urlsDao.allMailOfCity(city);
-	}	
-		
+	}
+
 }

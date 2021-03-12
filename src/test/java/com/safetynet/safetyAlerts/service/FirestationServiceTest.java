@@ -35,15 +35,6 @@ public class FirestationServiceTest {
 		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
 
-	@Test
-	public void findFirestationByIdTest() throws Exception {
-		
-		// WHEN
-		// THEN 4
-		assertThat(firestationService.findById("3").size()).isEqualTo(5);
-	}
-
-	
 	
 	@Test
 	public void postFirestationTest() throws Exception {

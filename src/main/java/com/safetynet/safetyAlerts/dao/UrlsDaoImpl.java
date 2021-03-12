@@ -41,33 +41,37 @@ public class UrlsDaoImpl implements UrlsDao {
 	@Override
 	public PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNumber) {
 
-		List<PersonStation> personsStation = new ArrayList<>();
+		if (stationNumber.isBlank()) {
+			return null;
+		} else {
+			List<PersonStation> personsStation = new ArrayList<>();
 
-		PersonsCoveredByStationU1 personsCoveredByStation = new PersonsCoveredByStationU1();
-		int nbAdult = 0;
-		int nbChild = 0;
-		for (PersonModel p : persons) {
-			if (p.getFirestation().equals(stationNumber)) {
-				PersonStation personStation = new PersonStation(p.getFirstName(), p.getLastName(), p.getAddress(),
-						p.getCity(), p.getZip(), p.getPhone());
-				personsStation.add(personStation);
-				if (p.getAge() > 18) {
-					nbAdult++;
-				} else {
-					nbChild++;
+			PersonsCoveredByStationU1 personsCoveredByStation = new PersonsCoveredByStationU1();
+			int nbAdult = 0;
+			int nbChild = 0;
+			for (PersonModel p : persons) {
+				if (p.getFirestation().equals(stationNumber)) {
+					PersonStation personStation = new PersonStation(p.getFirstName(), p.getLastName(), p.getAddress(),
+							p.getCity(), p.getZip(), p.getPhone());
+					personsStation.add(personStation);
+					if (p.getAge() > 18) {
+						nbAdult++;
+					} else {
+						nbChild++;
+					}
 				}
 			}
+			personsCoveredByStation.setPerson(personsStation);
+			personsCoveredByStation.setNbAdult(nbAdult);
+			personsCoveredByStation.setNbChild(nbChild);
+			if (nbAdult > 0 || nbChild > 0) {
+				logger.info("--> Personness couvertent par la FireStation {} : nbAdult:{}  nbChild:{} ListPersons:{}",
+						stationNumber, nbChild, nbAdult, personsStation);
+			} else {
+				logger.info("--> Aucune personne couverte par la FireStation {}", stationNumber);
+			}
+			return personsCoveredByStation;
 		}
-		personsCoveredByStation.setPerson(personsStation);
-		personsCoveredByStation.setNbAdult(nbAdult);
-		personsCoveredByStation.setNbChild(nbChild);
-		if (nbAdult > 0 || nbChild > 0) {
-			logger.info("--> Personness couvertent par la FireStation {} : nbAdult:{}  nbChild:{} ListPersons:{}",
-					stationNumber, nbChild, nbAdult, personsStation);
-		} else {
-			logger.info("--> Aucune personne couverte par la FireStation {}", stationNumber);
-		}
-		return personsCoveredByStation;
 
 	}
 
@@ -98,22 +102,22 @@ public class UrlsDaoImpl implements UrlsDao {
 	// ----------------> Url - 3 <----------------------------------------
 	@Override
 	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber) {
+	
+			PhoneAlertU3 phoneAlert = new PhoneAlertU3();
+			List<PhoneNumber> phoneList = new ArrayList<>();
 
-		PhoneAlertU3 phoneAlert = new PhoneAlertU3();
-		List<PhoneNumber> phoneList = new ArrayList<>();
-
-		for (PersonModel p : persons) {
-			if (p.getFirestation().equals(firestationNumber)) {
-				PhoneNumber phoneNumber = new PhoneNumber();
-				phoneNumber.setNumber(p.getPhone());
-				if (phoneNumber != null) {
-					phoneList.add(phoneNumber);
+			for (PersonModel p : persons) {
+				if (p.getFirestation().equals(firestationNumber)) {
+					PhoneNumber phoneNumber = new PhoneNumber();
+					phoneNumber.setNumber(p.getPhone());
+					if (phoneNumber != null) {
+						phoneList.add(phoneNumber);
+					}
 				}
 			}
-		}
-		phoneAlert.setPhoneList(phoneList);
-		logger.info("--> Téléphone(s) trouvé(s) for station n°{}: {}", firestationNumber, phoneList);
-		return phoneAlert;
+			phoneAlert.setPhoneList(phoneList);
+			logger.info("--> Téléphone(s) trouvé(s) for station n°{}: {}", firestationNumber, phoneList);
+			return phoneAlert;	
 	}
 
 	// ----------------> Url - 4 <----------------------------------------
@@ -152,49 +156,48 @@ public class UrlsDaoImpl implements UrlsDao {
 	// ----------------> Url - 5 <----------------------------------------
 	@Override
 	public FamilysListU5 FamilystByAdressWithStation(String station) {
-
-		FamilysListU5 familysListU5 = new FamilysListU5();
-		List<FamilyU5> familyList = new ArrayList<>();
-		List<PersonU4> personsList = new ArrayList<>();
-		FamilyU5 familyU5 = null;
-		MedicalBackground medicalBackground;
-		PersonU4 personU4;
-		Set<String> hsetAddress = new HashSet<>();
-
-		for (PersonModel p : persons) {
-			if (p.getFirestation().equals(station)) {
-				hsetAddress.add(p.getAddress());
-			}
-		}
-		logger.info("nunber of address find by station: {} address:", hsetAddress.size());
-		for (String s : hsetAddress) {
-			familyU5 = new FamilyU5();
+	
+			FamilysListU5 familysListU5 = new FamilysListU5();
+			List<FamilyU5> familyList = new ArrayList<>();
+			List<PersonU4> personsList = new ArrayList<>();
+			FamilyU5 familyU5 = null;
+			MedicalBackground medicalBackground;
+			PersonU4 personU4;
+			Set<String> hsetAddress = new HashSet<>();
 
 			for (PersonModel p : persons) {
-
-				if (p.getAddress().equals(s)) {
-					personU4 = new PersonU4();
-					medicalBackground = new MedicalBackground();
-					personU4.setLastName(p.getLastName());
-					personU4.setPhone(p.getPhone());
-					personU4.setAge(p.getAge());
-
-					medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
-					medicalBackground.setMedications(p.getMedicalrecord().getMedications());
-					personU4.setMedicalBackground(medicalBackground);
-
-					personsList.add(personU4);
+				if (p.getFirestation().equals(station)) {
+					hsetAddress.add(p.getAddress());
 				}
 			}
-			familyU5.setAddress(s);
-			familyU5.setPersons(personsList);
-			familyList.add(familyU5);
-		}
-		familysListU5.setFireStation(station);
-		familysListU5.setPersonsListU5(familyList);
-		logger.info("--> Listes des personnes trouvées: {}", familysListU5);
-		return familysListU5;
+			logger.info("nunber of address find by station: {} address:", hsetAddress.size());
+			for (String s : hsetAddress) {
+				familyU5 = new FamilyU5();
 
+				for (PersonModel p : persons) {
+
+					if (p.getAddress().equals(s)) {
+						personU4 = new PersonU4();
+						medicalBackground = new MedicalBackground();
+						personU4.setLastName(p.getLastName());
+						personU4.setPhone(p.getPhone());
+						personU4.setAge(p.getAge());
+
+						medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
+						medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+						personU4.setMedicalBackground(medicalBackground);
+
+						personsList.add(personU4);
+					}
+				}
+				familyU5.setAddress(s);
+				familyU5.setPersons(personsList);
+				familyList.add(familyU5);
+			}
+			familysListU5.setFireStation(station);
+			familysListU5.setPersonsListU5(familyList);
+			logger.info("--> Listes des personnes trouvées: {}", familysListU5);
+			return familysListU5;
 	}
 
 	// ----------------> Url - 6 <----------------------------------------
@@ -232,7 +235,6 @@ public class UrlsDaoImpl implements UrlsDao {
 	@Override
 	public MailsByCity allMailOfCity(String city) {
 
-		List<String> mailsList = new ArrayList<>();
 		MailsByCity mailsByCity = new MailsByCity();
 		Set<String> hsetMails = new HashSet<>();
 		for (PersonModel p : persons) {

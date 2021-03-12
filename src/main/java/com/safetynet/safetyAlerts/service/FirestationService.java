@@ -27,18 +27,6 @@ public class FirestationService {
 		return firestationDao.findAll();	
 	}
 
-
-	public List<FirestationModel> findById(String station) {        
-            if (station.isEmpty() || station.isBlank()) {
-            	logger.info("** Recherche avortée, id station null : {}",station);
-            	return null;
-            }else {
-            	logger.info("Lancement de la recherche pour la station: {}",station);
-            	return firestationDao.findById(station);
-            }
-      	     	
-	}
-
 	
 	public List<FirestationModel> delete(FirestationModel firestation) {
 		List<FirestationModel> firesList = new ArrayList<>();
