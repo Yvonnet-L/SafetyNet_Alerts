@@ -58,7 +58,7 @@ import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
 		@Test
 		public void getMedicalrecordByIdWithEspaceTest() throws Exception {
-			mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isOk());
+			mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isNotFound());
 		}
 		
 		

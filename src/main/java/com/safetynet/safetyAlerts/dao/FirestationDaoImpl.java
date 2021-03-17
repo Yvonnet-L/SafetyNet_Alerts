@@ -31,12 +31,15 @@ public class FirestationDaoImpl implements FirestationDao {
 	
 	@Override
 	public List<FirestationModel> findAll() {
+		
 		logger.info("--> Liste des FireStations: {}", firestations);
 		return firestations;
 	}
 
+	
 	@Override
 	public List<FirestationModel> deleteById(FirestationModel firestation) {
+		
 		List<FirestationModel> fSelect = new ArrayList<>();
 		for (FirestationModel f : firestations) {
 			if (f.getStation().equals(firestation.getStation()) || f.getAddress().equals(firestation.getAddress())) {
@@ -46,25 +49,31 @@ public class FirestationDaoImpl implements FirestationDao {
 		if (fSelect.isEmpty()) {
 			logger.info("--> Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect.toString());
-		} else
+		} else {
 			logger.info("--> Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect);
-		firestations.removeAll(fSelect);
-		updateData();
+			firestations.removeAll(fSelect);
+			updateData();
+		}
 		return fSelect;
 
 	}
+	
 
 	@Override
 	public FirestationModel save(FirestationModel firestation) {
+		
 		firestations.add(firestation);
 		logger.info("--> FireStation ajoutées: {}", firestation);
 		updateData();
 		return firestation;
 	}
 
+	
+	
 	@Override
 	public List<FirestationModel> put(FirestationModel firestation) {
+		
 		List<FirestationModel> stationUpDateList = new ArrayList<>();
 		if (firestation != null) {
 			for (FirestationModel f : firestations) {
@@ -83,6 +92,7 @@ public class FirestationDaoImpl implements FirestationDao {
 		return stationUpDateList;
 	}
 
+	
 	// *************** SET ALL FireStations / Persons  ********************
 	//@Override
 	public void setAllFireStations(List<FirestationModel> listFirestation) {

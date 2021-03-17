@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyAlerts.dao.FirestationDao;
+import com.safetynet.safetyAlerts.exceptions.PersonIntrouvableException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @Service
@@ -35,8 +36,9 @@ public class FirestationService {
 			logger.info( "Lancement de la suppression !");
 			firesList = firestationDao.deleteById(firestation);
 		}
-		else {			
-			logger.info( "** Attention adress non conforme !");   			
+		else {
+			logger.info( "** Attention adress non conforme !"); 	
+			  			
 		}	
 		return firesList;		
 	}

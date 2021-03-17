@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.service.FirestationService;
+import com.sun.istack.NotNull;
 
 @RestController
 public class FirestationController {

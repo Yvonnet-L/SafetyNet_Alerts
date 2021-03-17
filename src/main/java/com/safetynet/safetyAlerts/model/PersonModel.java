@@ -2,9 +2,10 @@ package com.safetynet.safetyAlerts.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 public class PersonModel {
 
-	
+	//@Length 
 	private String firstName;
 	private String lastName;
 	private String address;

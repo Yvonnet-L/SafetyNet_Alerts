@@ -44,15 +44,13 @@ public class UrlsController {
 		return urlsService.PersonsByAdressWithStation(address);
 	}
 
-	// Url 5 --> http://localhost:8080/flood/stations?stations=<a list of
-	// station_numbers> FamilystByAdressWithStation
+	// Url 5 --> http://localhost:8080/flood/stations?stations=<a list of station_numbers> FamilystByAdressWithStation
 	@GetMapping(value = "flood/stations/{station}")
 	public FamilysListU5 listFamilysByAdressStation(@PathVariable("station") String station) {
 		return urlsService.FamilystByAdressWithStation(station);
 	}
 
-	// Url 6 -->
-	// http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
+	// Url 6 --> http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
 	@GetMapping(value = "personInfo/{firstName} {lastName}")
 	public PersonsListU6 findPersons(@PathVariable("firstName") String firstName,
 			@PathVariable("lastName") String lastName) {

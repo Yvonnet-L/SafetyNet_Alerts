@@ -17,6 +17,8 @@ public class PersonService {
 	private static Logger logger = LoggerFactory.getLogger(FirestationService.class);
 
 	public List<PersonModel> persons = new ArrayList<>();
+	
+	StringUtilsService stringUtilsService = new StringUtilsService();
 
 	@Autowired
 	private PersonDao personDao;
@@ -26,8 +28,12 @@ public class PersonService {
 		return personDao.findAll();
 	}
 
-	public List<PersonModel> findById(String lastName) {
-		if (lastName.isEmpty() || lastName.isBlank()) {
+	public List<PersonModel> findById(String lastName) throws Exception {
+		
+		boolean nameOk = stringUtilsService.checkStringName(lastName);
+		logger.info("Vérification de la validité du nom recherché: {} est {}", lastName, nameOk);
+		
+		if (!nameOk) {
 			logger.info("** Recherche avortée, id non conforme: {}", lastName);
 			return null;
 		} else {
@@ -39,7 +45,8 @@ public class PersonService {
 
 	public PersonModel save(PersonModel person) {
 
-		if ((person.getFirstName() != null) & (person.getLastName() != null)) {
+		if ((stringUtilsService.checkStringName(person.getFirstName())) & 
+				(stringUtilsService.checkStringName(person.getLastName()))) {
 			logger.info("Traitement de la demande de création de la personne: {}", person);
 			return personDao.save(person);
 		} else {

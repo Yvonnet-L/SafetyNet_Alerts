@@ -48,9 +48,7 @@ public class PersonDaoImpl implements PersonDao {
 	public PersonModel save(PersonModel person) {
 
 		PersonModel personSelect = null;
-		if ((person.getFirstName().isBlank() || person.getLastName().isBlank())) {
-			return person;
-		} else {
+	
 			for (PersonModel p : persons) {
 				if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
 					personSelect = p;
@@ -66,7 +64,7 @@ public class PersonDaoImpl implements PersonDao {
 						person.getFirstName(), person.getLastName());
 				return null;
 			}
-		}
+		
 
 	}
 
@@ -100,7 +98,7 @@ public class PersonDaoImpl implements PersonDao {
 		PersonModel personSelect = new PersonModel();
 		personSelect = null;
 		if ((person.getFirstName().isBlank() || person.getLastName().isBlank())) {
-			return person;
+			return null;
 		} else {
 			for (PersonModel p : persons) {
 				if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
@@ -111,11 +109,13 @@ public class PersonDaoImpl implements PersonDao {
 			}
 			if (personSelect == null) {
 				logger.info("--> Personne Non trouvé pour {} {} !", person.getFirstName(), person.getLastName());
+				return null;
 			} else {
-				logger.info("--> Personne Modifiée: {} par {}", personSelect, person);
+				logger.info("--> Personne Modifiée: {} par {}", personSelect, person);				
 				upDateData();
+				return person;
 			}
-			return person;
+			
 		}
 	}
 

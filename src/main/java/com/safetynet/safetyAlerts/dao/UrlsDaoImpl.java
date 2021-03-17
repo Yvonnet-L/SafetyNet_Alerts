@@ -24,6 +24,7 @@ import com.safetynet.safetyAlerts.model.dto.url6.MedicalBackground;
 import com.safetynet.safetyAlerts.model.dto.url6.PersonU6;
 import com.safetynet.safetyAlerts.model.dto.url6.PersonsListU6;
 import com.safetynet.safetyAlerts.model.dto.url7.MailsByCity;
+import com.safetynet.safetyAlerts.service.StringUtilsService;
 
 @Repository
 public class UrlsDaoImpl implements UrlsDao {
@@ -40,7 +41,11 @@ public class UrlsDaoImpl implements UrlsDao {
 	// ----------------> Url - 1 <----------------------------------------
 	@Override
 	public PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNumber) {
-
+		
+		StringUtilsService stringUtilsService = new StringUtilsService();
+		boolean nameStationBoolean = stringUtilsService.checkStringAddress(stationNumber);
+		logger.info("Résultat de la verification de la string {} est {}", stationNumber, nameStationBoolean);
+		
 		if (stationNumber.isBlank()) {
 			return null;
 		} else {

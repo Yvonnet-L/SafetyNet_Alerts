@@ -1,13 +1,12 @@
 package com.safetynet.safetyAlerts.model;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class FirestationModel {
 	
-	
+
 	private String station;
 	private String address;
 	@JsonIgnore

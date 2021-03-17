@@ -54,7 +54,7 @@ public class PersonControllerTest {
 
 	@Test
 	public void getPersonByIdWithEspaceTest() throws Exception {
-		mockMvc.perform(get("/person/  ")).andExpect(status().isOk());
+		mockMvc.perform(get("/person/  ")).andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class PersonControllerTest {
 				"telTest 02 02 02 02", "test@test.com", 15);
 
 		mockMvc.perform(post("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personToCreate))).andExpect(status().isOk());
+				.content(objectMapper.writeValueAsString(personToCreate))).andExpect(status().isCreated());
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class PersonControllerTest {
 		PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
 				"telTest 02 02 02 02", "test@test.com", 15);
 		mockMvc.perform(put("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personUpDate))).andExpect(status().isOk());
+				.content(objectMapper.writeValueAsString(personUpDate))).andExpect(status().isCreated());
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class PersonControllerTest {
 				"telTest 02 02 02 02", "test@test.com", 15);
 
 		mockMvc.perform(delete("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isOk());
+				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isNotFound());
 	}
 
 }

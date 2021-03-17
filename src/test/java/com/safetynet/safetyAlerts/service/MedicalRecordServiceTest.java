@@ -41,6 +41,7 @@ public class MedicalRecordServiceTest {
 
 	@Test
 	public void postMedicalrecordTest() throws Exception {
+		int size = 0;
 		List<String> medications = null;
 		List<String> allergies = null;
 		Date birthday = null;
@@ -50,7 +51,9 @@ public class MedicalRecordServiceTest {
 		birthday = simpleDateFormat.parse(stringBirthday);
 		MedicalrecordModel medicalrecordPost = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday,
 				medications, allergies);
+		size = medicalrecordService.getMedicalrecords().size() + 1;
 		assertThat(medicalrecordService.save(medicalrecordPost)).isNotNull();
+		assertThat(medicalrecordService.getMedicalrecords().size()).isEqualTo(size);
 	}
 
 	@Test

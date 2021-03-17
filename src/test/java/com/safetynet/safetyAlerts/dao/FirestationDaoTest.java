@@ -31,7 +31,7 @@ public class FirestationDaoTest {
 
 	@Test
 	public void findAllFirestationTest() throws Exception {
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		FirestationModel firestation1 = new FirestationModel("address1","Station1");
 		FirestationModel firestation2 = new FirestationModel("address2","Station2");
 		FirestationModel firestation3 = new FirestationModel("address3","Station3");

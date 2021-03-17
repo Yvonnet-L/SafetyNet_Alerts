@@ -39,4 +39,15 @@ public class AgeCalculServiceUTTest {
 	}
 	
 	
+	@Test
+	public void ageCalulServiceWithBirthDayTodayTest() {
+		// GIVEN
+		AgeCalculService ageCalcul = new AgeCalculService();
+		Calendar calendar = Calendar.getInstance();
+		Date birthDay = calendar.getTime();		
+		int age = 0;
+		// WHEN
+		// THEN
+		assertEquals(ageCalcul.personCalulateAge(birthDay, age), 0);
+	}
 }

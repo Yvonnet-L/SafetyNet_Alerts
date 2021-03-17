@@ -11,42 +11,52 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetyAlerts.exceptions.MedicalRecordIntrouvableException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
 @RestController
 public class MedicalrecordController {
 
-	
 	@Autowired
 	private MedicalRecordService medicalrecordService;
 
-	
 	@GetMapping(value = "/medicalrecords")
 	public List<MedicalrecordModel> listeMedicalrecords() {
-		return medicalrecordService.getMedicalrecords();	
+		return medicalrecordService.getMedicalrecords();
 	}
-	
-	@GetMapping(value="/medicalrecord/{firstName} {lastName}")
-	public List<MedicalrecordModel> findMedicalrecordsByFirstNameAndLastName(@PathVariable String firstName, 
-																			  @PathVariable  String lastName){
-		return medicalrecordService.findById(firstName, lastName);
-	}
-	
 
-	@PostMapping(value="/medicalrecord")
+	@GetMapping(value = "/medicalrecord/{firstName} {lastName}")
+	public List<MedicalrecordModel> findMedicalrecordsByFirstNameAndLastName(@PathVariable String firstName,
+			@PathVariable String lastName) throws MedicalRecordIntrouvableException {
+		
+		List<MedicalrecordModel> listMedic = medicalrecordService.findById(firstName, lastName);
+		if (listMedic == null) {
+			throw new MedicalRecordIntrouvableException(
+					"Veuillez entrer des données conformes !");
+		} else {
+			if (listMedic.isEmpty()) {
+				throw new MedicalRecordIntrouvableException(
+						"la person avec le nom " + firstName + " " + lastName + " n'existe pas !");
+			}
+			return listMedic;
+		}
+
+	}
+
+	@PostMapping(value = "/medicalrecord")
 	public MedicalrecordModel ajouterMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
 		return medicalrecordService.save(medicalrecord);
-	}	
-	 
-	@PutMapping(value="/medicalrecord")
+	}
+
+	@PutMapping(value = "/medicalrecord")
 	public MedicalrecordModel modifierMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
 		return medicalrecordService.put(medicalrecord);
-	}	
-	
-	@DeleteMapping(value="/medicalrecord")
+	}
+
+	@DeleteMapping(value = "/medicalrecord")
 	public MedicalrecordModel supprimerMedicalrecord(@RequestBody MedicalrecordModel medicalrecord) {
 		return medicalrecordService.delete(medicalrecord);
 	}
-	
+
 }

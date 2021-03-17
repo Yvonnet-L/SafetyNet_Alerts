@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class AgeCalculService {
 
-	public Integer personCalulateAge(Date dateOfBirthDay, int age) {
+	public Integer personCalulateAge(Date birthDay, int age) {
 
 		Date today = new Date();
-		Date fin = dateOfBirthDay;
+		Date fin = birthDay;
 		Date deb = today;
-		if (dateOfBirthDay.before(today)) {
+		if (birthDay.before(today)) {
 			long diff = deb.getTime() - fin.getTime();
 			float nbannée = diff / 3600000.0f;
 			nbannée = nbannée / (365 * 24);
