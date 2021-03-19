@@ -52,7 +52,7 @@ public class MedicalRecordServiceTest {
 		MedicalrecordModel medicalrecordPost = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday,
 				medications, allergies);
 		size = medicalrecordService.getMedicalrecords().size() + 1;
-		assertThat(medicalrecordService.save(medicalrecordPost)).isNotNull();
+		assertThat(medicalrecordService.addMedicalRecord(medicalrecordPost)).isNotNull();
 		assertThat(medicalrecordService.getMedicalrecords().size()).isEqualTo(size);
 	}
 
@@ -67,13 +67,13 @@ public class MedicalRecordServiceTest {
 		birthday = simpleDateFormat.parse(stringBirthday);
 		MedicalrecordModel medicalrecordPut = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday,
 				medications, allergies);
-		assertThat(medicalrecordService.put(medicalrecordPut)).isNotNull();
+		assertThat(medicalrecordService.upDateMedicalrecord(medicalrecordPut)).isNotNull();
 	}
 
 	@Test
 	public void updateFirestationWithJsonNullErrorTest() throws Exception {
 		MedicalrecordModel medicalrecordDelete = null;
-		assertThat(medicalrecordService.delete(medicalrecordDelete));
+		assertThat(medicalrecordService.deleteMedicalRecord(medicalrecordDelete));
 	}
 
 	@Test
@@ -83,7 +83,7 @@ public class MedicalRecordServiceTest {
 		Date birthday = null;
 		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName2", "lastName", birthday, medications,
 				allergies);
-		assertThat(medicalrecordService.delete(medicalrecordDelete)).isNull();
+		assertThat(medicalrecordService.deleteMedicalRecord(medicalrecordDelete)).isNull();
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class MedicalRecordServiceTest {
 		List<String> allergies = null;
 		Date birthday = null;
 		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel(" ", " ", birthday, medications, allergies);
-		assertThat(medicalrecordService.delete(medicalrecordDelete));
+		assertThat(medicalrecordService.deleteMedicalRecord(medicalrecordDelete));
 	}
 
 }

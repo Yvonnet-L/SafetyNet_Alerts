@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.AgeCalculService;
@@ -26,19 +27,22 @@ public class MedicalRecordDaoImpl implements MedicalRecordDao {
 	}
 
 	@Override
-	public List<MedicalrecordModel> findById(String firstname, String lastname) {
+	public List<MedicalrecordModel> findById(String firstName, String lastName) {
 
-		List<MedicalrecordModel> res = new ArrayList<>();
+		List<MedicalrecordModel> listResult = new ArrayList<>();
 
 		for (MedicalrecordModel medicalrecord : medicalrecords) {
-			if (medicalrecord.getFirstName().equals(firstname) & medicalrecord.getLastName().equals(lastname)) {
-				res.add(medicalrecord);
+			if (medicalrecord.getFirstName().equals(firstName) & medicalrecord.getLastName().equals(lastName)) {
+				listResult.add(medicalrecord);
 			}
 		}
-		logger.info("--> Liste des MedicalRecords par id {} {}: {}", firstname, lastname, res);
-		return res;
+		if (listResult.size() > 0) {
+			logger.info("--> Liste des MedicalRecords par id {} {}: {}", firstName, lastName, listResult);
+			return listResult;
+		} else throw new DataNotFoundException("Aucune personne trouvée pour " + firstName + " " + lastName);		
 	}
 
+	
 	@Override
 	public MedicalrecordModel save(MedicalrecordModel medicalrecord) {
 		MedicalrecordModel medicalrecordSelect = null;

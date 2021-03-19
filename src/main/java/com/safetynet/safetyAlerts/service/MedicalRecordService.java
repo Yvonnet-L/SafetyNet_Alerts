@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyAlerts.dao.MedicalRecordDao;
+import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 
 @Service
@@ -15,42 +16,48 @@ public class MedicalRecordService {
 	
 	private static Logger logger = LoggerFactory.getLogger(MedicalRecordService.class);
 
-	//private List<MedicalrecordModel> medicalrecords = new ArrayList<>();
+	StringUtilsService stringUtilsService = new StringUtilsService();
 	
 	@Autowired
 	private MedicalRecordDao medicalrecordDao;
 	
 	
-
-	public List<MedicalrecordModel> getMedicalrecords() {
-		
+	public List<MedicalrecordModel> getMedicalrecords() {	
 		logger.info("Traitement de la demande de recherche des MedicalRecords");
 		return medicalrecordDao.findAll();	
 	}
 
 	
 	
-	public List<MedicalrecordModel> findById(String firstname, String lastname) {
+	public List<MedicalrecordModel> findById(String firstName, String lastName) {
 		
-        if (firstname.isEmpty() || firstname.isBlank() || lastname.isEmpty() || lastname.isBlank()) {
-        	logger.info("** Recherche avortée, id non conforme: {} {}",firstname,lastname);
-        	return null;
-        }else {
-        	 logger.info("Lancement de la recherche pour  {} {}",firstname, lastname);
-        	return medicalrecordDao.findById(firstname, lastname);	
-        } 	     		
+		logger.info("Vérification de la validité du nom recherché: {} {}", firstName, lastName);
+			
+		if (!stringUtilsService.checkStringName(firstName) || !stringUtilsService.checkStringName(lastName) ) {
+			throw new DataNotConformException("Nom de recherche non conforme !!");
+		} else {
+			logger.info("-> {} {} est conforme", firstName, lastName);
+			logger.info("-->Lancement de la recherche !");
+			return medicalrecordDao.findById(firstName, lastName);	
+		}
+			     		
 	}
 
 	 
 	public MedicalrecordModel save(MedicalrecordModel medicalrecord) {
 		 
-		 if (medicalrecord != null) {
-			 logger.info("Traitement de la demande de création du MedicalRecord: {}", medicalrecord);
-			 return medicalrecordDao.save(medicalrecord);
-		 }else {
-			 logger.info("--> Création avortée, format non conforme");
-			 return medicalrecord;
-		 }   	
+		Boolean firstNameOk = false, lastNameOk = false;
+		
+		if(medicalrecord.getFirstName() != null ) {firstNameOk= stringUtilsService.checkStringAddress(medicalrecord.getFirstName()); 
+		}
+		if(medicalrecord.getLastName() != null ) {lastNameOk= stringUtilsService.checkStringAddress(medicalrecord.getLastName()); 
+		}
+		
+		if (firstNameOk & lastNameOk) {			
+			logger.info("Lancement création du medicalRecord");
+			medicalrecordDao.save(medicalrecord);
+			return medicalrecord;
+		}else throw new DataNotConformException("** Données entrantes non conformes sur les noms");
      }
 	
 

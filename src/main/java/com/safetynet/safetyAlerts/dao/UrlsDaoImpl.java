@@ -55,14 +55,16 @@ public class UrlsDaoImpl implements UrlsDao {
 			int nbAdult = 0;
 			int nbChild = 0;
 			for (PersonModel p : persons) {
-				if (p.getFirestation().equals(stationNumber)) {
-					PersonStation personStation = new PersonStation(p.getFirstName(), p.getLastName(), p.getAddress(),
-							p.getCity(), p.getZip(), p.getPhone());
-					personsStation.add(personStation);
-					if (p.getAge() > 18) {
-						nbAdult++;
-					} else {
-						nbChild++;
+				if(p.getFirestation() != null) {
+					if (p.getFirestation().equals(stationNumber)) {
+						PersonStation personStation = new PersonStation(p.getFirstName(), p.getLastName(), p.getAddress(),
+								p.getCity(), p.getZip(), p.getPhone());
+						personsStation.add(personStation);
+						if (p.getAge() > 18) {
+							nbAdult++;
+						} else {
+							nbChild++;
+						}
 					}
 				}
 			}
@@ -112,16 +114,18 @@ public class UrlsDaoImpl implements UrlsDao {
 			List<PhoneNumber> phoneList = new ArrayList<>();
 
 			for (PersonModel p : persons) {
-				if (p.getFirestation().equals(firestationNumber)) {
-					PhoneNumber phoneNumber = new PhoneNumber();
-					phoneNumber.setNumber(p.getPhone());
-					if (phoneNumber != null) {
-						phoneList.add(phoneNumber);
+				if(p.getFirestation()!=null) {
+					if (p.getFirestation().equals(firestationNumber)) {
+						PhoneNumber phoneNumber = new PhoneNumber();
+						phoneNumber.setNumber(p.getPhone());
+						if (phoneNumber != null) {
+							phoneList.add(phoneNumber);
+						}
 					}
 				}
 			}
 			phoneAlert.setPhoneList(phoneList);
-			logger.info("--> Téléphone(s) trouvé(s) for station n°{}: {}", firestationNumber, phoneList);
+			logger.info("--> Téléphone(s) trouvé(s) par station n°{}: {}", firestationNumber, phoneList);
 			return phoneAlert;	
 	}
 
@@ -171,8 +175,10 @@ public class UrlsDaoImpl implements UrlsDao {
 			Set<String> hsetAddress = new HashSet<>();
 
 			for (PersonModel p : persons) {
-				if (p.getFirestation().equals(station)) {
-					hsetAddress.add(p.getAddress());
+				if(p.getFirestation()!=null) {
+					if (p.getFirestation().equals(station)) {
+						hsetAddress.add(p.getAddress());
+					}
 				}
 			}
 			logger.info("nunber of address find by station: {} address:", hsetAddress.size());

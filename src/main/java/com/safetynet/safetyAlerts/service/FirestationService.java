@@ -9,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyAlerts.dao.FirestationDao;
-import com.safetynet.safetyAlerts.exceptions.PersonIntrouvableException;
+import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @Service
 public class FirestationService {
 
-	
 	private static Logger logger = LoggerFactory.getLogger(FirestationService.class);
+	
+	StringUtilsService stringUtilsService = new StringUtilsService();
 	
 	@Autowired
 	private FirestationDao firestationDao;
@@ -45,23 +46,38 @@ public class FirestationService {
 
 
 	public List<FirestationModel> updateFirestation(FirestationModel firestation){
-		List<FirestationModel> firesList= new ArrayList<>();	
-		if (firestation != null) {
-			if (firestation.getAddress() != null) {
-			logger.info( "Lancement de la mise à jour !");
-			firesList = firestationDao.put(firestation);
-			}
-		}
-		else {			
-			logger.info( "** Attention adress non conforme !");
-		}	
-		return firesList;			
+		
+		List<FirestationModel> firesList= new ArrayList<>();
+		
+			if (firestation.getAddress() != null) { 
+				if (stringUtilsService.checkStringAddress(firestation.getAddress())) {
+					logger.info( "Lancement de la mise à jour !");
+					firesList = firestationDao.put(firestation);
+					return firesList;
+				}else {			
+					throw new DataNotConformException("*** Création avortée, adresse non conforne");
+				}	
+			}else throw new DataNotConformException("*** Création avortée, adresse nulle");
+			
 	}
 
 
 	public FirestationModel addFirestation(FirestationModel firestation) {
-		logger.info("Lancement de la mise à jour de la FireStation");
-		firestationDao.save(firestation);
-		return firestation;
-	}
+			
+		Boolean stationOk= false, addressOk = false;
+		
+		if(firestation.getStation() != null ) {stationOk = stringUtilsService.checkStringAddress(firestation.getStation()); 
+		}
+		if(firestation.getAddress() != null ) {addressOk = stringUtilsService.checkStringAddress(firestation.getAddress());
+		}	
+			
+			if ( (stationOk & addressOk) || (addressOk)){			
+				logger.info("Lancement création de la FireStation");
+				firestationDao.save(firestation);
+				return firestation;
+			}else throw new DataNotConformException("** Données entrantes non conformes");
+		
+		}
+		
+	
 }

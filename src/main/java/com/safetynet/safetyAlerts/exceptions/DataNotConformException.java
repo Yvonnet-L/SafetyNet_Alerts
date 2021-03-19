@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.safetynet.safetyAlerts.dao.PersonDaoImpl;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-public class PersonIntrouvableException extends RuntimeException {
-	
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class DataNotConformException extends RuntimeException {
+
 	private static Logger logger = LoggerFactory.getLogger(PersonDaoImpl.class);
 
 	private static final long serialVersionUID = 6537093403090596706L;
-	public PersonIntrouvableException(String message) {
-        super(message);
-        logger.info("--> Aucune personne trouvée !");
-    }
 	
+	public DataNotConformException(String message) {
+		super(message);        
+        logger.info("--> " + message);
+    }
 }

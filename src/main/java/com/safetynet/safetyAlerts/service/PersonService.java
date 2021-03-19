@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyAlerts.dao.PersonDao;
+import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
+import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 
 @Service
@@ -30,51 +32,65 @@ public class PersonService {
 
 	public List<PersonModel> findById(String lastName) throws Exception {
 		
-		boolean nameOk = stringUtilsService.checkStringName(lastName);
-		logger.info("Vérification de la validité du nom recherché: {} est {}", lastName, nameOk);
+		logger.info("Vérification de la validité du nom recherché: {}", lastName);
 		
-		if (!nameOk) {
-			logger.info("** Recherche avortée, id non conforme: {}", lastName);
-			return null;
+		if (!stringUtilsService.checkStringName(lastName)) {
+			throw new DataNotConformException("Nom de recherche non conforme !!");
 		} else {
-			logger.info("Lancement de la recherche pour {}", lastName);
+			logger.info("-> {} est conforme", lastName);
+			logger.info("-->Lancement de la recherche !");
 			return personDao.findById(lastName);
 		}
 
 	}
+	public PersonModel addPerson(PersonModel person) {
+		
+		Boolean namesOk = personTestNames(person);
 
-	public PersonModel save(PersonModel person) {
-
-		if ((stringUtilsService.checkStringName(person.getFirstName())) & 
-				(stringUtilsService.checkStringName(person.getLastName()))) {
+		if (namesOk){
 			logger.info("Traitement de la demande de création de la personne: {}", person);
 			return personDao.save(person);
-		} else {
-			logger.info("--> Création avortée, format non conforme");
-			return null;
-		}
+		} else throw new DataNotConformException("*** Création avortée, nom non conforme !");
+
 	}
 
 	public PersonModel put(PersonModel person) {
-
-		if ((person.getFirstName() != null) & (person.getLastName() != null)) {
+		
+		Boolean namesOk = personTestNames(person);
+	
+		if (namesOk) {	
 			logger.info("Traitement de la demande de modification de la personne: {}", person);
 			return personDao.put(person);
-		} else {
-			logger.info("--> Création avortée, format non conforme");
-			return null;
-		}
+		} else throw new DataNotConformException("*** Update avorté, format non conforme !");	
 	}
+		
 
 	public List<PersonModel> delete(PersonModel person) {
-		if (person != null) {
+		
+		Boolean namesOk = personTestNames(person);
+		
+		if (namesOk) {	
 			logger.info("Traitement de la demande de suppression de {}", person);
 			return personDao.delete(person);
-		} else {
-			logger.info("** Un problème du au format est survenu, suppression impossible pour {} !", person);
-			return null;
+		} else throw new DataNotConformException("*** Update avorté, format non conforme !");
+	}
+	
+	//--------------------** Utility method **--------------------------------------------------------
+	
+	public boolean personTestNames(PersonModel person) {
+		
+		Boolean firstNameOk = false, lastNameOk = false;
+		
+		if(person.getFirstName() != null ) { firstNameOk = stringUtilsService.checkStringAddress(person.getFirstName()); 
 		}
-
+		if(person.getLastName() != null ) { lastNameOk = stringUtilsService.checkStringAddress(person.getLastName()); 
+		}
+		
+		if (firstNameOk & lastNameOk ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

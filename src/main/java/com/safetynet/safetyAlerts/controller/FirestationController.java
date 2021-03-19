@@ -1,5 +1,6 @@
 package com.safetynet.safetyAlerts.controller;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.service.FirestationService;
@@ -32,16 +34,32 @@ public class FirestationController {
 	}
 
 	@PostMapping(value = "/firestation")
-	public FirestationModel addFirestation(@RequestBody FirestationModel firestation) {
-		firestationService.addFirestation(firestation);
-		return firestation;
+	public ResponseEntity<Void> addFirestation(@RequestBody FirestationModel firestation) {
+		
+		FirestationModel firestationModel = firestationService.addFirestation(firestation);
+		 if(firestationModel == null) {
+			 return ResponseEntity.noContent().build();
+		 }else {
+			 URI location = ServletUriComponentsBuilder
+					 .fromCurrentRequest()
+					 .path("/{lastName}")
+					 .buildAndExpand(firestationModel.getStation())
+					 .toUri();			 
+		 return ResponseEntity.created(location).build();
+		 }
 	}
 
 	@PutMapping(value = "/firestation")
-	public List<FirestationModel> upDateFirestation(@RequestBody FirestationModel firestation) {
-		List<FirestationModel> stationUpDate = new ArrayList<>();
-		stationUpDate = firestationService.updateFirestation(firestation);
-		return stationUpDate;
+	public ResponseEntity<List<FirestationModel>> upDateFirestation(@RequestBody FirestationModel firestation) {
+		
+		List<FirestationModel> stationsUpDate = new ArrayList<>();
+		stationsUpDate = firestationService.updateFirestation(firestation);
+		
+		if(stationsUpDate == null ) {
+			 return ResponseEntity.noContent().build();
+		 }else {
+			 return new ResponseEntity<>(stationsUpDate, HttpStatus.OK);
+		 }
 	}
 
 	@DeleteMapping(value = "/firestation")

@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.safetyAlerts.exceptions.DataExistException;
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 
@@ -42,13 +44,20 @@ public class FirestationDaoImpl implements FirestationDao {
 		
 		List<FirestationModel> fSelect = new ArrayList<>();
 		for (FirestationModel f : firestations) {
-			if (f.getStation().equals(firestation.getStation()) || f.getAddress().equals(firestation.getAddress())) {
-				fSelect.add(f);
+			if(firestation.getAddress()!=null) {
+				if ( f.getAddress().equals(firestation.getAddress())) {
+					fSelect.add(f);
+				}
+			}
+			if(firestation.getStation()!=null) {
+				if (firestation.getStation().equals(f.getStation())) {
+					fSelect.add(f);
+				}
 			}
 		}
 		if (fSelect.isEmpty()) {
-			logger.info("--> Aucune FireStation Supprimée avec id: {} ou adresse: {} !: {}", firestation.getStation(),
-					firestation.getAddress(), fSelect.toString());
+			throw new DataNotFoundException ("Aucune FireStation trouvée pour " + firestation.getStation() + " " + 
+												firestation.getAddress());
 		} else {
 			logger.info("--> Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
 					firestation.getAddress(), fSelect);
@@ -63,6 +72,11 @@ public class FirestationDaoImpl implements FirestationDao {
 	@Override
 	public FirestationModel save(FirestationModel firestation) {
 		
+		for (FirestationModel f : firestations) {			
+				if(f.getAddress().equals(firestation.getAddress())){
+					throw new DataExistException("*** Création impossible, cette adresse de fireStation existe déjà");	
+				}		
+		}
 		firestations.add(firestation);
 		logger.info("--> FireStation ajoutées: {}", firestation);
 		updateData();
@@ -75,21 +89,22 @@ public class FirestationDaoImpl implements FirestationDao {
 	public List<FirestationModel> put(FirestationModel firestation) {
 		
 		List<FirestationModel> stationUpDateList = new ArrayList<>();
-		if (firestation != null) {
+		
 			for (FirestationModel f : firestations) {
 				if (f.getAddress().equals(firestation.getAddress())) {
 					f.setStation(firestation.getStation());
 					stationUpDateList.add(f);
 				}
 			}
-		}
-		if(stationUpDateList.size()>0) {
-			logger.info("--> Liste des firestations mise à jour: {}", stationUpDateList);
+		
+		if(stationUpDateList.isEmpty()) {
+			throw new DataNotFoundException("** Adresse Non trouvée");
 		}else {
-			logger.info("--> Aucune firestation trouvée pour cette adresse", firestation.getAddress());
+			logger.info("--> Liste des firestations mise à jour: {}", stationUpDateList);
+			updateData();
+			return stationUpDateList;
 		}
-		updateData();
-		return stationUpDateList;
+		
 	}
 
 	

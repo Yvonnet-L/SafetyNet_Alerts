@@ -7,15 +7,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.safetyAlerts.exceptions.DataExistException;
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.AgeCalculService;
+import com.safetynet.safetyAlerts.service.StringUtilsService;
 
 @Repository
 public class PersonDaoImpl implements PersonDao {
 
 	private static Logger logger = LoggerFactory.getLogger(PersonDaoImpl.class);
+	
+	StringUtilsService stringUtilsService = new StringUtilsService();
 
 	public List<PersonModel> persons = new ArrayList<>();
 	public List<FirestationModel> firestations = new ArrayList<>();
@@ -31,6 +36,7 @@ public class PersonDaoImpl implements PersonDao {
 	public List<PersonModel> findById(String lastName) {
 
 		List<PersonModel> personFind = new ArrayList<>();
+		
 		for (PersonModel person : persons) {
 			if (person.getLastName().equals(lastName))
 				personFind.add(person);
@@ -38,85 +44,69 @@ public class PersonDaoImpl implements PersonDao {
 		if (personFind.size() > 0) {
 			logger.info("--> Liste des Personnes trouvées pour {}: {}", lastName, personFind);
 			return personFind;
-		} else {
-			logger.info("--> Aucune personne trouvée pour {}", lastName);
-			return null;
-		}
+		} else throw new DataNotFoundException("la person avec le nom " +  lastName + " n'existe pas !");
 	}
 
 	@Override
 	public PersonModel save(PersonModel person) {
 
-		PersonModel personSelect = null;
-	
 			for (PersonModel p : persons) {
 				if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
-					personSelect = p;
+					
+					throw new DataExistException("*** Création impossible une personne pour "+ person.getFirstName() +
+							" " + person.getLastName() + " existe déjà !");
 				}
 			}
-			if (personSelect == null) {
-				persons.add(person);
-				logger.info("-->  Personne crée : {}", person);
-				upDateData();
-				return person;
-			} else {
-				logger.info("*** Création impossible une personne pour {} {} est déjà existante !",
-						person.getFirstName(), person.getLastName());
-				return null;
-			}
-		
-
+			persons.add(person);
+			logger.info("-->  Personne crée : {}", person);
+			upDateData();
+			return person;
 	}
 
 	@Override
 	public List<PersonModel> delete(PersonModel person) {
 
 		List<PersonModel> personSelect = new ArrayList<PersonModel>();
-		if ((person.getFirstName().isBlank() || person.getLastName().isBlank())) {
-			return null;
-		} else {
+	
 			for (PersonModel p : persons) {
 				if (p.getFirstName().equals(person.getFirstName()) && p.getLastName().equals(person.getLastName())) {
 					personSelect.add(p);
 				}
 			}
-			persons.removeAll(personSelect);
+			
 			if (personSelect.isEmpty()) {
-				logger.info("--> Aucune Personne trouvée à ce nom {} {} !", person.getFirstName(),
-						person.getLastName());
+				throw new DataNotFoundException ("Aucune Personne trouvée au nom " +person.getFirstName() + " " + person.getLastName());
 			} else {
 				logger.info("--> Listes des Personnes Supprimées pour {} {}: {}", person.getFirstName(),
 						person.getLastName(), personSelect);
-				// upDateData();
+				persons.removeAll(personSelect);
+				upDateData();
 			}
 			return personSelect;
-		}
+		
 	}
 
 	@Override
 	public PersonModel put(PersonModel person) {
-		PersonModel personSelect = new PersonModel();
-		personSelect = null;
-		if ((person.getFirstName().isBlank() || person.getLastName().isBlank())) {
-			return null;
-		} else {
-			for (PersonModel p : persons) {
-				if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
-					person.setMedicalrecord(p.getMedicalrecord());
-					persons.set(persons.indexOf(p), person);
-					personSelect = p;
-				}
-			}
-			if (personSelect == null) {
-				logger.info("--> Personne Non trouvé pour {} {} !", person.getFirstName(), person.getLastName());
-				return null;
-			} else {
-				logger.info("--> Personne Modifiée: {} par {}", personSelect, person);				
-				upDateData();
-				return person;
-			}
-			
+		
+		List<PersonModel> listPersonFind = new ArrayList<PersonModel>();
+		for (PersonModel p : persons) {
+			if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
+				person.setMedicalrecord(p.getMedicalrecord());
+				persons.set(persons.indexOf(p), person);
+				logger.info("--> Personne Modifiée: {} par {}", p, person);				
+				listPersonFind.add(p);			
+			}			
 		}
+		
+		if(listPersonFind.isEmpty()) {
+			throw new DataNotFoundException("Personne Non trouvé pour " +person.getFirstName() + "  " + person.getLastName());		
+		}else {
+			logger.info("--> Personne mise à jour: {}", listPersonFind);
+			upDateData();
+			return person;
+		}
+		
 	}
 
 	
@@ -181,5 +171,7 @@ public class PersonDaoImpl implements PersonDao {
 		}
 		logger.info("----> Update terminé, données mises à jour !");
 	}
+	
+	
 
 }
