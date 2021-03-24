@@ -2,6 +2,7 @@ package com.safetynet.safetyAlerts.dao;
 
 import java.util.List;
 
+import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.model.dto.url1.PersonsCoveredByStationU1;
 import com.safetynet.safetyAlerts.model.dto.url2.ChildsWithParentsU2;
@@ -17,8 +18,6 @@ public interface UrlsDao {
 	
 	public ChildsWithParentsU2 allChildsByAdressWithParents(String adress);
 
-	public void setAllPersons(List<PersonModel> listPerson);
-
 	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber);
 
 	public PersonsListU4 PersonsByAdressWithStation(String address);
@@ -28,6 +27,10 @@ public interface UrlsDao {
 	public PersonsListU6 infoByPerson(String firstName, String lastName);
 
 	public MailsByCity allMailOfCity(String city);
+
+	public void setAllFireStations(List<FirestationModel> listFireStation);
+	
+	public void setAllPersons(List<PersonModel> listPerson);
 
 
 

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.service.PersonService;
 import com.safetynet.safetyAlerts.service.StringUtilsService;
@@ -30,75 +29,55 @@ public class PersonController {
 	
 	StringUtilsService nameValitaded = new StringUtilsService();
 	
-	
+	//--------------------------------------------------------------------------------------------------------
 	@GetMapping("/persons")
 	public List<PersonModel> getPersons() {
 		return personService.findAll();
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@GetMapping(value = "person/{lastName}")
 	public ResponseEntity<List<PersonModel>> findPersonsByLastName(@PathVariable("lastName") String lastName) throws Exception{	
 		
 			List<PersonModel> listPersons = new ArrayList<>();
 			listPersons = personService.findById(lastName);	
-			
-			if(listPersons == null) {
-				throw new DataNotFoundException("la person avec le nom " +  lastName + " n'existe pas !");	
-			}else {
-				return new ResponseEntity<>(listPersons, HttpStatus.OK);
-			}			
 		
-		
-	}
-
-	
-
+			return new ResponseEntity<>(listPersons, HttpStatus.OK);	
+	}	
+	//--------------------------------------------------------------------------------------------------------
 	@PostMapping(value = "/person")
 	public ResponseEntity<Void> ajouterPerson(@Validated @RequestBody PersonModel person) {
 		
 		 PersonModel personModel= personService.addPerson(person);
 
-		 if(personModel == null) {
-			 return ResponseEntity.noContent().build();
-		 }else {
 			 URI location = ServletUriComponentsBuilder
 					 .fromCurrentRequest()
 					 .path("/{lastName}")
 					 .buildAndExpand(personModel.getLastName())
 					 .toUri();			 
 		 return ResponseEntity.created(location).build();
-		 }
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@PutMapping(value = "/person")
 	public ResponseEntity<Void> modifierPersonrecord(@RequestBody PersonModel person) {
 		
 		 PersonModel personModel;
 		 personModel = personService.put(person);
-		
-		if(personModel == null) {
-			 return ResponseEntity.noContent().build();
-		 }else {			
-			 URI location = ServletUriComponentsBuilder
+					
+		 URI location = ServletUriComponentsBuilder
 					 .fromCurrentRequest()
 					 .path("/{lastName}")
 					 .buildAndExpand(personModel.getLastName())
-					 .toUri();
-		 
-			 return ResponseEntity.created(location).build();
-		 }
+					 .toUri();		 
+		return ResponseEntity.created(location).build();
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@DeleteMapping(value = "/person")
-	public ResponseEntity<String> supprimerPerson(@RequestBody PersonModel person) {
+	public ResponseEntity<List<PersonModel>> supprimerPerson(@RequestBody PersonModel person) {
 		
-			List<PersonModel> personModelList;
-		 personModelList = personService.delete(person);
-		
-		if(personModelList == null) {
-			 return ResponseEntity.noContent().build();
-		 }else {
-			 return new ResponseEntity<>("Personne supprimlée ! \n" + personModelList, HttpStatus.OK);	
-		 }
+		List<PersonModel> personModelList;
+		personModelList = personService.delete(person);
+	
+		return new ResponseEntity<>(personModelList, HttpStatus.OK);		 
 	}
+	//--------------------------------------------------------------------------------------------------------
 }

@@ -26,6 +26,7 @@ public class FirestationController {
 	@Autowired
 	private FirestationService firestationService;
 
+	//--------------------------------------------------------------------------------------------------------
 	@GetMapping("/firestations")
 	public List<FirestationModel> listeFirestations() {
 		List<FirestationModel> stations = new ArrayList<>();
@@ -33,40 +34,38 @@ public class FirestationController {
 		return stations;
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@PostMapping(value = "/firestation")
 	public ResponseEntity<Void> addFirestation(@RequestBody FirestationModel firestation) {
 		
 		FirestationModel firestationModel = firestationService.addFirestation(firestation);
-		 if(firestationModel == null) {
-			 return ResponseEntity.noContent().build();
-		 }else {
+		
 			 URI location = ServletUriComponentsBuilder
 					 .fromCurrentRequest()
 					 .path("/{lastName}")
 					 .buildAndExpand(firestationModel.getStation())
 					 .toUri();			 
 		 return ResponseEntity.created(location).build();
-		 }
+		
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@PutMapping(value = "/firestation")
 	public ResponseEntity<List<FirestationModel>> upDateFirestation(@RequestBody FirestationModel firestation) {
 		
 		List<FirestationModel> stationsUpDate = new ArrayList<>();
 		stationsUpDate = firestationService.updateFirestation(firestation);
-		
-		if(stationsUpDate == null ) {
-			 return ResponseEntity.noContent().build();
-		 }else {
-			 return new ResponseEntity<>(stationsUpDate, HttpStatus.OK);
-		 }
+	
+		return new ResponseEntity<>(stationsUpDate, HttpStatus.OK);
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@DeleteMapping(value = "/firestation")
-	public ResponseEntity<String> deleteFirestation(@RequestBody FirestationModel firestation) {
-		List<FirestationModel> fireList = new ArrayList<>();
+	public ResponseEntity<List<FirestationModel>> deleteFirestation(@RequestBody FirestationModel firestation) {
+		
+		List<FirestationModel> fireList = new ArrayList<>();	
 		fireList = firestationService.delete(firestation);
-		return new ResponseEntity<>("Firestation supprimlée !" + fireList, HttpStatus.OK);
+		
+		return new ResponseEntity<>(fireList, HttpStatus.OK);
 	}
-
 }

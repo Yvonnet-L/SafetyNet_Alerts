@@ -26,12 +26,13 @@ public class PersonDaoImpl implements PersonDao {
 	public List<FirestationModel> firestations = new ArrayList<>();
 	public List<MedicalrecordModel> medicalrecords = new ArrayList<>();
 
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<PersonModel> findAll() {
 		logger.info("--> Liste des Personnes trouvées : {}", persons);
 		return persons;
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<PersonModel> findById(String lastName) {
 
@@ -41,55 +42,58 @@ public class PersonDaoImpl implements PersonDao {
 			if (person.getLastName().equals(lastName))
 				personFind.add(person);
 		}
-		if (personFind.size() > 0) {
+		if (personFind.isEmpty()) {
+			throw new DataNotFoundException("la person avec le nom " +  lastName + " n'existe pas !");
+		} else {
 			logger.info("--> Liste des Personnes trouvées pour {}: {}", lastName, personFind);
 			return personFind;
-		} else throw new DataNotFoundException("la person avec le nom " +  lastName + " n'existe pas !");
+		}
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public PersonModel save(PersonModel person) {
 
-			for (PersonModel p : persons) {
-				if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
-					
-					throw new DataExistException("*** Création impossible une personne pour "+ person.getFirstName() +
-							" " + person.getLastName() + " existe déjà !");
-				}
+		for (PersonModel p : persons) {
+			if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
+				
+				throw new DataExistException("*** Création impossible une personne pour "+ person.getFirstName() +
+						" " + person.getLastName() + " existe déjà !");
 			}
-			persons.add(person);
-			logger.info("-->  Personne crée : {}", person);
-			upDateData();
-			return person;
+		}
+		persons.add(person);
+		logger.info("-->  Personne crée : {}", person);
+		upDateData();
+		return person;
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<PersonModel> delete(PersonModel person) {
 
 		List<PersonModel> personSelect = new ArrayList<PersonModel>();
 	
-			for (PersonModel p : persons) {
-				if (p.getFirstName().equals(person.getFirstName()) && p.getLastName().equals(person.getLastName())) {
-					personSelect.add(p);
-				}
+		for (PersonModel p : persons) {
+			if (p.getFirstName().equals(person.getFirstName()) && p.getLastName().equals(person.getLastName())) {
+				personSelect.add(p);
 			}
-			
-			if (personSelect.isEmpty()) {
-				throw new DataNotFoundException ("Aucune Personne trouvée au nom " +person.getFirstName() + " " + person.getLastName());
-			} else {
-				logger.info("--> Listes des Personnes Supprimées pour {} {}: {}", person.getFirstName(),
-						person.getLastName(), personSelect);
-				persons.removeAll(personSelect);
-				upDateData();
-			}
-			return personSelect;
+		}
+		
+		if (personSelect.isEmpty()) {
+			throw new DataNotFoundException ("Aucune Personne trouvée au nom " +person.getFirstName() + " " + person.getLastName());
+		} else {
+			logger.info("--> Listes des Personnes Supprimées pour {} {}: {}", person.getFirstName(),
+					person.getLastName(), personSelect);
+			persons.removeAll(personSelect);
+			upDateData();
+		}
+		return personSelect;
 		
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public PersonModel put(PersonModel person) {
 		
 		List<PersonModel> listPersonFind = new ArrayList<PersonModel>();
+		
 		for (PersonModel p : persons) {
 			if (p.getFirstName().equals(person.getFirstName()) & p.getLastName().equals(person.getLastName())) {
 				person.setMedicalrecord(p.getMedicalrecord());
@@ -105,13 +109,11 @@ public class PersonDaoImpl implements PersonDao {
 			logger.info("--> Personne mise à jour: {}", listPersonFind);
 			upDateData();
 			return person;
-		}
-		
+		}	
 	}
-
+	//--------------------------------------------------------------------------------------------------------
 	
-
-	// ******************** Set All **************************
+	//--------------------------** Set All **-----------------------------------------------------------------
 	
 	@Override
 	public void setAllPersons(List<PersonModel> listPerson) {
@@ -132,7 +134,7 @@ public class PersonDaoImpl implements PersonDao {
 
 	}
 
-	// ********************** updateData *****************************
+	//-------------------------** updateData  **-------------------------------------------------------------
 
 	@Override
 	public void upDateData() {
@@ -171,7 +173,5 @@ public class PersonDaoImpl implements PersonDao {
 		}
 		logger.info("----> Update terminé, données mises à jour !");
 	}
-	
-	
 
 }

@@ -1,6 +1,7 @@
 package com.safetynet.safetyAlerts.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.safetynet.safetyAlerts.dao.FirestationDao;
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class FirestationServiceTest {
 
-	@Autowired
-	public MockMvc mockMvc;
+	//@Autowired
+	//public MockMvc mockMvc;
 
 	@Autowired
 	FirestationDao firestationDao;
@@ -28,9 +29,6 @@ public class FirestationServiceTest {
 
 	@Test
 	public void getFirestationTest() throws Exception {
-		Thread.sleep(1500);
-		// GIVEN
-		// WHEN
 		// THEN 13
 		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
@@ -75,24 +73,17 @@ public class FirestationServiceTest {
 	}
 	
 	@Test
-	public void deleteFirestationWithJsonNullErrorTest() throws Exception {
+	public void deleteFirestationWithStationNotexistTest() throws Exception {
 
-		// GIVEN
-		FirestationModel firestationDelete = null;
-		// WHEN
-		// THEN 4
-		assertThat(firestationService.delete(firestationDelete).size()).isEqualTo(0);
-		//assertThrows(NullPointerException.class, () -> firestationService.delete(firestationDelete));
+		FirestationModel firestationDelete = new FirestationModel("stationNotExist", "addressNotExist");
+		assertThrows(DataNotFoundException.class, () -> firestationService.delete(firestationDelete));
 	}
 	
 	@Test
-	public void updateFirestationWithJsonNullErrorTest() throws Exception {
-			//GIVEN
-			FirestationModel firestationPut = null;
-			// WHEN
-			// THEN 4
-			assertThat(firestationService.updateFirestation(firestationPut).size()).isEqualTo(0);
-			//assertThrows(NullPointerException.class, () -> firestationService.delete(firestationDelete));
-		}
+	public void updateFirestationWithAddressNotexistTest() throws Exception {
+			
+		FirestationModel firestationPut =  new FirestationModel("stationNotExist", "addressNotExist");;
+		assertThrows(DataNotFoundException.class, () -> firestationService.updateFirestation(firestationPut));	
+	}
 
 }

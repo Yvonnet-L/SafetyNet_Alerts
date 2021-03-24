@@ -2,12 +2,15 @@ package com.safetynet.safetyAlerts.service;
 
 
 	import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.PersonModel;
 
 		@SpringBootTest
@@ -33,7 +36,7 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 			public void postPersonTest() throws Exception {
 				PersonModel personPost = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
 						"telTest 02 02 02 02","test@test.com",15);;
-				assertThat(personService.save(personPost));	
+				assertThat(personService.addPerson(personPost));	
 			}
 			
 
@@ -41,14 +44,14 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 			public void postPersonWithSpaceTest() throws Exception {		
 				PersonModel personPost = new PersonModel(" ", " ", "address Test", "CityTest", 10000,
 						"telTest 02 02 02 02","test@test.com",15);
-				assertThat(personService.save(personPost));	
+				assertThrows(DataNotConformException.class, () -> personService.addPerson(personPost));
 			}
 			
 			@Test
-			public void putPersonTest() throws Exception {
+			public void putPersonTestNotExist() throws Exception {
 				PersonModel personPut = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);;
-				assertThat(personService.put(personPut));	
+						"telTest 02 02 02 02","test@test.com",15);
+				assertThrows(DataNotFoundException.class, () -> personService.put(personPut));
 			}
 			
 			@Test
@@ -60,10 +63,10 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 
 			
 			@Test
-			public void deletePersonWithJsonNullErrorTest() throws Exception {
+			public void deletePersonWithJsonNotConformTest() throws Exception {
 				PersonModel personDelete = new PersonModel(" ", " ", "address Test2", "CityTest", 10000,
 						"telTest 02 02 02 02","test@test.com",15);
-				assertThat(personService.delete(personDelete));
+				assertThrows(DataNotConformException.class, () -> personService.delete(personDelete));
 			}
 	
 }

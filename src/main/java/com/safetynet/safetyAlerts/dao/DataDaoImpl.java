@@ -64,6 +64,7 @@ public class DataDaoImpl implements DataDao {
 			fireStationDao.setAllPersons(listPerson);
 			
 			urlsDao.setAllPersons(listPerson);
+			urlsDao.setAllFireStations(listFireStation);
 
 			upDateData();
 

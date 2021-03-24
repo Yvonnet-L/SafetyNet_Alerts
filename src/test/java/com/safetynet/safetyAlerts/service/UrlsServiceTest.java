@@ -1,7 +1,7 @@
 package com.safetynet.safetyAlerts.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
+
 @SpringBootTest
-@AutoConfigureMockMvc
 public class UrlsServiceTest {
 
 	
@@ -19,8 +20,8 @@ public class UrlsServiceTest {
 	
 	
 	@Test
-	public void allPersonCoveredByOneStationWithStationNotExistTest() throws Exception {
-		assertTrue(urlsService.allPersonCoveredByOneStation("StationNotExist").getPerson().isEmpty());
+	public void allPersonCoveredByOneStationWithStationNotExistTest() throws Exception {		
+		assertThrows(DataNotFoundException.class, () ->  urlsService.allPersonCoveredByOneStation("StationNotExist"));
 	}
 	
 	@Test
@@ -37,30 +38,30 @@ public class UrlsServiceTest {
 	@Test
 	public void PhoneNumbersForStationTest() throws Exception {
 		assertFalse(urlsService.PhoneNumbersForStation("4").getPhoneList().isEmpty());
-		assertTrue(urlsService.PhoneNumbersForStation("StationNotExist").getPhoneList().isEmpty());
+		assertThrows(DataNotFoundException.class, () -> urlsService.PhoneNumbersForStation("StationNotExist"));
 	}
 	
 	@Test
 	public void PersonsByAdressWithStationTest() throws Exception {
 		assertFalse(urlsService.PersonsByAdressWithStation("892 Downing Ct").getPersons().isEmpty());
-		assertTrue(urlsService.PersonsByAdressWithStation("Address Not Exist").getPersons().isEmpty());
+		assertThrows(DataNotFoundException.class, () -> urlsService.PersonsByAdressWithStation("Address Not Exist"));
 	}
 	
 	@Test
 	public void FamilystByAdressWithStationTest() throws Exception {
 		assertFalse(urlsService.FamilystByAdressWithStation("4").getPersonsListU5().isEmpty());
-		assertTrue(urlsService.FamilystByAdressWithStation("StationNotExist").getPersonsListU5().isEmpty());
+		assertThrows(DataNotFoundException.class, () -> urlsService.FamilystByAdressWithStation("StationNotExist"));
 	}
 	
 	@Test
 	public void infoByPersonTest() throws Exception {
 		assertFalse(urlsService.infoByPerson("Shawna","Stelzer").getPersons().isEmpty());
-		assertTrue(urlsService.infoByPerson("firstNameNoExist","lastNameNoExist").getPersons().isEmpty());
+		assertThrows(DataNotFoundException.class, () -> urlsService.infoByPerson("firstNameNoExist","lastNameNoExist"));
 	}
 	
 	@Test
 	public void allMailOfCityTest() throws Exception {
 		assertFalse(urlsService.allMailOfCity("Culver").getMails().isEmpty());
-		assertTrue(urlsService.allMailOfCity("CityNoExist").getMails().isEmpty());
+		assertThrows(DataNotFoundException.class, () -> urlsService.allMailOfCity("CityNoExist"));
 	}
 }

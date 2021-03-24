@@ -11,9 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +48,20 @@ import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
 		@Autowired
 		MedicalRecordService medicalRecordService;
-
+		
+		MedicalrecordModel medicalrecord;
+		List<String> medications = new ArrayList<String>();
+		List<String> allergies = new ArrayList<String>();		
+		Date birthday = null;
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	  		
+		@BeforeEach	
+		public void init() throws Exception {		
+			  String stringBirthday = "01/01/2001";
+			  birthday = simpleDateFormat.parse(stringBirthday);
+			  medicalrecord = new MedicalrecordModel("firstNameTestC", "lastNameTestC", birthday, medications, allergies);
+		}
+		
 		@Test
 		public void getMedicalrecordsTest() throws Exception {		
 			mockMvc.perform(get("/medicalrecords")).andExpect(status().isOk());	
@@ -58,64 +75,46 @@ import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
 		@Test
 		public void getMedicalrecordByIdWithEspaceTest() throws Exception {
-			mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isNotFound());
+			mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isBadRequest());
 		}
 		
 		
 		@Test
 		public void addMedicalrecordTest() throws Exception {
-			List<String> medications = null;
-			List<String> allergies = null;
-			Date birthday = null; 
 			
-		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		    String stringBirthday="01/01/2021";
-		    birthday = simpleDateFormat.parse(stringBirthday);
-			MedicalrecordModel medicalrecordToCreate = new MedicalrecordModel("firstNameTest", "lastNameTest", birthday, medications, allergies);
-
 			mockMvc.perform(post("/medicalrecord/")
 					.contentType("application/json")
 					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecordToCreate)))
-				.andExpect(status().isOk());
+					.content(objectMapper.writeValueAsString(medicalrecord)))
+				.andExpect(status().isCreated());
+			
+			medicalrecordDao.delete(medicalrecord);		
 		}
 
 
 		@Test
 		public void PutMedicalrecordTest() throws Exception {
+
+			medicalrecordDao.save(medicalrecord);
 			
-			List<String> medications = null;
-			List<String> allergies = null;		
-			Date birthday = null;
-
-		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		    String stringBirthday="01/01/2001";
-		    birthday = simpleDateFormat.parse(stringBirthday);
-			MedicalrecordModel medicalrecordUpDate = new MedicalrecordModel("firstName", "lastName", birthday, medications, allergies);
-
 			mockMvc.perform(put("/medicalrecord/")
 					.contentType("application/json")
 					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecordUpDate)))
-				.andExpect(status().isOk());		
+					.content(objectMapper.writeValueAsString(medicalrecord)))
+				.andExpect(status().isCreated());
+			
+			medicalrecordDao.delete(medicalrecord);
 		}
 
 		@Test
 		public void deleteMedicalrecordTest() throws Exception {
-		
-			List<String> medications = null;
-			List<String> allergies = null;		
-			Date birthday = null;
 
-		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		    String stringBirthday="01/01/2001";
-		    birthday = simpleDateFormat.parse(stringBirthday);
-			MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName", "lastName", birthday, medications, allergies);
-
+			medicalrecordDao.save(medicalrecord);
+			
 			mockMvc.perform(delete("/medicalrecord/")
 					.contentType("application/json")
 					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecordDelete)))
+					.content(objectMapper.writeValueAsString(medicalrecord)))
 				.andExpect(status().isOk());		
 		}
 

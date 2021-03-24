@@ -36,31 +36,35 @@ public class FirestationControllerTest {
 
 	@Autowired
 	FirestationService firestationService;
+	
 
 	@Test
 	public void getFirestationsTest() throws Exception {
-		
+
 		mockMvc.perform(get("/firestations")).andExpect(status().isOk());	
 	}
 	
 	
 	@Test
 	public void addFirestationTest() throws Exception {
-
-		FirestationModel firestationToCreate = new FirestationModel("33", "at home");
+				
+		FirestationModel firestationToCreate = new FirestationModel("stationTest", "address Test");
 
 		mockMvc.perform(post("/firestation/")
 				.contentType("application/json")
 				.accept(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(firestationToCreate)))
-			.andExpect(status().isOk());
+			.andExpect(status().isCreated());		
 	}
 
 
 	@Test
 	public void PutFirestationTest() throws Exception {
 	
-		FirestationModel firestationToUpDate = new FirestationModel("333", "at home");
+		FirestationModel firestationToCreate = new FirestationModel("stationTest", "address Test");
+		firestationDao.save(firestationToCreate);
+
+		FirestationModel firestationToUpDate = new FirestationModel("stationTest2", "address Test");
 
 		mockMvc.perform(put("/firestation/")
 				.contentType("application/json")
@@ -72,7 +76,7 @@ public class FirestationControllerTest {
 	@Test
 	public void deleteFirestationTest() throws Exception {
 	
-		FirestationModel firestationToDelete = new FirestationModel("333", "at home");
+		FirestationModel firestationToDelete = new FirestationModel("stationTest2", "address Test");
 
 		mockMvc.perform(delete("/firestation/")
 				.contentType("application/json")

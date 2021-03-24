@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyAlerts.model.FirestationModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 import com.safetynet.safetyAlerts.model.dto.url1.PersonStation;
 import com.safetynet.safetyAlerts.model.dto.url1.PersonsCoveredByStationU1;
@@ -32,23 +34,31 @@ public class UrlsDaoImpl implements UrlsDao {
 	private static Logger logger = LoggerFactory.getLogger(UrlsDaoImpl.class);
 
 	public List<PersonModel> persons = new ArrayList<>();
+	public List<FirestationModel> firestations = new ArrayList<>();
+	
+	//--------------------------** Set All **-----------------------------------------------------------------
+	//@Override
+	public void setAllFireStations(List<FirestationModel> listFirestation) {
+		logger.info("--> SetAllFire {}", listFirestation);
+		this.firestations = listFirestation; 
+
+		}
 
 	@Override
 	public void setAllPersons(List<PersonModel> listPerson) {
 		this.persons = listPerson;
 	}
 
-	// ----------------> Url - 1 <----------------------------------------
+	// ----------------> Url - 1 <---------------------------------------------------------------------------
 	@Override
 	public PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNumber) {
 		
-		StringUtilsService stringUtilsService = new StringUtilsService();
-		boolean nameStationBoolean = stringUtilsService.checkStringAddress(stationNumber);
-		logger.info("Résultat de la verification de la string {} est {}", stationNumber, nameStationBoolean);
+		if ( stationExist(stationNumber) == true ) {	
+			
+			StringUtilsService stringUtilsService = new StringUtilsService();
+			boolean nameStationBoolean = stringUtilsService.checkStringAddress(stationNumber);
+			logger.info("Résultat de la verification de la string {} est {}", stationNumber, nameStationBoolean);
 		
-		if (stationNumber.isBlank()) {
-			return null;
-		} else {
 			List<PersonStation> personsStation = new ArrayList<>();
 
 			PersonsCoveredByStationU1 personsCoveredByStation = new PersonsCoveredByStationU1();
@@ -78,41 +88,50 @@ public class UrlsDaoImpl implements UrlsDao {
 				logger.info("--> Aucune personne couverte par la FireStation {}", stationNumber);
 			}
 			return personsCoveredByStation;
-		}
+			
+		}else throw new DataNotFoundException ("*** " + stationNumber+" n'existe pas !");
 
 	}
 
-	// ----------------> Url - 2 <----------------------------------------
+	// ----------------> Url - 2 <---------------------------------------------------------------------------
 	@Override
-	public ChildsWithParentsU2 allChildsByAdressWithParents(String adress) {
+	public ChildsWithParentsU2 allChildsByAdressWithParents(String address) {
 
-		ChildsWithParentsU2 personsGroupFind = new ChildsWithParentsU2();
-		List<PersonWithAgeU2> childs = new ArrayList<>();
-		List<PersonWithAgeU2> parents = new ArrayList<>();
-
-		for (PersonModel p : persons) {
-
-			if (p.getAddress().equals(adress)) {
-				PersonWithAgeU2 person = new PersonWithAgeU2(p.getFirstName(), p.getLastName(), p.getAge());
-				if (p.getAge() > 18) {
-					parents.add(person);
-				} else
-					childs.add(person);
+		if( addressExist(address) ==true) {
+			
+			ChildsWithParentsU2 personsGroupFind = new ChildsWithParentsU2();
+			List<PersonWithAgeU2> childs = new ArrayList<>();
+			List<PersonWithAgeU2> parents = new ArrayList<>();
+			boolean addresseExist = false;
+			
+			for (PersonModel p : persons) {
+				if (p.getAddress().equals(address)) {
+					addresseExist = true;
+					PersonWithAgeU2 person = new PersonWithAgeU2(p.getFirstName(), p.getLastName(), p.getAge());
+					if (p.getAge() > 18) {
+						parents.add(person);
+					} else
+						childs.add(person);
+				}
 			}
-		}
-		personsGroupFind.setEnfants(childs);
-		personsGroupFind.setParents(parents);
-		logger.info("--> Liste des Personnes trouvées par {}: {}", adress, personsGroupFind);
-		return personsGroupFind;
+				personsGroupFind.setEnfants(childs);
+				personsGroupFind.setParents(parents);
+				logger.info("--> Liste des Personnes trouvées par {}: {}", address, personsGroupFind);
+				return personsGroupFind;
+			
+		} else throw new DataNotFoundException ("Aucune adresse trouvée pour " + address);
 	}
 
-	// ----------------> Url - 3 <----------------------------------------
+	// ----------------> Url - 3 <---------------------------------------------------------------------------
 	@Override
 	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber) {
 	
+		if ( stationExist(firestationNumber) == true ) {
+			
 			PhoneAlertU3 phoneAlert = new PhoneAlertU3();
 			List<PhoneNumber> phoneList = new ArrayList<>();
 
+			
 			for (PersonModel p : persons) {
 				if(p.getFirestation()!=null) {
 					if (p.getFirestation().equals(firestationNumber)) {
@@ -126,46 +145,54 @@ public class UrlsDaoImpl implements UrlsDao {
 			}
 			phoneAlert.setPhoneList(phoneList);
 			logger.info("--> Téléphone(s) trouvé(s) par station n°{}: {}", firestationNumber, phoneList);
-			return phoneAlert;	
+			return phoneAlert;
+			
+		}else throw new DataNotFoundException ("*** " + firestationNumber+" n'existe pas !");
 	}
 
-	// ----------------> Url - 4 <----------------------------------------
+	// ----------------> Url - 4 <---------------------------------------------------------------------------
 	@Override
 	public PersonsListU4 PersonsByAdressWithStation(String address) {
 
-		PersonsListU4 personsU4 = new PersonsListU4();
-		List<PersonU4> personU4List = new ArrayList<>();
-		PersonU4 personU4;
-		MedicalBackground medicalBackground;
-		String fireStation = null;
-		for (PersonModel p : persons) {
-			if (p.getAddress().equals(address)) {
-				personU4 = new PersonU4();
-				medicalBackground = new MedicalBackground();
-
-				personU4.setLastName(p.getLastName());
-				personU4.setPhone(p.getPhone());
-				personU4.setAge(p.getAge());
-
-				medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
-				medicalBackground.setMedications(p.getMedicalrecord().getMedications());
-				personU4.setMedicalBackground(medicalBackground);
-				fireStation = p.getFirestation();
-
-				personU4List.add(personU4);
+		if( addressExist(address) ==true) {
+		
+			PersonsListU4 personsU4 = new PersonsListU4();
+			List<PersonU4> personU4List = new ArrayList<>();
+			PersonU4 personU4;
+			MedicalBackground medicalBackground;
+			String fireStation = null;
+			for (PersonModel p : persons) {
+				if (p.getAddress().equals(address)) {
+					personU4 = new PersonU4();
+					medicalBackground = new MedicalBackground();
+	
+					personU4.setLastName(p.getLastName());
+					personU4.setPhone(p.getPhone());
+					personU4.setAge(p.getAge());
+	
+					medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
+					medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+					personU4.setMedicalBackground(medicalBackground);
+					fireStation = p.getFirestation();
+	
+					personU4List.add(personU4);
+				}
 			}
-		}
-		personsU4.setAddress(address);
-		personsU4.setFireStation(fireStation);
-		personsU4.setPersons(personU4List);
-		logger.info("--> Personnes trouvées pour l'adress  n°{}: {}", address, personU4List);
-		return personsU4;
+			personsU4.setAddress(address);
+			personsU4.setFireStation(fireStation);
+			personsU4.setPersons(personU4List);
+			logger.info("--> Personnes trouvées pour l'adress  n°{}: {}", address, personU4List);
+			return personsU4;
+			
+		} else throw new DataNotFoundException ("Aucune adresse trouvée pour " + address);
 	}
 
-	// ----------------> Url - 5 <----------------------------------------
+	// ----------------> Url - 5 <---------------------------------------------------------------------------
 	@Override
-	public FamilysListU5 FamilystByAdressWithStation(String station) {
+	public FamilysListU5 FamilystByAdressWithStation(String stationNumber) {
 	
+		if ( stationExist(stationNumber) == true ) {
+			
 			FamilysListU5 familysListU5 = new FamilysListU5();
 			List<FamilyU5> familyList = new ArrayList<>();
 			List<PersonU4> personsList = new ArrayList<>();
@@ -176,7 +203,7 @@ public class UrlsDaoImpl implements UrlsDao {
 
 			for (PersonModel p : persons) {
 				if(p.getFirestation()!=null) {
-					if (p.getFirestation().equals(station)) {
+					if (p.getFirestation().equals(stationNumber)) {
 						hsetAddress.add(p.getAddress());
 					}
 				}
@@ -205,13 +232,15 @@ public class UrlsDaoImpl implements UrlsDao {
 				familyU5.setPersons(personsList);
 				familyList.add(familyU5);
 			}
-			familysListU5.setFireStation(station);
+			familysListU5.setFireStation(stationNumber);
 			familysListU5.setPersonsListU5(familyList);
 			logger.info("--> Listes des personnes trouvées: {}", familysListU5);
 			return familysListU5;
+			
+		}else throw new DataNotFoundException ("*** " + stationNumber+" n'existe pas !");
 	}
 
-	// ----------------> Url - 6 <----------------------------------------
+	// ----------------> Url - 6 <---------------------------------------------------------------------------
 	@Override
 	public PersonsListU6 infoByPerson(String firstName, String lastName) {
 
@@ -219,9 +248,11 @@ public class UrlsDaoImpl implements UrlsDao {
 		List<PersonU6> infoPersonList = new ArrayList<>();
 		MedicalBackground medicalBackground = new MedicalBackground();
 		PersonU6 personU6;
+		boolean personExist = false;
 
 		for (PersonModel p : persons) {
 			if (p.getFirstName().equals(firstName) & p.getLastName().equals(lastName)) {
+				personExist = true;
 				personU6 = new PersonU6();
 				personU6.setFirstName(firstName);
 				personU6.setLastName(lastName);
@@ -237,26 +268,64 @@ public class UrlsDaoImpl implements UrlsDao {
 				infoPersonList.add(personU6);
 			}
 		}
-		infoPersons.setPersons(infoPersonList);
-		logger.info("--> Liste des Personnes trouvées par {} {}:  {}", firstName, lastName, infoPersons);
-		return infoPersons;
+		
+		if(personExist == true) {
+			infoPersons.setPersons(infoPersonList);
+			logger.info("--> Liste des Personnes trouvées par {} {}:  {}", firstName, lastName, infoPersons);
+			return infoPersons;
+			
+		} else throw new DataNotFoundException ("*** Cette personne " + firstName + " " + lastName + " n'existe pas !");
+		
 	}
 
-	// ----------------> Url - 7 <----------------------------------------
+	// ----------------> Url - 7 <---------------------------------------------------------------------------
 	@Override
 	public MailsByCity allMailOfCity(String city) {
 
 		MailsByCity mailsByCity = new MailsByCity();
 		Set<String> hsetMails = new HashSet<>();
+		boolean cityExist = false;
+		
 		for (PersonModel p : persons) {
 			if (p.getCity().equals(city)) {
+				cityExist = true;
 				hsetMails.add(p.getEmail());
 			}
 		}
-		logger.info("--> Liste des mails de toutes les Personnes de la ville {} : {}", city, hsetMails);
-		mailsByCity.setCity(city);
-		mailsByCity.setMails(hsetMails);
-		return mailsByCity;
+		if (cityExist == true) {
+			logger.info("--> Liste des mails de toutes les Personnes de la ville {} : {}", city, hsetMails);
+			mailsByCity.setCity(city);
+			mailsByCity.setMails(hsetMails);
+			return mailsByCity;
+			
+		}else throw new DataNotFoundException ("*** Cette ville " + city + " n'existe pas !");
+		
 	}
 
+	// ----------------> utility method <---------------------------------------------------------------------------
+	
+	public boolean stationExist (String stationNumber ) {
+	
+		boolean staExist = false;
+	
+		for (FirestationModel firestation : firestations) {
+			
+			if (stationNumber.equals(firestation.getStation())) {
+			staExist = true;
+			}
+		}
+		return staExist;
+	}	
+	// -------------------------------------------------------
+	public boolean addressExist (String address ) {
+		
+		boolean addExist = false;
+	
+		for (PersonModel person : persons) {
+			if (address.equals(person.getAddress())) {
+			addExist = true;
+			}
+		}
+		return addExist;
+	}	
 }

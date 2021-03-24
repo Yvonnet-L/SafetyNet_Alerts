@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
+import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 
 @Service
 public class FirestationService {
@@ -23,61 +24,66 @@ public class FirestationService {
 	private FirestationDao firestationDao;
 
 	
-	
+	//--------------------------------------------------------------------------------------------------------
 	public List<FirestationModel> getFirestations() {		
 		logger.info("Lancement de la recherche de toutes les FireStations");		
 		return firestationDao.findAll();	
 	}
 
-	
+	//--------------------------------------------------------------------------------------------------------
 	public List<FirestationModel> delete(FirestationModel firestation) {
-		List<FirestationModel> firesList = new ArrayList<>();
 		
-		if (firestation != null) {
+		List<FirestationModel> firesList = new ArrayList<>();
+		Boolean fireOk = firestationTestData(firestation);
+		
+		if (fireOk) {
 			logger.info( "Lancement de la suppression !");
-			firesList = firestationDao.deleteById(firestation);
-		}
-		else {
-			logger.info( "** Attention adress non conforme !"); 	
-			  			
-		}	
-		return firesList;		
+			return firesList = firestationDao.deleteById(firestation);
+		}else throw new DataNotConformException("*** Update avorté, adresse ou station non conforne");
+				
 	}
 
-
+	//--------------------------------------------------------------------------------------------------------
 	public List<FirestationModel> updateFirestation(FirestationModel firestation){
 		
+		Boolean fireOk = firestationTestData(firestation);		
 		List<FirestationModel> firesList= new ArrayList<>();
 		
-			if (firestation.getAddress() != null) { 
-				if (stringUtilsService.checkStringAddress(firestation.getAddress())) {
-					logger.info( "Lancement de la mise à jour !");
-					firesList = firestationDao.put(firestation);
-					return firesList;
-				}else {			
-					throw new DataNotConformException("*** Création avortée, adresse non conforne");
-				}	
-			}else throw new DataNotConformException("*** Création avortée, adresse nulle");
-			
+			if (fireOk) { 
+				logger.info( "Lancement de la mise à jour !");
+				firesList = firestationDao.put(firestation);
+				return firesList;
+			}else throw new DataNotConformException("*** Création avortée, adresse ou station non conforne");		
 	}
 
-
+	//--------------------------------------------------------------------------------------------------------
 	public FirestationModel addFirestation(FirestationModel firestation) {
 			
-		Boolean stationOk= false, addressOk = false;
+		Boolean fireOk = firestationTestData(firestation);
+				
+		if ( fireOk ) {			
+			logger.info("Lancement création de la FireStation");
+			firestationDao.save(firestation);
+			return firestation;
+		}else throw new DataNotConformException("** Données entrantes non conformes");
 		
-		if(firestation.getStation() != null ) {stationOk = stringUtilsService.checkStringAddress(firestation.getStation()); 
-		}
-		if(firestation.getAddress() != null ) {addressOk = stringUtilsService.checkStringAddress(firestation.getAddress());
-		}	
-			
-			if ( (stationOk & addressOk) || (addressOk)){			
-				logger.info("Lancement création de la FireStation");
-				firestationDao.save(firestation);
-				return firestation;
-			}else throw new DataNotConformException("** Données entrantes non conformes");
+	}
 		
-		}
-		
+	//--------------------** Utility method **--------------------------------------------------------
 	
+		public boolean firestationTestData(FirestationModel firestation) {
+			
+			Boolean stationOk = false, addressOk = false;
+			
+			if(firestation.getStation() != null ) { stationOk = stringUtilsService.checkStringStation(firestation.getStation()); 
+			}
+			if(firestation.getAddress() != null ) { addressOk = stringUtilsService.checkStringAddress(firestation.getAddress()); 
+			}
+			
+			if (stationOk & addressOk ) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 }

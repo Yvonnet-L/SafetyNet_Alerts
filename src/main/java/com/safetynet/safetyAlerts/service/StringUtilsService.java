@@ -6,15 +6,15 @@ public class StringUtilsService {
 
 	public boolean checkStringName(String string) {
 		
-		Pattern stringNamePattern = Pattern.compile("[a-zA-Z\\+\\-\\+]{1,100}");		
+		Pattern stringNamePattern = Pattern.compile("[a-zA-Z\\+\\-\\+]{2,100}");		
 		return stringNamePattern.matcher(string).matches();
 	}
 	
 	
-	public boolean checkStringAddress(String string) {
+	public boolean checkStringAddress(String address) {
 		
-		Pattern stringAddressPattern = Pattern.compile("[a-zA-Z0-9 \\t\\n\\x0B\\f\\r+\\.\\+\\'\\+]{1,250}");		
-		return stringAddressPattern.matcher(string).matches();
+		Pattern stringAddressPattern = Pattern.compile("[a-zA-Z0-9 \\t\\n\\x0B\\f\\r+\\.\\+\\'\\+]{2,250}");		
+		return stringAddressPattern.matcher(address).matches();
 	}
 
 

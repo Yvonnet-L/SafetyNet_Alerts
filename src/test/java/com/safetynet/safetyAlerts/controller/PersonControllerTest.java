@@ -54,36 +54,45 @@ public class PersonControllerTest {
 
 	@Test
 	public void getPersonByIdWithEspaceTest() throws Exception {
-		mockMvc.perform(get("/person/  ")).andExpect(status().isNotFound());
+		mockMvc.perform(get("/person/  ")).andExpect(status().isBadRequest());
 	}
 
 	@Test
 	public void addPersonTest() throws Exception {
 
-		PersonModel personToCreate = new PersonModel("firstNameP", "lastNameP", "address Test", "CityTest", 10000,
+		PersonModel personToCreate = new PersonModel("firstNameTest1", "lastNameTest1", "address Test", "CityTest", 10000,
 				"telTest 02 02 02 02", "test@test.com", 15);
 
 		mockMvc.perform(post("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(personToCreate))).andExpect(status().isCreated());
+		
+		personDao.delete(personToCreate);
 	}
 
 	@Test
 	public void PutPersonTest() throws Exception {
 
-		PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+		PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
 				"telTest 02 02 02 02", "test@test.com", 15);
+		
+		personDao.save(personUpDate);
+		
 		mockMvc.perform(put("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(personUpDate))).andExpect(status().isCreated());
+		
+		personDao.delete(personUpDate);
 	}
 
 	@Test
-	public void deletePersonTest() throws Exception {
-
-		PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
+	public void deletePersonTest() throws Exception {		
+		
+		PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
 				"telTest 02 02 02 02", "test@test.com", 15);
+		
+		personDao.save(personDelete);
 
 		mockMvc.perform(delete("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isNotFound());
+				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isOk());
 	}
 
 }

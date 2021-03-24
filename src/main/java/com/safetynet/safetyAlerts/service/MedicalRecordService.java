@@ -22,68 +22,78 @@ public class MedicalRecordService {
 	private MedicalRecordDao medicalrecordDao;
 	
 	
+	//--------------------------------------------------------------------------------------------------------	
 	public List<MedicalrecordModel> getMedicalrecords() {	
 		logger.info("Traitement de la demande de recherche des MedicalRecords");
 		return medicalrecordDao.findAll();	
 	}
 
-	
-	
+	//--------------------------------------------------------------------------------------------------------	
 	public List<MedicalrecordModel> findById(String firstName, String lastName) {
 		
-		logger.info("Vérification de la validité du nom recherché: {} {}", firstName, lastName);
-			
-		if (!stringUtilsService.checkStringName(firstName) || !stringUtilsService.checkStringName(lastName) ) {
-			throw new DataNotConformException("Nom de recherche non conforme !!");
-		} else {
-			logger.info("-> {} {} est conforme", firstName, lastName);
+		MedicalrecordModel medicalrecord = new MedicalrecordModel();
+		medicalrecord.setFirstName(firstName);
+		medicalrecord.setLastName(lastName);
+		Boolean namesOk = medicalRecordTestNames(medicalrecord);
+		//stringUtilsService.checkStringAddress(firstName) & stringUtilsService.checkStringAddress(firstName)
+		if ( namesOk ) {
+			logger.info("-> {} {} sont conforme", firstName, lastName);
 			logger.info("-->Lancement de la recherche !");
-			return medicalrecordDao.findById(firstName, lastName);	
-		}
-			     		
+			return medicalrecordDao.findById(firstName, lastName);		
+		} else throw new DataNotConformException("** Nom de recherche non conforme !!");			     		
 	}
 
-	 
-	public MedicalrecordModel save(MedicalrecordModel medicalrecord) {
+	//--------------------------------------------------------------------------------------------------------	 
+	public MedicalrecordModel addMedicalRecord(MedicalrecordModel medicalrecord) {
 		 
-		Boolean firstNameOk = false, lastNameOk = false;
+		Boolean namesOk = medicalRecordTestNames(medicalrecord);
 		
-		if(medicalrecord.getFirstName() != null ) {firstNameOk= stringUtilsService.checkStringAddress(medicalrecord.getFirstName()); 
-		}
-		if(medicalrecord.getLastName() != null ) {lastNameOk= stringUtilsService.checkStringAddress(medicalrecord.getLastName()); 
-		}
-		
-		if (firstNameOk & lastNameOk) {			
+		if (namesOk) {			
 			logger.info("Lancement création du medicalRecord");
 			medicalrecordDao.save(medicalrecord);
 			return medicalrecord;
 		}else throw new DataNotConformException("** Données entrantes non conformes sur les noms");
      }
 	
-
-	public MedicalrecordModel delete(MedicalrecordModel medicalrecord) {
+	//--------------------------------------------------------------------------------------------------------
+	public MedicalrecordModel deleteMedicalRecord(MedicalrecordModel medicalrecord) {
 		
-		if (medicalrecord != null) {
+		Boolean namesOk = medicalRecordTestNames(medicalrecord);
+		
+		if (namesOk) {
 			logger.info("Traitement de la demande de suppression de {}",medicalrecord);
 			return medicalrecordDao.delete(medicalrecord);
-		}else {
-			logger.info("** Un problème du au format est survenu, suppression impossible pour {} !",medicalrecord);
-			return null;
-		}
+		}else throw new DataNotConformException("** Données entrantes non conformes sur les noms,  suppression impossible !");
+		
 	}
-
 	
-	
-	public MedicalrecordModel put(MedicalrecordModel medicalrecord) {
-
-		if (medicalrecord != null) {
+	//--------------------------------------------------------------------------------------------------------	
+	public MedicalrecordModel upDateMedicalrecord(MedicalrecordModel medicalrecord) {
+		
+		Boolean namesOk = medicalRecordTestNames(medicalrecord);
+		
+		if (namesOk) {
 			logger.info("Traitement de la demande de mise à jour de {}",medicalrecord);
 			return medicalrecordDao.put(medicalrecord);
-		}else {
-			logger.info("** un problème du au format est survenu, maj impossible pour {} !",medicalrecord);
-			return null;
-		}	
+		}else throw new DataNotConformException("** Données entrantes non conformes sur les noms,  update impossible !");		
 	}
-
+	
+	//--------------------** Utility method **--------------------------------------------------------
+	
+	public boolean medicalRecordTestNames(MedicalrecordModel medicalrecord) {
+		
+		Boolean firstNameOk = false, lastNameOk = false;
+		
+		if(medicalrecord.getFirstName() != null ) { firstNameOk = stringUtilsService.checkStringAddress(medicalrecord.getFirstName()); 
+		}
+		if(medicalrecord.getLastName() != null ) { lastNameOk = stringUtilsService.checkStringAddress(medicalrecord.getLastName()); 
+		}
+		
+		if (firstNameOk & lastNameOk ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

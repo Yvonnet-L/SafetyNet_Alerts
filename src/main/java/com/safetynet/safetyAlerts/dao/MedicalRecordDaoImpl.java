@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.safetyAlerts.exceptions.DataExistException;
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
@@ -20,110 +21,102 @@ public class MedicalRecordDaoImpl implements MedicalRecordDao {
 	public List<MedicalrecordModel> medicalrecords = new ArrayList<>();
 	public List<PersonModel> persons = new ArrayList<>();
 
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<MedicalrecordModel> findAll() {
 		logger.info("--> Liste des MedicalRecords: {}", medicalrecords);
 		return medicalrecords;
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<MedicalrecordModel> findById(String firstName, String lastName) {
 
-		List<MedicalrecordModel> listResult = new ArrayList<>();
+		List<MedicalrecordModel> listResult = new ArrayList<MedicalrecordModel>();
 
 		for (MedicalrecordModel medicalrecord : medicalrecords) {
-			if (medicalrecord.getFirstName().equals(firstName) & medicalrecord.getLastName().equals(lastName)) {
+			if (firstName.equals(medicalrecord.getFirstName()) & lastName.equals(medicalrecord.getLastName())) {
 				listResult.add(medicalrecord);
 			}
 		}
-		if (listResult.size() > 0) {
-			logger.info("--> Liste des MedicalRecords par id {} {}: {}", firstName, lastName, listResult);
+		if (listResult.isEmpty()) {		
+			throw new DataNotFoundException("** Aucune personne trouvée pour " + firstName + " " + lastName);
+		} else {
+			logger.info("--> Liste des MedicalRecords pour {} {}: {}", firstName, lastName, listResult);
 			return listResult;
-		} else throw new DataNotFoundException("Aucune personne trouvée pour " + firstName + " " + lastName);		
-	}
-
-	
+		}
+	}	
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public MedicalrecordModel save(MedicalrecordModel medicalrecord) {
-		MedicalrecordModel medicalrecordSelect = null;
-		if ((medicalrecord.getFirstName().isBlank() || medicalrecord.getLastName().isBlank())) {
-			return medicalrecord;
-		} else {
+		
+		List<MedicalrecordModel> listMedic = new ArrayList<MedicalrecordModel>();
+		
 			for (MedicalrecordModel m : medicalrecords) {
-				if (m.getFirstName().equals(medicalrecord.getFirstName())
-						& m.getLastName().equals(medicalrecord.getLastName())) {
-					medicalrecordSelect = m;
+				if  ((medicalrecord.getFirstName().equals(m.getFirstName())) & (medicalrecord.getLastName().equals(m.getLastName()))) {
+					listMedic.add(m);
 				}
 			}
-			if (medicalrecordSelect == null) {
+			
+			if (listMedic.isEmpty()) {
 				medicalrecords.add(medicalrecord);
 				logger.info("--> MedicalRecord ajouté: {}", medicalrecord);
 				updateData();
 				return medicalrecord;
-			} else {
-				logger.info("*** Un MedicalRecord pour {} {} est déjà existant:  {} !", medicalrecord.getFirstName(),
-						medicalrecord.getLastName(), medicalrecordSelect);
-				return null;
-			}
-		}
+			} else throw new DataExistException("*** Un MedicalRecord à ce nom " + medicalrecord.getFirstName() + " " + 
+																		medicalrecord.getLastName() + " existe déjà !");	
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public MedicalrecordModel delete(MedicalrecordModel medicalrecord) {
-		MedicalrecordModel medicalrecordSelect = null;
-
-		if ((medicalrecord.getFirstName().isBlank() || medicalrecord.getLastName().isBlank())) {
-			return medicalrecord;
-		} else {
+		
+		List<MedicalrecordModel> listMedic = new ArrayList<MedicalrecordModel>();
+		
 			for (MedicalrecordModel m : medicalrecords) {
-				if (m.getFirstName().equals(medicalrecord.getFirstName())
-						& m.getLastName().equals(medicalrecord.getLastName())) {
-					medicalrecordSelect = m;
-				}
-			}
-
-			if (medicalrecordSelect == null) {
-				logger.info("--> Aucun MedicalRecord trouvé pour {} {} !", medicalrecord.getFirstName(),
-						medicalrecord.getLastName());
-				return null;
-			} else {
-				medicalrecords.remove(medicalrecordSelect);
-				logger.info("--> MedicalRecord supprimé pour {} {} !", medicalrecord.getFirstName(),
-						medicalrecord.getLastName());
-				updateData();
-				return medicalrecord;
+				if ((medicalrecord.getFirstName().equals(m.getFirstName())) & (medicalrecord.getLastName().equals(m.getLastName()))) {
+				listMedic.add(m);
 			}
 		}
+
+		if (listMedic.isEmpty()) {
+			throw new DataNotFoundException("** Aucune personne trouvée pour " + medicalrecord.getFirstName() + " " + medicalrecord.getLastName());
+		} else {
+			logger.info("--> MedicalRecord supprimé pour {} ", listMedic);
+			for (MedicalrecordModel m: listMedic) {
+				medicalrecords.remove(m);
+			}		
+			updateData();
+			return medicalrecord;
+		}
+		
 	}
 
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public MedicalrecordModel put(MedicalrecordModel medicalrecord) {
 
 		MedicalrecordModel medicalrecordSelect = new MedicalrecordModel();
 		medicalrecordSelect = null;
-		if ((medicalrecord.getFirstName().isBlank() || medicalrecord.getLastName().isBlank())) {
-			return medicalrecord;
-		} else {
+		
 			for (MedicalrecordModel m : medicalrecords) {
-				if (m.getFirstName().equals(medicalrecord.getFirstName())
-						& m.getLastName().equals(medicalrecord.getLastName())) {
+				if ((medicalrecord.getFirstName().equals(m.getFirstName())) & (medicalrecord.getLastName().equals(m.getLastName()))) {
 					medicalrecords.set(medicalrecords.indexOf(m), medicalrecord);
 					medicalrecordSelect = m;
 				}
 			}
 			if (medicalrecordSelect == null) {
-				logger.info("--> MédicalRecord Non trouvé pour {} {} !", medicalrecord.getFirstName(),
-						medicalrecord.getLastName());
+				throw new DataNotFoundException("Aucune personne trouvée pour " + medicalrecord.getFirstName() + " " + medicalrecord.getLastName());
 			} else {
-				logger.info("--> MédicalRecord de {} {} Modifié !", medicalrecord.getFirstName(),
-						medicalrecord.getLastName());
+				logger.info("--> MédicalRecord de {} {} Modifié !", medicalrecord.getFirstName(), medicalrecord.getLastName());
 				updateData();
 			}
 			return medicalrecord;
-		}
+		
 	}
 
-	// ************************* Set All ************************************
+	//--------------------------** Set All **-----------------------------------------------------------------
+	
 	@Override
 	public void setAllMedicalrecords(List<MedicalrecordModel> listMedicalrecord) {
 		logger.info("--> SetAllMedic {}", listMedicalrecord);
@@ -136,7 +129,7 @@ public class MedicalRecordDaoImpl implements MedicalRecordDao {
 		this.persons = listPerson;
 	}
 
-	// ******************** updateData  ***************************
+	//-------------------------** updateData  **-------------------------------------------------------------
 
 	@Override
 	public void updateData() {

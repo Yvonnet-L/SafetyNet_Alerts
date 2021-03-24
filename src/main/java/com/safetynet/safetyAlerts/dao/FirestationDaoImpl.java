@@ -31,6 +31,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	private List<PersonModel> persons = new ArrayList<>();
 	
 	
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<FirestationModel> findAll() {
 		
@@ -38,42 +39,37 @@ public class FirestationDaoImpl implements FirestationDao {
 		return firestations;
 	}
 
-	
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<FirestationModel> deleteById(FirestationModel firestation) {
 		
-		List<FirestationModel> fSelect = new ArrayList<>();
+		List<FirestationModel> fireSelect = new ArrayList<>();
+		
 		for (FirestationModel f : firestations) {
-			if(firestation.getAddress()!=null) {
-				if ( f.getAddress().equals(firestation.getAddress())) {
-					fSelect.add(f);
+				if ( (firestation.getStation().equals(f.getStation())) || (firestation.getAddress().contentEquals(f.getAddress())) ) {
+					fireSelect.add(f);
 				}
 			}
-			if(firestation.getStation()!=null) {
-				if (firestation.getStation().equals(f.getStation())) {
-					fSelect.add(f);
-				}
-			}
-		}
-		if (fSelect.isEmpty()) {
+				
+		if (fireSelect.isEmpty()) {
 			throw new DataNotFoundException ("Aucune FireStation trouvée pour " + firestation.getStation() + " " + 
 												firestation.getAddress());
 		} else {
 			logger.info("--> Liste des FireStations supprimées avec id: {} ou adresse: {} !: {}", firestation.getStation(),
-					firestation.getAddress(), fSelect);
-			firestations.removeAll(fSelect);
+					firestation.getAddress(), fireSelect);
+			firestations.removeAll(fireSelect);
 			updateData();
 		}
-		return fSelect;
+		return fireSelect;
 
 	}
 	
-
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public FirestationModel save(FirestationModel firestation) {
 		
 		for (FirestationModel f : firestations) {			
-				if(f.getAddress().equals(firestation.getAddress())){
+				if(firestation.getStation().equals(f.getAddress())){
 					throw new DataExistException("*** Création impossible, cette adresse de fireStation existe déjà");	
 				}		
 		}
@@ -84,14 +80,14 @@ public class FirestationDaoImpl implements FirestationDao {
 	}
 
 	
-	
+	//--------------------------------------------------------------------------------------------------------
 	@Override
 	public List<FirestationModel> put(FirestationModel firestation) {
 		
 		List<FirestationModel> stationUpDateList = new ArrayList<>();
 		
 			for (FirestationModel f : firestations) {
-				if (f.getAddress().equals(firestation.getAddress())) {
+				if (firestation.getAddress().equals(f.getAddress())) {
 					f.setStation(firestation.getStation());
 					stationUpDateList.add(f);
 				}
@@ -108,7 +104,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	}
 
 	
-	// *************** SET ALL FireStations / Persons  ********************
+	//--------------------------** Set All **-----------------------------------------------------------------
 	//@Override
 	public void setAllFireStations(List<FirestationModel> listFirestation) {
 		logger.info("--> SetAllFire {}", listFirestation);
@@ -123,7 +119,7 @@ public class FirestationDaoImpl implements FirestationDao {
 
 	}
 	
-	//******************** updateData  ***************************
+	//-------------------------** updateData  **-------------------------------------------------------------*
 	
 	@Override 
 	public void updateData() {
