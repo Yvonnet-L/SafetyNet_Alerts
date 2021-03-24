@@ -11,9 +11,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
@@ -50,8 +52,10 @@ public class MedicalRecordDaoTest {
 		medicalrecordList.add(medicalrecord1);
 		medicalrecordList.add(medicalrecord2);
 		medicalrecordList.add(medicalrecord3);
+		
+		
 		medicalrecordDao.setAllMedicalrecords(medicalrecordList);
-
+		
 		medicalrecord = new MedicalrecordModel("firstName4", "lastName", birthday, medications, allergies);
 		medicalrecordPut = new MedicalrecordModel("firstName3", "lastName", birthday, medications, allergies);
 	}

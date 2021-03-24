@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
@@ -22,7 +23,6 @@ public class FirestationServiceTest {
 
 	@Autowired
 	FirestationService firestationService;
-	
 
 
 	@Test
@@ -31,22 +31,11 @@ public class FirestationServiceTest {
 		assertThat(firestationService.getFirestations().size()).isEqualTo(13);
 	}
 
-	
-	@Test
-	public void postFirestationTest() throws Exception {
-
-		// GIVEN
-		FirestationModel firestationPost = new FirestationModel("66", "at home");
-		// WHEN
-		// THEN
-		assertThat(firestationService.addFirestation(firestationPost));
-	}
-
 	@Test
 	public void putFirestationByAddressTest() throws Exception {
 
 		// GIVEN
-		FirestationModel firestationPut = new FirestationModel("1", "644 Gershwin Cir");
+		FirestationModel firestationPut = new FirestationModel("3","1509 Culver St");
 		// WHEN
 		// THEN
 		assertThat(firestationService.updateFirestation(firestationPut).size()).isEqualTo(1);

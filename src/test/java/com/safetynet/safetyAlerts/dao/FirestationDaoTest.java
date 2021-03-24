@@ -22,54 +22,26 @@ public class FirestationDaoTest {
 	@Autowired
 	FirestationDao firestationDao;
 	
-	FirestationModel firestationPost = new FirestationModel("stationTest", "address Test");
-	List<FirestationModel> listFireStation = new ArrayList<>();
-	
-	@BeforeEach
-	private void init() {
-		FirestationModel firestation1 = new FirestationModel("Station1","address1");
-		FirestationModel firestation2 = new FirestationModel("Station2", "address2");
-		FirestationModel firestation3 = new FirestationModel("Station3", "address3");
-		FirestationModel firestation4 = new FirestationModel("Station4", "address4");
-		List<FirestationModel> listFireStationMock = new ArrayList<>();
-		listFireStationMock.add(firestation1);
-		listFireStationMock.add(firestation2);
-		listFireStationMock.add(firestation3);
-		listFireStationMock.add(firestation4);
-		
-		firestationDao.setAllFireStations(listFireStationMock);
-	}
-
 	@Test
 	public void findAllFirestationTest() throws Exception {
-
-		assertThat(firestationDao.findAll().size()).isEqualTo(4);
+		assertThat(firestationDao.findAll().size()).isEqualTo(13);
 	}
 	
 
 	@Test
 	public void postFirestationTest() throws Exception {
+		FirestationModel firestationPost = new FirestationModel("stationTest", "address Test");
 
 		int size = firestationDao.findAll().size();
-		firestationDao.save(firestationPost);
-		
-		assertThat(firestationDao.findAll().size()).isEqualTo(size+1);	
-	}
-	
-
-	@Test
-	public void postFirestationWithSpaceTest() throws Exception {
-		
-		FirestationModel firestationSpace = new FirestationModel(" ", " ");
-		firestationDao.save(firestationSpace);	
-		assertThrows(DataExistException.class, () -> firestationDao.save(firestationSpace));
-
+		firestationDao.save(firestationPost);		
+		assertThat(firestationDao.findAll().size()).isEqualTo(size+1);
+		firestationDao.deleteById(firestationPost);
 	}
 	
 	@Test
 	public void putFirestationTest() throws Exception {
 		
-		FirestationModel firestationPost = new FirestationModel("Station3", "address1");		
+		FirestationModel firestationPost = new FirestationModel("3","1509 Culver St");		
 		assertThat(firestationDao.put(firestationPost).size()).isEqualTo(1);
 		
 	}
@@ -77,7 +49,7 @@ public class FirestationDaoTest {
 	
 	@Test
 	public void deleteFirestationTest() throws Exception {
-		FirestationModel firestationDelete = new FirestationModel("stationDelete", "address Delete");
+		FirestationModel firestationDelete = new FirestationModel("stationDelete", "address Test");
 		firestationDao.save(firestationDelete);
 		int size = firestationDao.findAll().size();
 		firestationDao.deleteById(firestationDelete);
