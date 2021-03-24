@@ -1,7 +1,5 @@
 package com.safetynet.safetyAlerts.controller;
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,91 +28,79 @@ import com.safetynet.safetyAlerts.dao.MedicalRecordDao;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
-	@AutoConfigureMockMvc
-	@RunWith(SpringRunner.class)
-	@SpringBootTest
-	public class MedicalrecordControllerTest {
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class MedicalrecordControllerTest {
 
-		@Autowired
-		private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-		@Autowired
-		private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-		@Autowired
-		MedicalRecordDao medicalrecordDao;
+	@Autowired
+	MedicalRecordDao medicalrecordDao;
 
-		@Autowired
-		MedicalRecordService medicalRecordService;
-		
-		MedicalrecordModel medicalrecord;
-		List<String> medications = new ArrayList<String>();
-		List<String> allergies = new ArrayList<String>();		
-		Date birthday = null;
-	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	  		
-		@BeforeEach	
-		public void init() throws Exception {		
-			  String stringBirthday = "01/01/2001";
-			  birthday = simpleDateFormat.parse(stringBirthday);
-			  medicalrecord = new MedicalrecordModel("firstNameTestC", "lastNameTestC", birthday, medications, allergies);
-		}
-		
-		@Test
-		public void getMedicalrecordsTest() throws Exception {		
-			mockMvc.perform(get("/medicalrecords")).andExpect(status().isOk());	
-		}
+	@Autowired
+	MedicalRecordService medicalRecordService;
 
-		@Test
-		public void getMedicalrecordByFirstNameAndLastNameTest() throws Exception {
-			mockMvc.perform(get("/medicalrecord/John Boyd"))
-					.andExpect(status().isOk()).andExpect(jsonPath("$[0].birthdate", is("02/01/1984")));
-		}
+	MedicalrecordModel medicalrecord;
+	List<String> medications = new ArrayList<String>();
+	List<String> allergies = new ArrayList<String>();
+	Date birthday = null;
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-		@Test
-		public void getMedicalrecordByIdWithEspaceTest() throws Exception {
-			mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isBadRequest());
-		}
-		
-		
-		@Test
-		public void addMedicalrecordTest() throws Exception {
-			
-			mockMvc.perform(post("/medicalrecord/")
-					.contentType("application/json")
-					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecord)))
-				.andExpect(status().isCreated());
-			
-			medicalrecordDao.delete(medicalrecord);		
-		}
+	@BeforeEach
+	public void init() throws Exception {
+		String stringBirthday = "01/01/2001";
+		birthday = simpleDateFormat.parse(stringBirthday);
+		medicalrecord = new MedicalrecordModel("firstNameTestC", "lastNameTestC", birthday, medications, allergies);
+	}
 
+	@Test
+	public void getMedicalrecordsTest() throws Exception {
+		mockMvc.perform(get("/medicalrecords")).andExpect(status().isOk());
+	}
 
-		@Test
-		public void PutMedicalrecordTest() throws Exception {
+	@Test
+	public void getMedicalrecordByFirstNameAndLastNameTest() throws Exception {
+		mockMvc.perform(get("/medicalrecord/John Boyd")).andExpect(status().isOk())
+				.andExpect(jsonPath("$[0].birthdate", is("02/01/1984")));
+	}
 
-			medicalrecordDao.save(medicalrecord);
-			
-			mockMvc.perform(put("/medicalrecord/")
-					.contentType("application/json")
-					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecord)))
-				.andExpect(status().isCreated());
-			
-			medicalrecordDao.delete(medicalrecord);
-		}
+	@Test
+	public void getMedicalrecordByIdWithEspaceTest() throws Exception {
+		mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isBadRequest());
+	}
 
-		@Test
-		public void deleteMedicalrecordTest() throws Exception {
+	@Test
+	public void addMedicalrecordTest() throws Exception {
 
-			medicalrecordDao.save(medicalrecord);
-			
-			mockMvc.perform(delete("/medicalrecord/")
-					.contentType("application/json")
-					.accept(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(medicalrecord)))
-				.andExpect(status().isOk());		
-		}
+		mockMvc.perform(post("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isCreated());
 
-	
+		medicalrecordDao.delete(medicalrecord);
+	}
+
+	@Test
+	public void PutMedicalrecordTest() throws Exception {
+
+		medicalrecordDao.save(medicalrecord);
+
+		mockMvc.perform(put("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isCreated());
+
+		medicalrecordDao.delete(medicalrecord);
+	}
+
+	@Test
+	public void deleteMedicalrecordTest() throws Exception {
+
+		medicalrecordDao.save(medicalrecord);
+
+		mockMvc.perform(delete("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isOk());
+	}
+
 }

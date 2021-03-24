@@ -16,7 +16,6 @@ import com.safetynet.safetyAlerts.exceptions.DataExistException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class FirestationDaoTest {
 
 

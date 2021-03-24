@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.safetynet.safetyAlerts.dao.UrlsDao;
+import com.safetynet.safetyAlerts.model.dto.url1.PersonsCoveredByStationU1;
 import com.safetynet.safetyAlerts.service.UrlsService;
 
 @AutoConfigureMockMvc
@@ -28,6 +29,8 @@ public class UrlsControllerTest {
 
 	@Autowired
 	UrlsService medicalRecordService;
+	
+	PersonsCoveredByStationU1 personsCoveredByStation = new PersonsCoveredByStationU1();
 	
 	// ----> U1 ----------------------------------------------------------------------------------------------
 	@Test
