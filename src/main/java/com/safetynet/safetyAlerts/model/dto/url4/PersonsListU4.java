@@ -35,4 +35,14 @@ public class PersonsListU4 {
 	public void setPersons(List<PersonU4> persons) {
 		this.persons = persons;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonsListU4 [address=" + address + ", fireStation=" + fireStation + ", persons=" + persons + "]";
+	}
+	
+	
+	
 }
+
+

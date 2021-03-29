@@ -27,4 +27,11 @@ public class MedicalBackground {
 	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
+
+	@Override
+	public String toString() {
+		return "MedicalBackground [medications=" + medications + ", allergies=" + allergies + "]";
+	}
+	
+	
 }

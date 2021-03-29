@@ -47,14 +47,15 @@ public class PersonControllerTest {
 	@Test
 	public void getPersonByFirstNameAndLastNameTest() throws Exception {
 		mockMvc.perform(get("/person/Boyd"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].address", is("1509 Culver St")));
+					.andExpect(status().isOk())
+					.andExpect(jsonPath("$[0].address", is("1509 Culver St")));
 		
 	}
 
 	@Test
 	public void getPersonByIdWithEspaceTest() throws Exception {
-		mockMvc.perform(get("/person/  ")).andExpect(status().isBadRequest());
+		mockMvc.perform(get("/person/  "))	
+					.andExpect(status().isBadRequest());
 	}
 
 	@Test
@@ -63,10 +64,26 @@ public class PersonControllerTest {
 		PersonModel personToCreate = new PersonModel("firstNameTest1", "lastNameTest1", "address Test", "CityTest", 10000,
 				"telTest 02 02 02 02", "test@test.com", 15);
 
-		mockMvc.perform(post("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personToCreate))).andExpect(status().isCreated());
+		mockMvc.perform(post("/person/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personToCreate)))	
+			.andExpect(status().isCreated());
 		
 		personDao.delete(personToCreate);
+	}
+	
+	@Test
+	public void addPersonTestWithPersonNull() throws Exception {
+
+		PersonModel personToCreate = null;
+
+		mockMvc.perform(post("/person/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personToCreate)))	
+			.andExpect(status().isBadRequest());
+
 	}
 
 	@Test
@@ -77,8 +94,11 @@ public class PersonControllerTest {
 		
 		personDao.save(personUpDate);
 		
-		mockMvc.perform(put("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personUpDate))).andExpect(status().isCreated());
+		mockMvc.perform(put("/person/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personUpDate)))
+			.andExpect(status().isCreated());
 		
 		personDao.delete(personUpDate);
 	}
@@ -91,8 +111,11 @@ public class PersonControllerTest {
 		
 		personDao.save(personDelete);
 
-		mockMvc.perform(delete("/person/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(personDelete))).andExpect(status().isOk());
+		mockMvc.perform(delete("/person/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(personDelete)))
+			.andExpect(status().isOk());
 	}
 
 }

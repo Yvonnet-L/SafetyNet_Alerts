@@ -11,11 +11,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
@@ -73,12 +71,12 @@ public class MedicalRecordDaoTest {
 
 	@Test
 	public void postFirestationTest() throws Exception {
-		assertThat(medicalrecordDao.save(medicalrecord));
+		assertThat(medicalrecordDao.save(medicalrecord)).isNotNull();
 	}
 
 	@Test
 	public void putMedicalrecordTest() throws Exception {
-		assertThat(medicalrecordDao.put(medicalrecordPut));
+		assertThat(medicalrecordDao.put(medicalrecordPut)).isNotNull();
 	}
 
 	@Test
@@ -88,7 +86,7 @@ public class MedicalRecordDaoTest {
 		Date birthday = null;
 		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName2", "lastName", birthday, medications,
 				allergies);
-		assertThat(medicalrecordDao.delete(medicalrecordDelete));
+		assertThat(medicalrecordDao.delete(medicalrecordDelete)).isNotNull();
 	}
 
 }

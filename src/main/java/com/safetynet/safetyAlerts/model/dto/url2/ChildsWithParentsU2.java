@@ -32,4 +32,12 @@ public class ChildsWithParentsU2 {
 	public void setParents(List<PersonWithAgeU2> parents) {
 		this.parents = parents;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ChildsWithParentsU2 [childs=" + childs + ", parents=" + parents + "]";
+	}
+	
+	
 }

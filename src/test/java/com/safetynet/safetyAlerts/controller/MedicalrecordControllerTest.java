@@ -60,36 +60,56 @@ public class MedicalrecordControllerTest {
 
 	@Test
 	public void getMedicalrecordsTest() throws Exception {
-		mockMvc.perform(get("/medicalrecords")).andExpect(status().isOk());
+		mockMvc.perform(get("/medicalrecords"))
+			.andExpect(status().isOk());
 	}
 
 	@Test
 	public void getMedicalrecordByFirstNameAndLastNameTest() throws Exception {
-		mockMvc.perform(get("/medicalrecord/John Boyd")).andExpect(status().isOk())
+		mockMvc.perform(get("/medicalrecord/John Boyd"))
+				.andExpect(status().isOk())
 				.andExpect(jsonPath("$[0].birthdate", is("02/01/1984")));
 	}
 
 	@Test
 	public void getMedicalrecordByIdWithEspaceTest() throws Exception {
-		mockMvc.perform(get("/medicalrecord/  ")).andExpect(status().isBadRequest());
+		mockMvc.perform(get("/medicalrecord/  "))
+			.andExpect(status().isBadRequest());
 	}
 
 	@Test
 	public void addMedicalrecordTest() throws Exception {
 
-		mockMvc.perform(post("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isCreated());
+		mockMvc.perform(post("/medicalrecord/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord)))
+			.andExpect(status().isCreated());
 
 		medicalrecordDao.delete(medicalrecord);
 	}
 
 	@Test
+	public void addMedicalrecordWithNullTest() throws Exception {
+
+		mockMvc.perform(post("/medicalrecord/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(null)))
+			.andExpect(status().isBadRequest());
+
+	}
+	
+	@Test
 	public void PutMedicalrecordTest() throws Exception {
 
 		medicalrecordDao.save(medicalrecord);
 
-		mockMvc.perform(put("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isCreated());
+		mockMvc.perform(put("/medicalrecord/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord)))
+			.andExpect(status().isCreated());
 
 		medicalrecordDao.delete(medicalrecord);
 	}
@@ -99,8 +119,11 @@ public class MedicalrecordControllerTest {
 
 		medicalrecordDao.save(medicalrecord);
 
-		mockMvc.perform(delete("/medicalrecord/").contentType("application/json").accept(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(medicalrecord))).andExpect(status().isOk());
+		mockMvc.perform(delete("/medicalrecord/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(medicalrecord)))
+			.andExpect(status().isOk());
 	}
 
 }

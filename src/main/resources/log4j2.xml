@@ -2,12 +2,23 @@
 <configuration status="OFF">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%highlight{%-5level} %-60c | - %msg (%F:%L)%n"/>
+             <PatternLayout pattern="[%t] %-5p | %-60c | %m (%F:%L)%n" />
         </Console>
+        
+        <RollingFile name="rollingFile" fileName="logs/logs.txt"
+                     filePattern="logs/logs-%d{yyyy-MM-dd}-%i.txt">
+            <PatternLayout pattern="[%t] %-10p | %-60c | %m (%F:%L)%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+        
     </appenders>
     <loggers>
         <root level="trace">
             <appender-ref ref="Console"/>
+            <AppenderRef ref="rollingFile" />
         </root>
     </loggers>
 </configuration>

@@ -7,16 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @SpringBootTest
 public class FirestationServiceTest {
-
-	//@Autowired
-	//public MockMvc mockMvc;
 
 	@Autowired
 	FirestationDao firestationDao;

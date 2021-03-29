@@ -56,6 +56,18 @@ public class FirestationControllerTest {
 				.content(objectMapper.writeValueAsString(firestationToCreate)))
 			.andExpect(status().isCreated());		
 	}
+	
+	@Test
+	public void addFirestationBadRequestWithNullTest() throws Exception {
+	
+		FirestationModel firestationToCreate = null;
+
+		mockMvc.perform(post("/firestation/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(firestationToCreate)))
+			.andExpect(status().isBadRequest());		
+	}
 
 
 	@Test
@@ -83,6 +95,18 @@ public class FirestationControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(firestationToDelete)))
 			.andExpect(status().isOk());		
+	}
+	
+	@Test
+	public void deleteFirestationBadRequestWithNullTest() throws Exception {
+	
+		FirestationModel firestationToDelete = null;
+
+		mockMvc.perform(delete("/firestation/")
+				.contentType("application/json")
+				.accept(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(firestationToDelete)))
+			.andExpect(status().isBadRequest());		
 	}
 
 }

@@ -61,4 +61,12 @@ public class PersonU6 {
 		this.medicalBackground = medicalBackground;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonU6 [firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", age=" + age
+				+ ", email=" + email + ", medicalBackground=" + medicalBackground + "]";
+	}
+
+	
+	
 }

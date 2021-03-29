@@ -10,12 +10,12 @@ import com.safetynet.safetyAlerts.dao.PersonDaoImpl;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class DataNotConformException extends RuntimeException {
 
-	private static Logger logger = LoggerFactory.getLogger(PersonDaoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(DataNotConformException.class);
 
 	private static final long serialVersionUID = 6537093403090596706L;
 	
 	public DataNotConformException(String message) {
 		super(message);        
-        logger.info("--> " + message);
+        logger.error("--> " + message);
     }
 }

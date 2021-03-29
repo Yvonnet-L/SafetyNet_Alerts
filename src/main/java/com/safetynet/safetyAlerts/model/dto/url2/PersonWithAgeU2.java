@@ -32,4 +32,11 @@ public class PersonWithAgeU2 {
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonWithAgeU2 [firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + "]";
+	}
+	
+	
 }

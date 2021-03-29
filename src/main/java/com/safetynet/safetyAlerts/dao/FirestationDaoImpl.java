@@ -15,14 +15,7 @@ import com.safetynet.safetyAlerts.model.PersonModel;
 @Repository
 public class FirestationDaoImpl implements FirestationDao {
 	
-	
-	PersonDao personDao;
-	
-	FirestationDao fireStationDao;
 
-	MedicalRecordDao medicalRecordsDao;
-	
-	DataDao dataDao;
 
 	private static Logger logger = LoggerFactory.getLogger(FirestationDaoImpl.class);
 

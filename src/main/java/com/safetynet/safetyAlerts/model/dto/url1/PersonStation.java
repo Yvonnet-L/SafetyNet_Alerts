@@ -64,5 +64,12 @@ public class PersonStation {
 	}
 
 
+	@Override
+	public String toString() {
+		return "PersonStation [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", phone="
+				+ phone + "]";
+	}
+
+
 
 }

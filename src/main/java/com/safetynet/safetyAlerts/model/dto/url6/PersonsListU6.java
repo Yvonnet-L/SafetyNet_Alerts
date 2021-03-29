@@ -14,4 +14,11 @@ public class PersonsListU6 {
 	public void setPersons(List<PersonU6> persons) {
 		this.persons = persons;
 	}
+
+	@Override
+	public String toString() {
+		return "PersonsListU6 [persons=" + persons + "]";
+	}
+	
+	
 }

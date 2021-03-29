@@ -57,7 +57,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			
 			StringUtilsService stringUtilsService = new StringUtilsService();
 			boolean nameStationBoolean = stringUtilsService.checkStringAddress(stationNumber);
-			logger.info("Résultat de la verification de la string {} est {}", stationNumber, nameStationBoolean);
+			logger.info("->Résultat de la verification de la donnée {} est {}", stationNumber, nameStationBoolean);
 		
 			List<PersonStation> personsStation = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			personsCoveredByStation.setNbChild(nbChild);
 			if (nbAdult > 0 || nbChild > 0) {
 				logger.info("--> Personness couvertent par la FireStation {} : nbAdult:{}  nbChild:{} ListPersons:{}",
-						stationNumber, nbChild, nbAdult, personsStation);
+						stationNumber, nbChild, nbAdult, personsStation.toString());
 			} else {
 				logger.info("--> Aucune personne couverte par la FireStation {}", stationNumber);
 			}
@@ -116,7 +116,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			}
 				personsGroupFind.setEnfants(childs);
 				personsGroupFind.setParents(parents);
-				logger.info("--> Liste des Personnes trouvées par {}: {}", address, personsGroupFind);
+				logger.info("--> Liste des Personnes trouvées par {}: {}", address, personsGroupFind.toString());
 				return personsGroupFind;
 			
 		} else throw new DataNotFoundException ("Aucune adresse trouvée pour " + address);
@@ -144,7 +144,7 @@ public class UrlsDaoImpl implements UrlsDao {
 				}
 			}
 			phoneAlert.setPhoneList(phoneList);
-			logger.info("--> Téléphone(s) trouvé(s) par station n°{}: {}", firestationNumber, phoneList);
+			logger.info("--> Téléphone(s) trouvé(s) pour la station {}: {}", firestationNumber, phoneList);
 			return phoneAlert;
 			
 		}else throw new DataNotFoundException ("*** " + firestationNumber+" n'existe pas !");
@@ -169,9 +169,10 @@ public class UrlsDaoImpl implements UrlsDao {
 					personU4.setLastName(p.getLastName());
 					personU4.setPhone(p.getPhone());
 					personU4.setAge(p.getAge());
-	
-					medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
-					medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+					if (p.getMedicalrecord() != null) {
+						medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
+						medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+					}
 					personU4.setMedicalBackground(medicalBackground);
 					fireStation = p.getFirestation();
 	
@@ -220,9 +221,10 @@ public class UrlsDaoImpl implements UrlsDao {
 						personU4.setLastName(p.getLastName());
 						personU4.setPhone(p.getPhone());
 						personU4.setAge(p.getAge());
-
-						medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
-						medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+						if (p.getMedicalrecord() != null) {
+							medicalBackground.setAllergies(p.getMedicalrecord().getAllergies());
+							medicalBackground.setMedications(p.getMedicalrecord().getMedications());
+						}
 						personU4.setMedicalBackground(medicalBackground);
 
 						personsList.add(personU4);

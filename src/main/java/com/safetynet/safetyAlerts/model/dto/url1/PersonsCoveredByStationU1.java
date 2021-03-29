@@ -33,6 +33,11 @@ public class PersonsCoveredByStationU1 {
 		this.persons = persons;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonsCoveredByStationU1 [nbAdult=" + nbAdult + ", nbChild=" + nbChild + ", persons=" + persons.toString() + "]";
+	}
+
 	
 
 }

@@ -26,4 +26,11 @@ public class FamilysListU5 {
 	public void setPersonsListU5(List<FamilyU5> personsListU5) {
 		this.personsListU5 = personsListU5;
 	}
+
+	@Override
+	public String toString() {
+		return "FamilysListU5 [fireStation=" + fireStation + ", personsListU5=" + personsListU5 + "]";
+	}
+	
+	
 }

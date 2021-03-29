@@ -61,6 +61,12 @@ public class FirestationModel {
 		this.nbPerson = nbPerson;
 	}
 
+
+	@Override
+	public String toString() {
+		return "FirestationModel [station=" + station + ", address=" + address + "]";
+	}
+
 	
 	
 }

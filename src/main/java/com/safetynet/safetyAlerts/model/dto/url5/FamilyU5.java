@@ -28,4 +28,11 @@ public class FamilyU5 {
 	public void setPersons(List<PersonU4> persons) {
 		this.persons = persons;
 	}
+
+	@Override
+	public String toString() {
+		return "FamilyU5 [address=" + address + ", persons=" + persons + "]";
+	}
+	
+	
 }

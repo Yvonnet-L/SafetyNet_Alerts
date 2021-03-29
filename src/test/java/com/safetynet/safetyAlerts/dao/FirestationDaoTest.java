@@ -1,18 +1,11 @@
 package com.safetynet.safetyAlerts.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetyAlerts.exceptions.DataExistException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
 
 @SpringBootTest

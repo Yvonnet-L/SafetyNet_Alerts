@@ -35,10 +35,10 @@ public class MedicalRecordService {
 		medicalrecord.setFirstName(firstName);
 		medicalrecord.setLastName(lastName);
 		Boolean namesOk = medicalRecordTestNames(medicalrecord);
-		//stringUtilsService.checkStringAddress(firstName) & stringUtilsService.checkStringAddress(firstName)
+
 		if ( namesOk ) {
 			logger.info("-> {} {} sont conforme", firstName, lastName);
-			logger.info("-->Lancement de la recherche !");
+			logger.info("Lancement de la recherche !");
 			return medicalrecordDao.findById(firstName, lastName);		
 		} else throw new DataNotConformException("** Nom de recherche non conforme !!");			     		
 	}

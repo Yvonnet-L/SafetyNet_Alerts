@@ -16,7 +16,7 @@ public class PersonU4 {
 	@Override
 	public String toString() {
 		return "PersonU4 [lastName=" + lastName + ", phone=" + phone + ", age=" + age + ", medicalBackground="
-				+ medicalBackground + "]";
+				+ medicalBackground.toString() + "]";
 	}
 
 	public String getLastName() {

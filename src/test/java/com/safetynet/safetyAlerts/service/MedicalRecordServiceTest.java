@@ -66,6 +66,7 @@ public class MedicalRecordServiceTest {
 	public void postMedicalrecordTest() throws Exception {
 		int size = 0;
 		size = medicalrecordService.getMedicalrecords().size() + 1;
+		
 		assertThat(medicalrecordService.addMedicalRecord(medicalrecord)).isNotNull();
 		assertThat(medicalrecordService.getMedicalrecords().size()).isEqualTo(size);
 		medicalrecordDao.delete(medicalrecord);
