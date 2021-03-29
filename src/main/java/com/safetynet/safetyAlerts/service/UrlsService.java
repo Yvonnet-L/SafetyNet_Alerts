@@ -48,7 +48,7 @@ public class UrlsService {
 		
 		if (stringValitaded.checkStringStation(stationNumber)) {
 			logger.info("Lancement de la recherche des enfants rattachées à l'adresse: {}", stationNumber);
-			return urlsDao.PhoneNumbersForStation(stationNumber);
+			return urlsDao.phoneNumbersForStation(stationNumber);
 		} else throw new DataNotConformException("*** Recherche avortée, nom de station non conforme !");
 	}
 
@@ -57,7 +57,7 @@ public class UrlsService {
 		
 		if (stringValitaded.checkStringAddress(address)) {
 			logger.info("Lancement de la recherche des personnes rattachées l'adresse: {}", address);
-			return urlsDao.PersonsByAdressWithStation(address);
+			return urlsDao.personsByAdressWithStation(address);
 		} else throw new DataNotConformException("*** Recherche avortée, adresse non conforme !");
 	}
 
@@ -66,7 +66,7 @@ public class UrlsService {
 		
 		if (stringValitaded.checkStringStation(stationNumber)) {
 			logger.info("Lancement de la recherche des familles rattachées la station: {}", stationNumber);
-			return urlsDao.FamilystByAdressWithStation(stationNumber);
+			return urlsDao.familystByAdressWithStation(stationNumber);
 		}else throw new DataNotConformException("*** Recherche avortée, nom de station non conforme !");
 	}
 

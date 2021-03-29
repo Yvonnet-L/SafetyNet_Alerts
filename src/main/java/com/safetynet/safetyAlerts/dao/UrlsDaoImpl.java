@@ -54,10 +54,6 @@ public class UrlsDaoImpl implements UrlsDao {
 	public PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNumber) {
 		
 		if ( stationExist(stationNumber) == true ) {	
-			
-			StringUtilsService stringUtilsService = new StringUtilsService();
-			boolean nameStationBoolean = stringUtilsService.checkStringAddress(stationNumber);
-			logger.info("->Résultat de la verification de la donnée {} est {}", stationNumber, nameStationBoolean);
 		
 			List<PersonStation> personsStation = new ArrayList<>();
 
@@ -124,7 +120,7 @@ public class UrlsDaoImpl implements UrlsDao {
 
 	// ----------------> Url - 3 <---------------------------------------------------------------------------
 	@Override
-	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber) {
+	public PhoneAlertU3 phoneNumbersForStation(String firestationNumber) {
 	
 		if ( stationExist(firestationNumber) == true ) {
 			
@@ -152,7 +148,7 @@ public class UrlsDaoImpl implements UrlsDao {
 
 	// ----------------> Url - 4 <---------------------------------------------------------------------------
 	@Override
-	public PersonsListU4 PersonsByAdressWithStation(String address) {
+	public PersonsListU4 personsByAdressWithStation(String address) {
 
 		if( addressExist(address) ==true) {
 		
@@ -190,7 +186,7 @@ public class UrlsDaoImpl implements UrlsDao {
 
 	// ----------------> Url - 5 <---------------------------------------------------------------------------
 	@Override
-	public FamilysListU5 FamilystByAdressWithStation(String stationNumber) {
+	public FamilysListU5 familystByAdressWithStation(String stationNumber) {
 	
 		if ( stationExist(stationNumber) == true ) {
 			
@@ -309,25 +305,24 @@ public class UrlsDaoImpl implements UrlsDao {
 	public boolean stationExist (String stationNumber ) {
 	
 		boolean staExist = false;
-	
-		for (FirestationModel firestation : firestations) {
-			
-			if (stationNumber.equals(firestation.getStation())) {
-			staExist = true;
+			for (FirestationModel firestation : firestations) {
+				
+				if (stationNumber.equals(firestation.getStation())) {
+				staExist = true;
+				}
 			}
-		}
-		return staExist;
+		return staExist; 
 	}	
 	// -------------------------------------------------------
 	public boolean addressExist (String address ) {
 		
 		boolean addExist = false;
-	
-		for (PersonModel person : persons) {
-			if (address.equals(person.getAddress())) {
-			addExist = true;
+
+			for (PersonModel person : persons) {
+				if (address.equals(person.getAddress())) {
+				addExist = true;
+				}
 			}
-		}
 		return addExist;
-	}	
+	}
 }

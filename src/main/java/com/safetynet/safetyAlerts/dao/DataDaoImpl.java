@@ -42,7 +42,7 @@ public class DataDaoImpl implements DataDao {
 
 	@PostConstruct
 	@Override
-	public void InitMapper() throws IOException {
+	public void initMapper() throws IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {

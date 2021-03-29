@@ -1,6 +1,7 @@
 package com.safetynet.safetyAlerts.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import java.text.ParseException;
@@ -11,82 +12,107 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.safetynet.safetyAlerts.exceptions.DataExistException;
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
+import com.safetynet.safetyAlerts.model.PersonModel;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 public class MedicalRecordDaoTest {
 
-	@Autowired
-	MedicalRecordDao medicalrecordDao;
+	@InjectMocks
+	MedicalRecordDaoImpl medicalrecordDao;
 
+	
+	public List<MedicalrecordModel> medicalrecords = new ArrayList<>();
+	public List<PersonModel> persons = new ArrayList<>();
+
+	
 	MedicalrecordModel medicalrecord;
 	MedicalrecordModel medicalrecordPut;
+	List<String> medications = null;
+	List<String> allergies = null;
+	Date birthday = null;
 
 	@BeforeEach
-	private void init() throws ParseException {
-
-		List<String> medications = null;
-		List<String> allergies = null;
-		Date birthday = null;
+	private void setUp() throws ParseException {
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		String stringBirthday = "01/01/2001";
 		birthday = simpleDateFormat.parse(stringBirthday);
 
-		MedicalrecordModel medicalrecord1 = new MedicalrecordModel("firstName1", "lastName", birthday, medications,
-				allergies);
-		MedicalrecordModel medicalrecord2 = new MedicalrecordModel("firstName2", "lastName", birthday, medications,
-				allergies);
-		MedicalrecordModel medicalrecord3 = new MedicalrecordModel("firstName3", "lastName", birthday, medications,
-				allergies);
-
-		List<MedicalrecordModel> medicalrecordList = new ArrayList<>();
-		medicalrecordList.add(medicalrecord1);
-		medicalrecordList.add(medicalrecord2);
-		medicalrecordList.add(medicalrecord3);
+		MedicalrecordModel medicalrecord1 = new MedicalrecordModel("firstName1", "lastName", birthday, medications, allergies);
+		MedicalrecordModel medicalrecord2 = new MedicalrecordModel("firstName2", "lastName", birthday, medications, allergies);
+		MedicalrecordModel medicalrecord3 = new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies);
+		medicalrecords.add(medicalrecord1);
+		medicalrecords.add(medicalrecord2);
+		medicalrecords.add(medicalrecord3);			
+		medicalrecordDao.setAllMedicalrecords(medicalrecords);
 		
+		PersonModel person1 = new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15);
+		PersonModel person2 = new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15);
+		PersonModel person3 = new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 15);
+		persons.add(person1);
+		persons.add(person2);
+		persons.add(person3);
+		medicalrecordDao.setAllPersons(persons);
 		
-		medicalrecordDao.setAllMedicalrecords(medicalrecordList);
-		
-		medicalrecord = new MedicalrecordModel("firstName4", "lastName", birthday, medications, allergies);
-		medicalrecordPut = new MedicalrecordModel("firstName3", "lastName", birthday, medications, allergies);
 	}
 
 	@Test
-	public void findAllMedicalRecordsTest() throws Exception {
+	public void findAllMedicalRecordsTest() {
+		
 		assertThat(medicalrecordDao.findAll().size()).isEqualTo(3);
 	}
 
 	@Test
-	public void findFirestationByIdTest() throws Exception {
+	public void findFirestationByIdTest() {
+		
 		assertThat(medicalrecordDao.findById("firstName2", "lastName").size()).isEqualTo(1);
 		assertThrows(DataNotFoundException.class, () -> medicalrecordDao.findById(" ", ""));
 	}
 
 	@Test
-	public void postFirestationTest() throws Exception {
+	public void postFirestationTest() {	
+		
+		int size = medicalrecordDao.findAll().size()+1;
+		medicalrecord = new MedicalrecordModel("firstName4", "lastName", birthday, medications, allergies);	
+
 		assertThat(medicalrecordDao.save(medicalrecord)).isNotNull();
+		assertEquals(medicalrecordDao.findAll().size(),size);		
+		assertThrows(DataExistException.class, () -> medicalrecordDao.save(medicalrecord));
 	}
 
 	@Test
-	public void putMedicalrecordTest() throws Exception {
+	public void putMedicalrecordTest() {
+		
+		medications = new ArrayList<String>();
+		medications.add("aspirine 500");
+		
+		medicalrecordPut = new MedicalrecordModel("firstName2", "lastName", birthday, medications, allergies);
+		MedicalrecordModel medicalrecordResult = new MedicalrecordModel();
+		medicalrecordResult = medicalrecordDao.put(medicalrecordPut);
+		
 		assertThat(medicalrecordDao.put(medicalrecordPut)).isNotNull();
+		assertEquals(medicalrecordResult.getMedications(), medicalrecordPut.getMedications());
+		
+		MedicalrecordModel medicalrecordNotExist = new MedicalrecordModel("firstNameNotExist", "lastNameNotExist", birthday, medications, allergies);
+		assertThrows(DataNotFoundException.class, () -> medicalrecordDao.put(medicalrecordNotExist));
 	}
 
 	@Test
-	public void deleteMedicalrecordTest() throws Exception {
-		List<String> medications = null;
-		List<String> allergies = null;
-		Date birthday = null;
-		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName2", "lastName", birthday, medications,
-				allergies);
+	public void deleteMedicalrecordTest() {
+		
+		int size = medicalrecordDao.findAll().size()-1;
+		MedicalrecordModel medicalrecordDelete = new MedicalrecordModel("firstName2", "lastName", birthday, medications,allergies);
+		
 		assertThat(medicalrecordDao.delete(medicalrecordDelete)).isNotNull();
+		assertEquals(medicalrecordDao.findAll().size(),size);
+		assertThrows(DataNotFoundException.class, () -> medicalrecordDao.delete(medicalrecordDelete));
 	}
 
 }

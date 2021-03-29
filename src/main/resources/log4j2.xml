@@ -10,7 +10,7 @@
             <PatternLayout pattern="[%t] %-10p | %-60c | %m (%F:%L)%n" />
             <Policies>
                 <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
             </Policies>
         </RollingFile>
         

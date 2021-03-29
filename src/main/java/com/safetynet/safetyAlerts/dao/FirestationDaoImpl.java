@@ -62,7 +62,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	public FirestationModel save(FirestationModel firestation) {
 		
 		for (FirestationModel f : firestations) {			
-				if(firestation.getStation().equals(f.getAddress())){
+				if(firestation.getAddress().equals(f.getAddress())){
 					throw new DataExistException("*** Création impossible, cette adresse de fireStation existe déjà");	
 				}		
 		}

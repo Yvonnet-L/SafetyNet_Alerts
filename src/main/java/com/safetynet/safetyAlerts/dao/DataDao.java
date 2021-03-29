@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface DataDao {
 		
-	public void InitMapper() throws IOException;
+	public void initMapper() throws IOException;
 
 	void upDateData();
 }

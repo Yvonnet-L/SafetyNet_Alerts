@@ -18,11 +18,11 @@ public interface UrlsDao {
 	
 	public ChildsWithParentsU2 allChildsByAdressWithParents(String adress);
 
-	public PhoneAlertU3 PhoneNumbersForStation(String firestationNumber);
+	public PhoneAlertU3 phoneNumbersForStation(String firestationNumber);
 
-	public PersonsListU4 PersonsByAdressWithStation(String address);
+	public PersonsListU4 personsByAdressWithStation(String address);
 
-	public FamilysListU5 FamilystByAdressWithStation(String station);
+	public FamilysListU5 familystByAdressWithStation(String station);
 
 	public PersonsListU6 infoByPerson(String firstName, String lastName);
 
