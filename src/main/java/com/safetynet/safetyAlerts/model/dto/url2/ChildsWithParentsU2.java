@@ -14,6 +14,11 @@ public class ChildsWithParentsU2 {
 	}
 
 
+	public ChildsWithParentsU2(List<PersonWithAgeU2> personWithAgeList, List<PersonWithAgeU2> personWithAgeList2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public List<PersonWithAgeU2> getEnfants() {
 		return childs;
 	}

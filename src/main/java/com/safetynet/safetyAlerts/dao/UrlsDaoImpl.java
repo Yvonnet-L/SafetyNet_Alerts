@@ -26,7 +26,6 @@ import com.safetynet.safetyAlerts.model.dto.url6.MedicalBackground;
 import com.safetynet.safetyAlerts.model.dto.url6.PersonU6;
 import com.safetynet.safetyAlerts.model.dto.url6.PersonsListU6;
 import com.safetynet.safetyAlerts.model.dto.url7.MailsByCity;
-import com.safetynet.safetyAlerts.service.StringUtilsService;
 
 @Repository
 public class UrlsDaoImpl implements UrlsDao {

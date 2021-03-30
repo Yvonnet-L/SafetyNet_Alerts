@@ -1,66 +1,108 @@
 package com.safetynet.safetyAlerts.service;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyAlerts.dao.UrlsDaoImpl;
+import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
+import com.safetynet.safetyAlerts.model.dto.url1.PersonsCoveredByStationU1;
+import com.safetynet.safetyAlerts.model.dto.url2.ChildsWithParentsU2;
+import com.safetynet.safetyAlerts.model.dto.url3.PhoneAlertU3;
+import com.safetynet.safetyAlerts.model.dto.url4.PersonsListU4;
+import com.safetynet.safetyAlerts.model.dto.url5.FamilysListU5;
+import com.safetynet.safetyAlerts.model.dto.url6.PersonsListU6;
+import com.safetynet.safetyAlerts.model.dto.url7.MailsByCity;
 
-@SpringBootTest
+
+@ExtendWith(MockitoExtension.class)
 public class UrlsServiceTest {
-
 	
-	@Autowired
+	@InjectMocks
 	UrlsService urlsService;
 	
+	@Mock
+	UrlsDaoImpl urlsDao;
 	
 	@Test
-	public void allPersonCoveredByOneStationWithStationNotExistTest() throws Exception {		
-		assertThrows(DataNotFoundException.class, () ->  urlsService.allPersonCoveredByOneStation("StationNotExist"));
+	public void allPersonCoveredByOneStationWithStationNotConformTest() throws Exception {		
+		assertThrows(DataNotConformException.class, () ->  urlsService.allPersonCoveredByOneStation("@@@##"));
 	}
 	
 	@Test
-	public void allPersonCoveredByOneStationWithStationExistTest() throws Exception {
-		assertFalse(urlsService.allPersonCoveredByOneStation("3").getPerson().isEmpty());
+	public void allPersonCoveredByOneStationWithStationExistTest() {			
+		// GIVEN
+		PersonsCoveredByStationU1 personsCoveredByStation = new PersonsCoveredByStationU1();
+		// WHEN
+		Mockito.when(urlsDao.allPersonCoveredByOneStation("any")).thenReturn(personsCoveredByStation);
+		// THEN
+		assertTrue(urlsService.allPersonCoveredByOneStation("any").equals(personsCoveredByStation));
 	}
 	
 	@Test
 	public void allChildsByAdressWithParentsTest() throws Exception {
-		assertTrue(urlsService.allChildsByAdressWithParents("951 LoneTree Rd").getEnfants().isEmpty());
-		assertFalse(urlsService.allChildsByAdressWithParents("951 LoneTree Rd").getParents().isEmpty());
+		// GIVEN
+		ChildsWithParentsU2 childWithParents = new ChildsWithParentsU2();
+		// WHEN
+		Mockito.when(urlsDao.allChildsByAdressWithParents("any")).thenReturn(childWithParents);		
+		// THEN
+		assertTrue(urlsService.allChildsByAdressWithParents("any").equals(childWithParents));
 	}
 	
 	@Test
 	public void PhoneNumbersForStationTest() throws Exception {
-		assertFalse(urlsService.PhoneNumbersForStation("4").getPhoneList().isEmpty());
-		assertThrows(DataNotFoundException.class, () -> urlsService.PhoneNumbersForStation("StationNotExist"));
+		
+		// GIVEN	
+		PhoneAlertU3 phoneAlertU3 = new PhoneAlertU3();
+		// WHEN
+		Mockito.when(urlsDao.phoneNumbersForStation("any")).thenReturn(phoneAlertU3);		
+		// THEN
+		assertTrue(urlsService.PhoneNumbersForStation("any").equals(phoneAlertU3));
 	}
 	
 	@Test
 	public void PersonsByAdressWithStationTest() throws Exception {
-		assertFalse(urlsService.PersonsByAdressWithStation("892 Downing Ct").getPersons().isEmpty());
-		assertThrows(DataNotFoundException.class, () -> urlsService.PersonsByAdressWithStation("Address Not Exist"));
+		// GIVEN	
+		PersonsListU4 personsListU4 = new PersonsListU4();
+		// WHEN
+		Mockito.when(urlsDao.personsByAdressWithStation("any")).thenReturn(personsListU4);		
+		// THEN
+		assertTrue(urlsService.PersonsByAdressWithStation("any").equals(personsListU4));
 	}
 	
 	@Test
 	public void FamilystByAdressWithStationTest() throws Exception {
-		assertFalse(urlsService.FamilystByAdressWithStation("4").getPersonsListU5().isEmpty());
-		assertThrows(DataNotFoundException.class, () -> urlsService.FamilystByAdressWithStation("StationNotExist"));
+		// GIVEN	
+		FamilysListU5 familysListU5 = new FamilysListU5();
+		// WHEN
+		Mockito.when(urlsDao.familystByAdressWithStation("any")).thenReturn(familysListU5);		
+		// THEN
+		assertTrue(urlsService.familystByAdressWithStation("any").equals(familysListU5));
 	}
 	
 	@Test
 	public void infoByPersonTest() throws Exception {
-		assertFalse(urlsService.infoByPerson("Shawna","Stelzer").getPersons().isEmpty());
-		assertThrows(DataNotFoundException.class, () -> urlsService.infoByPerson("firstNameNoExist","lastNameNoExist"));
+		// GIVEN	
+		PersonsListU6 personsListU6 = new PersonsListU6();
+		// WHEN
+		Mockito.when(urlsDao.infoByPerson("any","any")).thenReturn(personsListU6);		
+		// THEN
+		assertTrue(urlsService.infoByPerson("any","any").equals(personsListU6));
 	}
 	
 	@Test
 	public void allMailOfCityTest() throws Exception {
-		assertFalse(urlsService.allMailOfCity("Culver").getMails().isEmpty());
-		assertThrows(DataNotFoundException.class, () -> urlsService.allMailOfCity("CityNoExist"));
+		// GIVEN	
+		MailsByCity mailsByCity = new MailsByCity();
+		// WHEN
+		Mockito.when(urlsDao.allMailOfCity("any")).thenReturn(mailsByCity);		
+		// THEN
+		assertTrue(urlsService.allMailOfCity("any").equals(mailsByCity));
 	}
 }

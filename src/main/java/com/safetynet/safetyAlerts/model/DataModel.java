@@ -11,7 +11,7 @@ public class DataModel {
 	private List<PersonModel> persons;
 	private List<FirestationModel> firestations;
 	private List<MedicalrecordModel> medicalrecords;
-	
+
 	public List<PersonModel> getPersons() {
 		return persons;
 	}

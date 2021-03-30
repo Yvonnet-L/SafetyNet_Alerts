@@ -1,72 +1,122 @@
 package com.safetynet.safetyAlerts.service;
 
 
-	import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.safetynet.safetyAlerts.dao.MedicalRecordDao;
+import com.safetynet.safetyAlerts.dao.PersonDao;
+import com.safetynet.safetyAlerts.dao.PersonDaoImpl;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyAlerts.model.FirestationModel;
+import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
 
-		@SpringBootTest
-		@AutoConfigureMockMvc
-		public class PersonServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class PersonServiceTest {
 
-			@Autowired
-			PersonService personService;
+	@InjectMocks
+	PersonService personService;
+	
+	@Mock
+	PersonDaoImpl personDao;
+	
+	public List<PersonModel> persons = new ArrayList<>();
 
-			@Test
-			public void findAllPersonTest() throws Exception {
-				Thread.sleep(1000);
-				//25
-				assertThat(personService.findAll().size()).isEqualTo(23);
-			}
-			
-			@Test
-			public void findPersonByIdTest() throws Exception {
-				assertThat(personService.findById("Boyd").size()).isEqualTo(6);
-			} 
-			
-			@Test
-			public void postPersonTest() throws Exception {
-				PersonModel personPost = new PersonModel("firstNameTest", "lastNameTest", "address Test", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);;
-				assertThat(personService.addPerson(personPost));	
-			}
-			
+	PersonModel personNameNotConform1 = new PersonModel(" ", " ", "address Test", "CityTest", 10000, "telTest 02 02 02 02","test@test.com",15);
+	PersonModel personNameNotConform2 = new PersonModel("firtsName", "***", "address Test", "CityTest", 10000, "telTest 02 02 02 02","test@test.com",15);
+	PersonModel personNameNotConform3 = new PersonModel("####", "lastName", "address Test", "CityTest", 10000, "telTest 02 02 02 02","test@test.com",15);
+	
+	PersonModel person = new PersonModel("firstName", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15);
 
-			@Test
-			public void postPersonWithSpaceTest() throws Exception {		
-				PersonModel personPost = new PersonModel(" ", " ", "address Test", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);
-				assertThrows(DataNotConformException.class, () -> personService.addPerson(personPost));
-			}
-			
-			@Test
-			public void putPersonTestNotExist() throws Exception {
-				PersonModel personPut = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);
-				assertThrows(DataNotFoundException.class, () -> personService.put(personPut));
-			}
-			
-			@Test
-			public void deletePersonTest() throws Exception {
-				PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);;
-				assertThat(personService.delete(personDelete));
-			}
 
-			
-			@Test
-			public void deletePersonWithJsonNotConformTest() throws Exception {
-				PersonModel personDelete = new PersonModel(" ", " ", "address Test2", "CityTest", 10000,
-						"telTest 02 02 02 02","test@test.com",15);
-				assertThrows(DataNotConformException.class, () -> personService.delete(personDelete));
-			}
+	@Test
+	public void findAllPersonTest() throws Exception {
+		// GIVEN
+		persons.add(new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		// WHEN
+		Mockito.when(personDao.findAll()).thenReturn(persons);
+		// THEN
+		assertThat(personService.findAll().size()).isEqualTo(3);
+	}
+	
+	@Test
+	public void findPersonByIdTest() throws Exception {
+		// GIVEN
+		persons.add(new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		// WHEN
+		Mockito.when(personDao.findById("lastName")).thenReturn(persons);
+		// THEN
+		assertThat(personService.findById("lastName").size()).isEqualTo(2);
+	} 
+	
+	@Test
+	public void addPersonTest() throws Exception {
+		// GIVEN
+		// WHEN
+		Mockito.when(personDao.save(person)).thenReturn(person);
+		// THEN
+		assertThat(personService.addPerson(person).equals(person));	
+	}
+	
+
+	@Test
+	public void addPersonWithNameNotConformTest() throws Exception {				
+		assertThrows(DataNotConformException.class, () -> personService.addPerson(personNameNotConform1));
+		assertThrows(DataNotConformException.class, () -> personService.addPerson(personNameNotConform2));
+		assertThrows(DataNotConformException.class, () -> personService.addPerson(personNameNotConform3));
+	}
+	
+	
+	@Test
+	public void putPersonTest() throws Exception {
+		// GIVEN
+		// WHEN
+		Mockito.when(personDao.put(person)).thenReturn(person);
+		// THEN
+		assertThat(personService.put(person).equals(person));	
+	}
+	
+	@Test
+	public void putPersonWithNameNotConformTest() throws Exception {				
+		assertThrows(DataNotConformException.class, () -> personService.put(personNameNotConform1));
+		assertThrows(DataNotConformException.class, () -> personService.put(personNameNotConform2));
+		assertThrows(DataNotConformException.class, () -> personService.put(personNameNotConform3));
+	}
+		
+	@Test
+	public void deletePersonTest() throws Exception {
+		// WHEN
+		Mockito.when(personDao.delete(person)).thenReturn(persons);
+		// THEN
+		assertThat(personService.delete(person).equals(persons));	
+	}
+	
+	@Test
+	public void deletePersonWithJsonNotConformTest() throws Exception {
+		assertThrows(DataNotConformException.class, () -> personService.delete(personNameNotConform1));
+		assertThrows(DataNotConformException.class, () -> personService.delete(personNameNotConform2));
+		assertThrows(DataNotConformException.class, () -> personService.delete(personNameNotConform3));
+	}
 	
 }

@@ -38,15 +38,11 @@ public class UrlsDaoTest {
 	
 	@BeforeEach
     public void setUp() throws ParseException {
-	
-    	FirestationModel firestation1 = new FirestationModel("fire1","address1");
-    	FirestationModel firestation2 = new FirestationModel("fire2","address2");
-    	FirestationModel firestation3 = new FirestationModel("fire2","address3");
-    	FirestationModel firestation4 = new FirestationModel("fire3","address4");	
-        firestations.add(firestation1);
-		firestations.add(firestation2);
-		firestations.add(firestation3);
-		firestations.add(firestation4);		
+		
+        firestations.add(new FirestationModel("fire1","address1"));
+		firestations.add(new FirestationModel("fire2","address2"));
+		firestations.add(new FirestationModel("fire2","address3"));
+		firestations.add(new FirestationModel("fire3","address4"));		
 		urlsDao.setAllFireStations(firestations);
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");

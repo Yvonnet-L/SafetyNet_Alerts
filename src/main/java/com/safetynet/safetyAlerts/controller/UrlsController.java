@@ -47,7 +47,7 @@ public class UrlsController {
 	// Url 5 --> http://localhost:8080/flood/stations?stations=<a list of station_numbers> FamilystByAdressWithStation
 	@GetMapping(value = "flood/stations/{station}")
 	public FamilysListU5 listFamilysByAdressStation(@PathVariable("station") String station) {
-		return urlsService.FamilystByAdressWithStation(station);
+		return urlsService.familystByAdressWithStation(station);
 	}
 
 	// Url 6 --> http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>

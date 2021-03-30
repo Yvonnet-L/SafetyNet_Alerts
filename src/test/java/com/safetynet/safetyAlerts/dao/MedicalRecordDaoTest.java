@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.safetynet.safetyAlerts.exceptions.DataExistException;
@@ -27,6 +29,9 @@ public class MedicalRecordDaoTest {
 	@InjectMocks
 	MedicalRecordDaoImpl medicalrecordDao;
 
+	@Mock
+	MedicalRecordDao medicalRecordDao;
+	
 	
 	public List<MedicalrecordModel> medicalrecords = new ArrayList<>();
 	public List<PersonModel> persons = new ArrayList<>();
@@ -45,27 +50,20 @@ public class MedicalRecordDaoTest {
 		String stringBirthday = "01/01/2001";
 		birthday = simpleDateFormat.parse(stringBirthday);
 
-		MedicalrecordModel medicalrecord1 = new MedicalrecordModel("firstName1", "lastName", birthday, medications, allergies);
-		MedicalrecordModel medicalrecord2 = new MedicalrecordModel("firstName2", "lastName", birthday, medications, allergies);
-		MedicalrecordModel medicalrecord3 = new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies);
-		medicalrecords.add(medicalrecord1);
-		medicalrecords.add(medicalrecord2);
-		medicalrecords.add(medicalrecord3);			
+		medicalrecords.add(new MedicalrecordModel("firstName1", "lastName", birthday, medications, allergies));
+		medicalrecords.add( new MedicalrecordModel("firstName2", "lastName", birthday, medications, allergies));
+		medicalrecords.add( new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies));			
 		medicalrecordDao.setAllMedicalrecords(medicalrecords);
 		
-		PersonModel person1 = new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15);
-		PersonModel person2 = new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15);
-		PersonModel person3 = new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 15);
-		persons.add(person1);
-		persons.add(person2);
-		persons.add(person3);
+		persons.add(new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 15));
 		medicalrecordDao.setAllPersons(persons);
 		
 	}
 
 	@Test
 	public void findAllMedicalRecordsTest() {
-		
 		assertThat(medicalrecordDao.findAll().size()).isEqualTo(3);
 	}
 

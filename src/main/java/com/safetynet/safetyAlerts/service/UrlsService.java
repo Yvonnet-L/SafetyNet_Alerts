@@ -62,7 +62,7 @@ public class UrlsService {
 	}
 
 	//--------------------------------------------------------------------------------------------------------
-	public FamilysListU5 FamilystByAdressWithStation(String stationNumber) {
+	public FamilysListU5 familystByAdressWithStation(String stationNumber) {
 		
 		if (stringValitaded.checkStringStation(stationNumber)) {
 			logger.info("Lancement de la recherche des familles rattachées la station: {}", stationNumber);
@@ -84,6 +84,7 @@ public class UrlsService {
 		if (stringValitaded.checkStringName(city)) {
 			logger.info("Lancement de la recherche des mails pour la ville: {}", city);
 			return urlsDao.allMailOfCity(city);
-		}else throw new DataNotConformException("*** Recherche avortée, nom de city non conforme !");}
+		}else throw new DataNotConformException("*** Recherche avortée, nom de city non conforme !");
+	}
 
 }
