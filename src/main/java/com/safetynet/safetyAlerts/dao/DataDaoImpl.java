@@ -35,19 +35,27 @@ public class DataDaoImpl implements DataDao {
 	
 	@Autowired
 	UrlsDao urlsDao;
+	
+	ObjectMapper mapper = new ObjectMapper();
+	
+	DataModel pageData;
+	
+	File json = new File("src\\main\\resources\\data.json");
+	
 
 	List<PersonModel> listPerson = new ArrayList<PersonModel>();
 	List<FirestationModel> listFireStation = new ArrayList<FirestationModel>();
 	List<MedicalrecordModel> listMedicalRecord = new ArrayList<MedicalrecordModel>();
 
+	
+	//-------------------------------------------------------------------------------------------------------
 	@PostConstruct
 	@Override
 	public void initMapper() throws IOException {
-
-		ObjectMapper mapper = new ObjectMapper();
+	
 		try {
 			logger.info("Lancement du rapatriement des donnees du Json en cour");
-			DataModel pageData = mapper.readValue(new File("src\\main\\resources\\data.json"), DataModel.class);
+			pageData = mapper.readValue(json, DataModel.class);
 
 			listPerson = pageData.getPersons();
 			listFireStation = pageData.getFirestations();
@@ -75,6 +83,7 @@ public class DataDaoImpl implements DataDao {
 
 	}
 
+	//-------------------------------------------------------------------------------------------------------
 	@Override
 	public void upDateData() {
 		AgeCalculService ageCalcul = new AgeCalculService();

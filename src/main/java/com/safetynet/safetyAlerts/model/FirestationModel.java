@@ -14,19 +14,15 @@ public class FirestationModel {
 	@JsonIgnore 
 	private List<PersonModel> person;
 	
-	
-	
+		
 	public FirestationModel() {
 	}
 
-	
 	public FirestationModel(String station, String address) {
 		this.station = station;
 		this.address = address;
 	}
 		
-
-
 	public String getAddress() {
 		return address;
 	}
@@ -43,8 +39,6 @@ public class FirestationModel {
 		this.station = station;
 	}
 
-	
-	
 	public List<PersonModel> getPerson() {
 		return person;
 	}

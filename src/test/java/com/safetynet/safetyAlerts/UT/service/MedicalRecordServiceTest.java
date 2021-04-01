@@ -1,4 +1,4 @@
-package com.safetynet.safetyAlerts.service;
+package com.safetynet.safetyAlerts.UT.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.safetynet.safetyAlerts.dao.MedicalRecordDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.MedicalrecordModel;
+import com.safetynet.safetyAlerts.service.MedicalRecordService;
 
 @ExtendWith(MockitoExtension.class)
 public class MedicalRecordServiceTest {

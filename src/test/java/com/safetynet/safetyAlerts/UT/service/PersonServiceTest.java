@@ -1,33 +1,23 @@
-package com.safetynet.safetyAlerts.service;
+package com.safetynet.safetyAlerts.UT.service;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThrows;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import com.safetynet.safetyAlerts.dao.MedicalRecordDao;
-import com.safetynet.safetyAlerts.dao.PersonDao;
 import com.safetynet.safetyAlerts.dao.PersonDaoImpl;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
-import com.safetynet.safetyAlerts.exceptions.DataNotFoundException;
-import com.safetynet.safetyAlerts.model.FirestationModel;
-import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 import com.safetynet.safetyAlerts.model.PersonModel;
+import com.safetynet.safetyAlerts.service.PersonService;
 
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {

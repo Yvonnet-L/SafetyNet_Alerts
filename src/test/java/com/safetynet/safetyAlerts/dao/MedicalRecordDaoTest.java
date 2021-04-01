@@ -27,10 +27,6 @@ public class MedicalRecordDaoTest {
 
 	@InjectMocks
 	MedicalRecordDaoImpl medicalrecordDao;
-
-	@Mock
-	MedicalRecordDao medicalRecordDao;
-	
 	
 	public List<MedicalrecordModel> medicalrecords = new ArrayList<>();
 	public List<PersonModel> persons = new ArrayList<>();
@@ -54,16 +50,20 @@ public class MedicalRecordDaoTest {
 		medicalrecords.add( new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies));			
 		medicalrecordDao.setAllMedicalrecords(medicalrecords);
 		
-		persons.add(new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
-		persons.add(new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 15));
-		persons.add(new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 15));
+		persons.add(new PersonModel("firstName1", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 0));
+		persons.add(new PersonModel("firstName2", "lastName", "address1", "CityTest", 10000, "telTest", "test@test.com", 0));
+		persons.add(new PersonModel("firstName3", "lastName2", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 0));
 		medicalrecordDao.setAllPersons(persons);
+		
+		medicalrecordDao.updateData();
 		
 	}
 
 	@Test
 	public void findAllMedicalRecordsTest() {
 		assertThat(medicalrecordDao.findAll().size()).isEqualTo(3);
+		assertEquals(medicalrecordDao.medicalrecords.get(0).getAge(), 20);
+		assertEquals(medicalrecordDao.persons.get(0).getAge(), 20);
 	}
 
 	@Test
@@ -78,10 +78,15 @@ public class MedicalRecordDaoTest {
 		
 		int size = medicalrecordDao.findAll().size()+1;
 		medicalrecord = new MedicalrecordModel("firstName4", "lastName", birthday, medications, allergies);	
-
+		
+		PersonModel person1 = new PersonModel("firstName4", "lastName", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 0);
+		persons.add(person1);
+		
 		assertThat(medicalrecordDao.save(medicalrecord)).isNotNull();
 		assertEquals(medicalrecordDao.findAll().size(),size);		
 		assertThrows(DataExistException.class, () -> medicalrecordDao.save(medicalrecord));
+		assertEquals(person1.getAge(), 20);
+		persons.add(new PersonModel("firstName4", "lastName", "addressTest", "CityTest", 10000, "telTest", "test@test.com", 0));
 	}
 
 	@Test

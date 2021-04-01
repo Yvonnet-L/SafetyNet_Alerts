@@ -20,12 +20,10 @@ public class MedicalrecordModel {
 	@JsonIgnore
 	private int age;
 	
-	
-	
+		
 	public MedicalrecordModel() {
 		super();
 	}
-	
 	
 	public MedicalrecordModel(String firstName, String lastName, Date birthdate, List<String> medications,
 			List<String> allergies) {

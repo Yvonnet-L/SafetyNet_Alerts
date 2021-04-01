@@ -1,4 +1,4 @@
-package com.safetynet.safetyAlerts.service;
+package com.safetynet.safetyAlerts.UT.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
+import com.safetynet.safetyAlerts.service.FirestationService;
 
 @ExtendWith(MockitoExtension.class)
 public class FirestationServiceTest {

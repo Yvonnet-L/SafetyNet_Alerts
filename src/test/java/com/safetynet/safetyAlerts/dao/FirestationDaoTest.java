@@ -24,7 +24,6 @@ public class FirestationDaoTest {
 	@InjectMocks
 	FirestationDaoImpl firestationDao;
 	
-
 	private List<FirestationModel> firestations = new ArrayList<>();
 
 	private List<PersonModel> persons = new ArrayList<>();
@@ -49,12 +48,14 @@ public class FirestationDaoTest {
 		persons.add(person2);
 		
 		firestationDao.setAllPersons(persons);
+		firestationDao.updateData();
 	}
 	
 	@Test
 	public void findAllFirestationTest() throws Exception {
+		
 		assertThat(firestationDao.findAll().size()).isEqualTo(4);
-		assertEquals(persons.get(1).getFirestation(), null);
+		assertEquals(persons.get(1).getFirestation(), "fire2");
 	}
 	
 	@Test
@@ -90,6 +91,5 @@ public class FirestationDaoTest {
 		assertThat(firestationDao.findAll().size()).isEqualTo(size-1);
 		assertThrows(DataNotFoundException.class, () -> firestationDao.deleteById(firestation4));
 	}
-
 
 }

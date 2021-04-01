@@ -1,4 +1,4 @@
-package com.safetynet.safetyAlerts.service;
+package com.safetynet.safetyAlerts.UT.service;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +19,9 @@ import com.safetynet.safetyAlerts.model.dto.url4.PersonsListU4;
 import com.safetynet.safetyAlerts.model.dto.url5.FamilysListU5;
 import com.safetynet.safetyAlerts.model.dto.url6.PersonsListU6;
 import com.safetynet.safetyAlerts.model.dto.url7.MailsByCity;
+import com.safetynet.safetyAlerts.service.UrlsService;
 
-
+ 
 @ExtendWith(MockitoExtension.class)
 public class UrlsServiceTest {
 	

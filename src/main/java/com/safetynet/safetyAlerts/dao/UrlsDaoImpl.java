@@ -111,7 +111,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			}
 				personsGroupFind.setEnfants(childs);
 				personsGroupFind.setParents(parents);
-				logger.info("--> Liste des Personnes trouvées par {}: {}", address, personsGroupFind.toString());
+				logger.info("--> Liste des Personnes trouvées pour l'adresse  {}: {}", address, personsGroupFind.toString());
 				return personsGroupFind;
 			
 		} else throw new DataNotFoundException ("Aucune adresse trouvée pour " + address);
@@ -177,7 +177,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			personsU4.setAddress(address);
 			personsU4.setFireStation(fireStation);
 			personsU4.setPersons(personU4List);
-			logger.info("--> Personnes trouvées pour l'adress  n°{}: {}", address, personU4List);
+			logger.info("--> Personnes trouvées pour l'adresse  n°{}: {}", address, personU4List);
 			return personsU4;
 			
 		} else throw new DataNotFoundException ("Aucune adresse trouvée pour " + address);
@@ -204,7 +204,7 @@ public class UrlsDaoImpl implements UrlsDao {
 					}
 				}
 			}
-			logger.info("nunber of address find by station: {} address:", hsetAddress.size());
+			logger.info("-> nombre d'adresse couvertes par la station: {}", hsetAddress.size());
 			for (String s : hsetAddress) {
 				familyU5 = new FamilyU5();
 
@@ -231,7 +231,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			}
 			familysListU5.setFireStation(stationNumber);
 			familysListU5.setPersonsListU5(familyList);
-			logger.info("--> Listes des personnes trouvées: {}", familysListU5);
+			logger.info("--> Listes des personnes couvertes: {}", familysListU5);
 			return familysListU5;
 			
 		}else throw new DataNotFoundException ("*** " + stationNumber+" n'existe pas !");
@@ -268,7 +268,7 @@ public class UrlsDaoImpl implements UrlsDao {
 		
 		if(personExist == true) {
 			infoPersons.setPersons(infoPersonList);
-			logger.info("--> Liste des Personnes trouvées par {} {}:  {}", firstName, lastName, infoPersons);
+			logger.info("--> Liste des Personnes trouvées pour {} {}:  {}", firstName, lastName, infoPersons);
 			return infoPersons;
 			
 		} else throw new DataNotFoundException ("*** Cette personne " + firstName + " " + lastName + " n'existe pas !");
@@ -290,7 +290,7 @@ public class UrlsDaoImpl implements UrlsDao {
 			}
 		}
 		if (cityExist == true) {
-			logger.info("--> Liste des mails de toutes les Personnes de la ville {} : {}", city, hsetMails);
+			logger.info("--> Liste des mails des Personnes de la ville {} : {}", city, hsetMails);
 			mailsByCity.setCity(city);
 			mailsByCity.setMails(hsetMails);
 			return mailsByCity;
