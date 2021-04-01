@@ -41,7 +41,7 @@ Technologies
 
 ### GET for emergency response
 
- * **http://localhost:8080/firestation?stationNumber=<station_number>**
+ * **"http://localhost:8080/firestation?stationNumber=<station_number>"**
 	* ex: http://localhost:8080/firestation/2
 	
  * **http://localhost:8080/childAlert?address=<address>**
