@@ -27,7 +27,7 @@ Technologies
 * **File json:**	src/main/ressources/data/data.json
 
 ## EndPoints
-# POST / PUT / DELETE
+### POST / PUT / DELETE
 
 * http://localhost:8080/firestation
 * http://localhost:8080/medicalrecord
