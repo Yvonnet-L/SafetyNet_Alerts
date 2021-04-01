@@ -41,25 +41,25 @@ Technologies
 
 ### GET for emergency response
 
- * **"http://localhost:8080/firestation?stationNumber=<station_number>"**
+ * **http ://localhost:8080/firestation?stationNumber=<station_number>**
 	* ex: http://localhost:8080/firestation/2
 	
- * **http://localhost:8080/childAlert?address=<address>**
+ * **http ://localhost:8080/childAlert?address=<address>**
 	* ex: http://localhost:8080/childAlert/1509 Culver St
 	
- * **http://localhost:8080/phoneAlert?firestation=<firestation_number**
+ * **http ://localhost:8080/phoneAlert?firestation=<firestation_number**
 	* ex: http://localhost:8080/phoneAlert/3
 
- * **http://localhost:8080/fire?address=<address>**
+ * **http ://localhost:8080/fire?address=<address>**
 	* ex: http://localhost:8080/fire/1509 Culver St
 	
- * **http://localhost:8080/flood/stations?stations=<a list of station_numbers>**
+ * **http ://localhost:8080/flood/stations?stations=<a list of station_numbers>**
 	* ex: http://localhost:8080/flood/stations/1
 	
- * **http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>**
+ * **http ://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>**
 	* ex: http://localhost:8080/personInfo/John Boyd
 	
- * **http://localhost:8080/communityEmail?city=<city>**
+ * **http ://localhost:8080/communityEmail?city=<city>**
 	* ex: http://localhost:8080/communityEmail/Culver
 
 ## Authors
