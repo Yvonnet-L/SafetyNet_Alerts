@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.safetynet.safetyAlerts.service.AgeCalculService;
@@ -13,6 +14,7 @@ public class AgeCalculServiceUTTest {
 
 	
 	@Test
+	@DisplayName("Test du calcul de l'age pour Date moins 10 ans")
 	public void ageCalulServiceWithBirthDayLessTenYearsTest() {
 		// GIVEN
 		AgeCalculService ageCalcul = new AgeCalculService();
@@ -26,6 +28,7 @@ public class AgeCalculServiceUTTest {
 	}
 	
 	@Test
+	@DisplayName("Test du calcul de l'age pour Date posterieur +10 ans")
 	public void ageCalulServiceWithBirthDayBeforeTodayTest() {
 		// GIVEN
 		AgeCalculService ageCalcul = new AgeCalculService();
@@ -40,6 +43,7 @@ public class AgeCalculServiceUTTest {
 	
 	
 	@Test
+	@DisplayName("Test du calcul de l'age pour Date = Date du jour")
 	public void ageCalulServiceWithBirthDayTodayTest() {
 		// GIVEN
 		AgeCalculService ageCalcul = new AgeCalculService();

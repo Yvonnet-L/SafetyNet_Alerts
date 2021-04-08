@@ -1,7 +1,5 @@
 package com.safetynet.safetyAlerts.dao;
 
-
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -13,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -63,15 +62,18 @@ public class DataDaoTest {
 	
 	List<String> medications = null;
 	List<String> allergies = null;
-	Date birthday = null;
+	Date birthdayAdult = null;
+	Date birthdayChild = null;
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
 	@BeforeEach
 	public void setUp() throws ParseException, JsonParseException, JsonMappingException, IOException {
 		
-		listPerson.add(new PersonModel("firstName1","LastName1","address1","city",95000," 06 06 06 06", "mail@mail.com",0));
-		listPerson.add(new PersonModel("firstName1","LastName2","address1","city",95000," 06 06 06 06", "mail@mail.com",0));
-		listPerson.add(new PersonModel("firstName2","LastName2","address2","city",95000," 06 06 06 06", "mail@mail.com",0));
+		listPerson.add(new PersonModel("firstName1","LastName1","address1","city",95000," 06 06 06 06", "mail1@mail.com",0));
+		listPerson.add(new PersonModel("firstName1","LastName2","address1","city",95000," 06 06 06 06", "mail1@mail.com",0));
+		listPerson.add(new PersonModel("firstName2","LastName2","address2","city",95000," 06 07 07 07", "mail2@mail.com",0));
+		listPerson.add(new PersonModel("firstName2","LastName3","address3","city",95000," 06 08 08 08", "mail2@mail.com",0));
+		listPerson.add(new PersonModel("firstName3","LastName3","address3","city",95000," 06 09 09 06", "mail3@mail.com",0));
 	
 		listFireStation.add(new FirestationModel("fire1","address1"));
 		listFireStation.add( new FirestationModel("fire2","address2"));
@@ -79,12 +81,17 @@ public class DataDaoTest {
 		listFireStation.add( new FirestationModel("fire3","address4"));
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		String stringBirthday = "01/01/2001";
-		birthday = simpleDateFormat.parse(stringBirthday);
+		String stringBirthdayAdult = "01/01/2001";
+		String stringBirthdayChild = "01/01/2011";
+		birthdayAdult = simpleDateFormat.parse(stringBirthdayAdult);
+		birthdayChild = simpleDateFormat.parse(stringBirthdayAdult);
+		
 
-		listMedicalRecord.add(new MedicalrecordModel("firstName1", "lastName", birthday, medications, allergies));
-		listMedicalRecord.add( new MedicalrecordModel("firstName2", "lastName", birthday, medications, allergies));
-		listMedicalRecord.add( new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies));	
+		listMedicalRecord.add(new MedicalrecordModel("firstName1", "lastName1", birthdayAdult, medications, allergies));
+		listMedicalRecord.add( new MedicalrecordModel("firstName1", "lastName2", birthdayChild, medications, allergies));
+		listMedicalRecord.add( new MedicalrecordModel("firstName2", "lastName2", birthdayAdult, medications, allergies));
+		listMedicalRecord.add( new MedicalrecordModel("firstName2", "lastName3", birthdayAdult, medications, allergies));
+		listMedicalRecord.add( new MedicalrecordModel("firstName3", "lastName3", birthdayChild, medications, allergies));
 		
 		
 		dataModel.setFirestations(listFireStation);
@@ -97,33 +104,39 @@ public class DataDaoTest {
 		listFireStation = pageData.getFirestations();
 		listMedicalRecord = pageData.getMedicalrecords();
 		
-	}
-	
-	@Test
-	public void initMapperTest() throws IOException, ParseException {
-		
 		Mockito.when(mapper.readValue(json, DataModel.class)).thenReturn(dataModel);
 		
 		dataDao.initMapper();
 		
-		assertEquals( pageData.getMedicalrecords().size(), 3);
-
-		assertEquals( pageData.getFirestations().size(), 4);	
-
-		assertEquals( pageData.getMedicalrecords().get(0).getAge(), 20);
-			
-		assertEquals( pageData.getFirestations().get(0).getNbPerson(), 2);
+	}
+	
+	@Test
+	@DisplayName("Test du bon fonctionnement de initMapper()")
+	public void initMapperTest() throws IOException, ParseException {
 		
-		String stringBirthday = "01/01/1982";
-		birthday = simpleDateFormat.parse(stringBirthday);
+		assertEquals( pageData.getMedicalrecords().size(), 5);		
+		//vérification que l'age est bien calculé
+		assertEquals( pageData.getMedicalrecords().get(0).getAge(), 20);
+		//vérification de maj des données dans firestation	
+		assertEquals( pageData.getFirestations().size(), 4);
+		assertEquals( pageData.getFirestations().get(0).getNbPerson(), 2);			
+	}
+	
+	@Test
+	@DisplayName("Test du bon fonctionnement de upDateDataTest()")
+	public void upDateDataTest() throws IOException, ParseException {
+		
+		//ajout d'un medicalrecord pour verification du bon fonctionnement upDateData()
+		
+		Date birthday = simpleDateFormat.parse("01/01/1982");
 		MedicalrecordModel listMedicalRecord1 = new MedicalrecordModel("firstName3", "lastName2", birthday, medications, allergies);
 		listMedicalRecord.add(listMedicalRecord1);
 		
 		dataDao.upDateData();
-		
-		assertEquals( pageData.getMedicalrecords().size(), 4);
-	
-		assertEquals( pageData.getMedicalrecords().get(3).getAge(), 39);
+		//vérification de maj des données
+		assertEquals( pageData.getMedicalrecords().size(), 6);
+		//vérification que l'age est bien calculé
+		assertEquals( pageData.getMedicalrecords().get(5).getAge(), 39);
 
 				
 	}

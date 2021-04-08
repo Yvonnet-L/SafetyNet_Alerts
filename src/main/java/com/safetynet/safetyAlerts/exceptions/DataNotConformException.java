@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.safetynet.safetyAlerts.dao.PersonDaoImpl;
-
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class DataNotConformException extends RuntimeException {
 

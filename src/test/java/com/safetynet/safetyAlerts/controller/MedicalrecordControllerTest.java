@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +60,14 @@ public class MedicalrecordControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur la recherche des medicalrecords")
 	public void getMedicalrecordsTest() throws Exception {
 		mockMvc.perform(get("/medicalrecords"))
 			.andExpect(status().isOk());
 	}
 
 	@Test
+	@DisplayName("Test sur la recherche des medicalrecords par nom et prénom")
 	public void getMedicalrecordByFirstNameAndLastNameTest() throws Exception {
 		mockMvc.perform(get("/medicalrecord/John Boyd"))
 				.andExpect(status().isOk())
@@ -72,12 +75,14 @@ public class MedicalrecordControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur la recherche de medicalrecord avec un blanc")
 	public void getMedicalrecordByIdWithEspaceTest() throws Exception {
 		mockMvc.perform(get("/medicalrecord/  "))
 			.andExpect(status().isBadRequest());
 	}
 
 	@Test
+	@DisplayName("Test sur l'ajout d'un medicalrecord")
 	public void addMedicalrecordTest() throws Exception {
 
 		mockMvc.perform(post("/medicalrecord/")
@@ -90,6 +95,7 @@ public class MedicalrecordControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur l'ajout d'un medicalrecord null")
 	public void addMedicalrecordWithNullTest() throws Exception {
 
 		mockMvc.perform(post("/medicalrecord/")
@@ -101,6 +107,7 @@ public class MedicalrecordControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test sur l'upDate d'un medicalrecord")
 	public void PutMedicalrecordTest() throws Exception {
 
 		medicalrecordDao.save(medicalrecord);
@@ -115,6 +122,7 @@ public class MedicalrecordControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur la suppression d'un medicalrecord")
 	public void deleteMedicalrecordTest() throws Exception {
 
 		medicalrecordDao.save(medicalrecord);

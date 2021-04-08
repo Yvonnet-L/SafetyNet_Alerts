@@ -27,23 +27,4 @@ public interface PersonDao {
 
 	void upDateData();
 
-	/*public MailsByCity allMailOfCity(String city);
-
-	PersonsCoveredByStationU1 allPersonCoveredByOneStation(String stationNb);
-
-	public Collection<List<String>> allChildsByAdressWithParents(String adress);
-
-	PersonsListU6 infoByPerson(String firstName, String lastName);
-
-	ChildsWithParentsU2 allChildsByAdressWithParents2(String adress);
-
-	public PhoneAlert PhoneNumbersForStation(String firestation_number);
-
-	public PersonsListU4 PersonsByAdressWithStation(String address);
-
-	public FamilysListU5 FamilystByAdressWithStation(String station);
-    */
-	
-
-	
 }

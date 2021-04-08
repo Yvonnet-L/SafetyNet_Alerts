@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +31,21 @@ public class FirestationControllerTest {
 
 	@Autowired
 	private ObjectMapper objectMapper;
-
+	
 	@Autowired
 	FirestationDao firestationDao;
 
 	@Autowired
 	FirestationService firestationService;
 	
-
 	@Test
+	@DisplayName("Test sur le getFirestation")
 	public void getFirestationsTest() throws Exception {
-
 		mockMvc.perform(get("/firestations")).andExpect(status().isOk());	
 	}
 	
-	
 	@Test
+	@DisplayName("Test sur l'ajout d'une firestaion conforme")
 	public void addFirestationTest() throws Exception {
 				
 		FirestationModel firestationToCreate = new FirestationModel("stationTest", "address Test");
@@ -58,6 +58,7 @@ public class FirestationControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test sur l'ajout d'une firestaion null")
 	public void addFirestationBadRequestWithNullTest() throws Exception {
 	
 		FirestationModel firestationToCreate = null;
@@ -71,6 +72,7 @@ public class FirestationControllerTest {
 
 
 	@Test
+	@DisplayName("Test sur l'upDate d'une firestaion")
 	public void PutFirestationTest() throws Exception {
 	
 		FirestationModel firestationToCreate = new FirestationModel("stationTest", "address Test");
@@ -84,8 +86,9 @@ public class FirestationControllerTest {
 				.content(objectMapper.writeValueAsString(firestationToUpDate)))
 			.andExpect(status().isOk());		
 	}
-
+	
 	@Test
+	@DisplayName("Test sur la suppression d'une firestaion conforme")
 	public void deleteFirestationTest() throws Exception {
 	
 		FirestationModel firestationToDelete = new FirestationModel("stationTest2", "address Test");
@@ -98,6 +101,7 @@ public class FirestationControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test sur la suppression d'une firestaion null")
 	public void deleteFirestationBadRequestWithNullTest() throws Exception {
 	
 		FirestationModel firestationToDelete = null;

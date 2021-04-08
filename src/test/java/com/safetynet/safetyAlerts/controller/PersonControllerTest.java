@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,13 @@ public class PersonControllerTest {
 	PersonService personService;
 
 	@Test
+	@DisplayName("Test sur la recherche des personnes")
 	public void getPersonsTest() throws Exception {
 		mockMvc.perform(get("/persons")).andExpect(status().isOk());
 	}
 
 	@Test
+	@DisplayName("Test sur la recherche d'une personne par prénom et nom")
 	public void getPersonByFirstNameAndLastNameTest() throws Exception {
 		mockMvc.perform(get("/person/Boyd"))
 					.andExpect(status().isOk())
@@ -53,12 +56,14 @@ public class PersonControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur la recherche de personne avec un espace")
 	public void getPersonByIdWithEspaceTest() throws Exception {
 		mockMvc.perform(get("/person/  "))	
 					.andExpect(status().isBadRequest());
 	}
 
 	@Test
+	@DisplayName("Test sur l'ajout d'une personne")
 	public void addPersonTest() throws Exception {
 
 		PersonModel personToCreate = new PersonModel("firstNameTest1", "lastNameTest1", "address Test", "CityTest", 10000,
@@ -74,6 +79,7 @@ public class PersonControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test sur l'ajout d'une personne null")
 	public void addPersonTestWithPersonNull() throws Exception {
 
 		PersonModel personToCreate = null;
@@ -87,6 +93,7 @@ public class PersonControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur l'upDate d'une personne")
 	public void PutPersonTest() throws Exception {
 
 		PersonModel personUpDate = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,
@@ -104,6 +111,7 @@ public class PersonControllerTest {
 	}
 
 	@Test
+	@DisplayName("Test sur la suppression d'une personne")
 	public void deletePersonTest() throws Exception {		
 		
 		PersonModel personDelete = new PersonModel("firstNameTest", "lastNameTest", "address Test2", "CityTest", 10000,

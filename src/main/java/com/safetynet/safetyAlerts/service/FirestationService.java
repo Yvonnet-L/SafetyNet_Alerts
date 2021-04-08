@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetyAlerts.dao.FirestationDao;
 import com.safetynet.safetyAlerts.exceptions.DataNotConformException;
 import com.safetynet.safetyAlerts.model.FirestationModel;
-import com.safetynet.safetyAlerts.model.MedicalrecordModel;
 
 @Service
 public class FirestationService {
