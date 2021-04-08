@@ -27,13 +27,13 @@ These instructions will get you a copy of the project up and running on your loc
 Here are the links for the prerequisites necessary for proper operation. In addition, I invite you to download postman to test the urls of the application.
 
 1.Install Java:
-	* https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
+* https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html
 
 2.Install Maven:
-	* https://maven.apache.org/install.html
+* https://maven.apache.org/install.html
 
 3.Install Postman
-	* https://www.postman.com/downloads/
+* https://www.postman.com/downloads/
 
 ## Running App
 
@@ -66,60 +66,6 @@ To run the tests from maven, go to the folder that contains the pom.xml file and
 
  * **http ://localhost:8080/firestation?stationNumber=<station_number>**
 	* ex: http://localhost:8080/firestation?stationNumber=3
-'{
-    "nbAdult": 5,
-    "nbChild": 3,
-    "person": [
-        {
-            "firstName": "John",
-            "lastName": "Boyd",
-            "address": "1509 Culver St",
-            "phone": "841-874-6512"
-        },
-        {
-            "firstName": "Jacob",
-            "lastName": "Boyd",
-            "address": "1509 Culver St",
-            "phone": "841-874-6513"
-        },
-        {
-            "firstName": "Tenley",
-            "lastName": "Boyd",
-            "address": "1509 Culver St",
-            "phone": "841-874-6512"
-        },
-        {
-            "firstName": "Roger",
-            "lastName": "Boyd",
-            "address": "1509 Culver St",
-            "phone": "841-874-6512"
-        },
-        {
-            "firstName": "Felicia",
-            "lastName": "Boyd",
-            "address": "1509 Culver St",
-            "phone": "841-874-6544"
-        },
-        {
-            "firstName": "Tessa",
-            "lastName": "Carman",
-            "address": "834 Binoc Ave",
-            "phone": "841-874-6512"
-        },
-        {
-            "firstName": "Foster",
-            "lastName": "Shepard",
-            "address": "748 Townings Dr",
-            "phone": "841-874-6544"
-        },
-        {
-            "firstName": "Clive",
-            "lastName": "Ferguson",
-            "address": "748 Townings Dr",
-            "phone": "841-874-6741"
-        }
-    ]
-}'
 	
  * **http ://localhost:8080/childAlert?address=<address>**
 	* ex: http://localhost:8080/childAlert?address=1509 Culver St
